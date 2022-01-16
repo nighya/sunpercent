@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer v-model="drawer" app dark>
+    <v-navigation-drawer v-model="drawer" app dark :src="drawerImage">
       <v-list>
         <v-list-item class="ma-0.5">
           <v-list-item-avatar>
@@ -37,15 +37,15 @@
       app
       color="primary"
       dark
-      src="https://picsum.photos/1920/1080?random"
+      :src="drawerImage"
       prominent
     >
-      <template v-slot:img="{ props }">
+      <!-- <template v-slot:img="{ props }">
         <v-img
           v-bind="props"
           gradient="to top right, rgba(19,84,122,.5), rgba(128,208,199,.8)"
         ></v-img>
-      </template>
+      </template> -->
 
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
@@ -73,6 +73,7 @@
 </template>
 
 <script>
+import drawerImage from "./assets/test.png";
 export default {
   data: () => ({
     drawer: null,
@@ -80,7 +81,8 @@ export default {
       { title: "Home", icon: "mdi-home-heart", to: "/" },
       { title: "Content", icon: "mdi-format-list-text", to: "/content" },
       { title: "About", icon: "mdi-help-box" }
-    ]
+    ],
+    drawerImage: drawerImage
   })
 };
 </script>
