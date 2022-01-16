@@ -1,16 +1,21 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer v-model="drawer" app>
-      <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title class="text-h6">
-            SunPercent
-          </v-list-item-title>
-          <v-list-item-subtitle>
-            썬퍼센트
-          </v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
+    <v-navigation-drawer v-model="drawer" app dark>
+      <v-list>
+        <v-list-item class="ma-0.5">
+          <v-list-item-avatar>
+            <v-img
+              src="https://randomuser.me/api/portraits/women/85.jpg"
+            ></v-img>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title class="text-h6">
+              Sandra Adams
+            </v-list-item-title>
+            <v-list-item-subtitle>sandra_a88@gmail.com</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
 
       <v-divider></v-divider>
 
@@ -27,14 +32,42 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar app>
+    <v-app-bar
+      height="100"
+      app
+      color="primary"
+      dark
+      src="https://picsum.photos/1920/1080?random"
+      prominent
+    >
+      <template v-slot:img="{ props }">
+        <v-img
+          v-bind="props"
+          gradient="to top right, rgba(19,84,122,.5), rgba(128,208,199,.8)"
+        ></v-img>
+      </template>
+
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>SunPercent</v-toolbar-title>
+      <v-app-bar-title class="title">SunPercent</v-app-bar-title>
+
+      <v-spacer></v-spacer>
+
+      <v-btn icon>
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
+
+      <v-btn icon>
+        <v-icon>mdi-heart</v-icon>
+      </v-btn>
+
+      <v-btn icon>
+        <v-icon>mdi-dots-vertical</v-icon>
+      </v-btn>
     </v-app-bar>
 
     <v-main>
-     <router-view></router-view>
+      <router-view></router-view>
     </v-main>
   </v-app>
 </template>
@@ -44,10 +77,23 @@ export default {
   data: () => ({
     drawer: null,
     items: [
-      { title: "Home", icon: "mdi-home-heart", to: '/' },
-      { title: "Content", icon: "mdi-format-list-text", to: '/content'},
+      { title: "Home", icon: "mdi-home-heart", to: "/" },
+      { title: "Content", icon: "mdi-format-list-text", to: "/content" },
       { title: "About", icon: "mdi-help-box" }
     ]
   })
 };
 </script>
+
+<style scoped>
+.tile {
+  margin: 5px;
+  border-radius: 4px;
+}
+.tile:hover {
+  background: green;
+}
+.tile:active {
+  background: yellow;
+}
+</style>
