@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import drawerImage from "./assets/test.png";
+import drawerImage from "./assets/gra_rpy.jpg";
 export default {
   data: () => ({
     drawer: null,
