@@ -76,7 +76,7 @@
 import drawerImage from "./assets/gra_rpy.jpg";
 export default {
   data: () => ({
-    drawer: null,
+    drawer: false ,
     items: [
       { title: "Home", icon: "mdi-home-heart", to: "/" },
       { title: "Content", icon: "mdi-format-list-text", to: "/content" },
