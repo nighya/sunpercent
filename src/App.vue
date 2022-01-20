@@ -52,18 +52,18 @@
       <v-app-bar-title class="title">SunPercent</v-app-bar-title>
 
       <v-spacer></v-spacer>
-
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn>
+      <div>
+        <v-btn class="mr-8" icon to="/login"
+          ><v-icon small>mdi-login</v-icon><span>로그인</span></v-btn
+        >
+        <v-btn class="mr-8" icon
+          ><v-icon small>mdi-logout</v-icon><span>로그아웃</span></v-btn
+        >
+        <v-btn class="mr-5" icon to="/register"
+          ><v-icon small>mdi-account-plus-outline</v-icon
+          ><span>회원가입</span></v-btn
+        >
+        </div>
     </v-app-bar>
 
     <v-main>
@@ -76,14 +76,20 @@
 import drawerImage from "./assets/gra_rpy.jpg";
 export default {
   data: () => ({
-    drawer: false ,
+    drawer: false,
     items: [
       { title: "Home", icon: "mdi-home-heart", to: "/" },
       { title: "Content", icon: "mdi-format-list-text", to: "/content" },
       { title: "About", icon: "mdi-help-box" }
     ],
     drawerImage: drawerImage
-  })
+  }),
+  methods: {
+    test() {
+      if (this.$route.path !== "/login") this.$router.push("/login");
+      console.log("test click");
+    }
+  }
 };
 </script>
 
