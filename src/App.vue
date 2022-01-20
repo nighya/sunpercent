@@ -2,7 +2,7 @@
   <v-app id="inspire">
     <v-navigation-drawer v-model="drawer" app dark :src="drawerImage">
       <v-list>
-        <v-list-item class="ma-0.5">
+        <v-list-item class="ma-0.5" @click="test">
           <v-list-item-avatar>
             <v-img
               src="https://randomuser.me/api/portraits/women/85.jpg"
@@ -80,13 +80,13 @@ export default {
     items: [
       { title: "Home", icon: "mdi-home-heart", to: "/" },
       { title: "Content", icon: "mdi-format-list-text", to: "/content" },
-      { title: "About", icon: "mdi-help-box" }
+      { title: "Mypage", icon: "mdi-help-box", to: "/mypage" }
     ],
     drawerImage: drawerImage
   }),
   methods: {
     test() {
-      if (this.$route.path !== "/login") this.$router.push("/login");
+      if (this.$route.path !== "/mypage") this.$router.push("/mypage");
       console.log("test click");
     }
   }
