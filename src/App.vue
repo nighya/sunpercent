@@ -53,17 +53,17 @@
 
       <v-spacer></v-spacer>
       <div>
-        <v-btn class="mr-8" icon to="/login"
+        <v-btn class="min-button mr-8" icon to="/login"
           ><v-icon small>mdi-login</v-icon><span>로그인</span></v-btn
         >
-        <v-btn class="mr-8" icon
+        <v-btn class="min-button mr-8" icon
           ><v-icon small>mdi-logout</v-icon><span>로그아웃</span></v-btn
         >
-        <v-btn class="mr-5" icon to="/register"
+        <v-btn class="min-button mr-5" icon to="/register"
           ><v-icon small>mdi-account-plus-outline</v-icon
-          ><span>회원가입</span></v-btn
+          ><span>회원등록</span></v-btn
         >
-        </div>
+      </div>
     </v-app-bar>
 
     <v-main>
@@ -94,14 +94,7 @@ export default {
 </script>
 
 <style scoped>
-.tile {
-  margin: 5px;
-  border-radius: 4px;
-}
-.tile:hover {
-  background: green;
-}
-.tile:active {
-  background: yellow;
+.min-button::before {
+  display: none;
 }
 </style>
