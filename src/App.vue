@@ -2,7 +2,7 @@
   <v-app id="inspire">
     <v-navigation-drawer v-model="drawer" app dark :src="drawerImage">
       <v-list>
-        <v-list-item class="ma-0.5" @click="test">
+        <v-list-item class="ma-0.5" @click="moveMypage">
           <v-list-item-avatar>
             <v-img
               src="https://randomuser.me/api/portraits/women/85.jpg"
@@ -85,7 +85,7 @@ export default {
     drawerImage: drawerImage
   }),
   methods: {
-    test() {
+    moveMypage() {
       if (this.$route.path !== "/mypage") this.$router.push("/mypage");
       console.log("test click");
     }
