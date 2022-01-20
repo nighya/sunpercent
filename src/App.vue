@@ -49,7 +49,7 @@
 
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-app-bar-title class="title">SunPercent</v-app-bar-title>
+      <v-app-bar-title class="title"><router-link class="toolbar__title" to="/">SunPercent</router-link></v-app-bar-title>
 
       <v-spacer></v-spacer>
       <div>
@@ -96,5 +96,9 @@ export default {
 <style scoped>
 .min-button::before {
   display: none;
+}
+.toolbar__title {
+  color: white;
+  text-decoration: none;
 }
 </style>
