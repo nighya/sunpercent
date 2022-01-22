@@ -34,7 +34,6 @@
                   type="password"
                   v-model="password"
                 ></v-text-field>
-
                 <v-text-field
                   id="confirm"
                   label="비밀번호 확인"
@@ -50,7 +49,7 @@
               </v-form>
             </v-card-text>
             <v-card-actions class="justify-center">
-              <v-btn color="purple lighten-3" dark @click="signup"
+              <v-btn color="purple lighten-3" dark @click="register"
                 >회원등록</v-btn
               >
             </v-card-actions>
@@ -63,7 +62,38 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      email: null,
+      nickname: null,
+      password: null,
+      confirm: null,
+      gender: null,
+    };
+  },
+  methods: {
+    register() {
+      let userregisterObj = {
+        email: this.email,
+        nickname: this.nickname,
+        password: this.password,
+        gender: this.gender
+      };
+      this.$store
+        .dispatch("loginstore/register", userregisterObj)
+        .then((res, err) => {
+          if (res.status === 200) {
+            this.$router.push("/login");
+          } else {
+            console.log(err);
+          }
+        });
+      // this.clearForm();
+    },
+    clearForm() {
+      this.email = "";
+      this.nickname = "";
+      this.password = "";
+    }
   }
 };
 </script>
