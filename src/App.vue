@@ -10,9 +10,9 @@
           </v-list-item-avatar>
           <v-list-item-content>
             <v-list-item-title class="text-h6">
-              Sandra Adams
+              {{this.$store.state.loginstore.userstate[0].nickname}}
             </v-list-item-title>
-            <v-list-item-subtitle>sandra_a88@gmail.com</v-list-item-subtitle>
+            <v-list-item-subtitle>{{this.$store.state.loginstore.userstate[0].email}}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -49,17 +49,25 @@
 
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-app-bar-title class="title"><router-link class="toolbar__title" to="/">SunPercent</router-link></v-app-bar-title>
+      <v-app-bar-title class="title"
+        ><router-link class="toolbar__title" to="/"
+          >SunPercent</router-link
+        ></v-app-bar-title
+      >
 
       <v-spacer></v-spacer>
       <div>
-        <v-btn class="min-button mr-8" icon to="/login"
+        <v-btn class="min-button mr-8" icon to="/login" v-if="!IsLoginedgeters"
           ><v-icon small>mdi-login</v-icon><span>로그인</span></v-btn
         >
-        <v-btn class="min-button mr-8" icon
+        <v-btn class="min-button mr-8" icon v-else @click="logout"
           ><v-icon small>mdi-logout</v-icon><span>로그아웃</span></v-btn
         >
-        <v-btn class="min-button mr-5" icon to="/register"
+        <v-btn
+          class="min-button mr-5"
+          icon
+          to="/register"
+          v-if="!IsLoginedgeters"
           ><v-icon small>mdi-account-plus-outline</v-icon
           ><span>회원등록</span></v-btn
         >
@@ -88,6 +96,20 @@ export default {
     moveMypage() {
       if (this.$route.path !== "/mypage") this.$router.push("/mypage");
       console.log("test click");
+    },
+    logout() {
+      this.$store.dispatch("loginstore/logout");
+      sessionStorage.clear();
+      this.$router.push({ name: "Login" });
+    }
+  },
+  mounted() {
+    this.$store.state.loginstore.userstate;
+    
+  },
+  computed: {
+    IsLoginedgeters() {
+      return this.$store.getters["loginstore/isLoginedgetters"];
     }
   }
 };

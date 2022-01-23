@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const res_uri = "http://localhost:4000/api/test/login";
+const res_uri = "http://localhost:4000/login";
 
 export default {
   namespaced: true,
@@ -28,18 +28,18 @@ export default {
       // VueCookies.set("accessToken", payload.accessToken, "60s");
       // VueCookies.set("refreshToken", payload.refreshToken, "1h");
       console.log(payload);
-      state.userstate[0].uid = payload.uid;
-      state.userstate[0].id = payload.id;
+      state.userstate[0].user_uid = payload.user_uid;
+      state.userstate[0].email = payload.email;
       state.userstate[0].nickname = payload.nickname;
-      state.userstate[0].message = payload.message;
+      state.userstate[0].gender = payload.gender;
       state.isLogined = true;
       // state.userstate = payload
     },
     LOGOUT(state) {
-      state.userstate[0].uid = null;
-      state.userstate[0].id = null;
+      state.userstate[0].user_uid = null;
+      state.userstate[0].email = null;
       state.userstate[0].nickname = null;
-      state.userstate[0].message = null;
+      state.userstate[0].gender = null;
       state.isLogined = false;
     }
   },
