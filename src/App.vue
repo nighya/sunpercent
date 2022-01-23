@@ -10,9 +10,11 @@
           </v-list-item-avatar>
           <v-list-item-content>
             <v-list-item-title class="text-h6">
-              {{this.$store.state.loginstore.userstate[0].nickname}}
+              {{ this.$store.state.loginstore.userstate[0].nickname }}
             </v-list-item-title>
-            <v-list-item-subtitle>{{this.$store.state.loginstore.userstate[0].email}}</v-list-item-subtitle>
+            <v-list-item-subtitle>{{
+              this.$store.state.loginstore.userstate[0].email
+            }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -57,12 +59,17 @@
 
       <v-spacer></v-spacer>
       <div>
+        <v-btn class="min-button mr-8" icon v-if="IsLoginedgeters" @click="moveMypage"
+          ><v-icon small>mdi-card-account-details-outline</v-icon
+          ><span>내 정보</span></v-btn
+        >
         <v-btn class="min-button mr-8" icon to="/login" v-if="!IsLoginedgeters"
           ><v-icon small>mdi-login</v-icon><span>로그인</span></v-btn
         >
         <v-btn class="min-button mr-8" icon v-else @click="logout"
           ><v-icon small>mdi-logout</v-icon><span>로그아웃</span></v-btn
         >
+
         <v-btn
           class="min-button mr-5"
           icon
@@ -87,15 +94,15 @@ export default {
     drawer: false,
     items: [
       { title: "Home", icon: "mdi-home-heart", to: "/" },
-      { title: "Content", icon: "mdi-format-list-text", to: "/content" },
-      { title: "Mypage", icon: "mdi-help-box", to: "/mypage/:user_uid" }
+      { title: "Content", icon: "mdi-format-list-text", to: "/content" }
     ],
     drawerImage: drawerImage
   }),
   methods: {
     moveMypage() {
-      const user_uid = this.$store.state.loginstore.userstate[0].user_uid
-      if (this.$route.path !== `/mypage/${user_uid}`) this.$router.push(`/mypage/${user_uid}`);
+      const user_uid = this.$store.state.loginstore.userstate[0].user_uid;
+      if (this.$route.path !== `/mypage/${user_uid}`)
+        this.$router.push(`/mypage/${user_uid}`);
       console.log(user_uid);
     },
     logout() {
@@ -106,7 +113,6 @@ export default {
   },
   mounted() {
     this.$store.state.loginstore.userstate;
-    
   },
   computed: {
     IsLoginedgeters() {
