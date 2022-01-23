@@ -88,14 +88,15 @@ export default {
     items: [
       { title: "Home", icon: "mdi-home-heart", to: "/" },
       { title: "Content", icon: "mdi-format-list-text", to: "/content" },
-      { title: "Mypage", icon: "mdi-help-box", to: "/mypage" }
+      { title: "Mypage", icon: "mdi-help-box", to: "/mypage/:user_uid" }
     ],
     drawerImage: drawerImage
   }),
   methods: {
     moveMypage() {
-      if (this.$route.path !== "/mypage") this.$router.push("/mypage");
-      console.log("test click");
+      const user_uid = this.$store.state.loginstore.userstate[0].user_uid
+      if (this.$route.path !== `/mypage/${user_uid}`) this.$router.push(`/mypage/${user_uid}`);
+      console.log(user_uid);
     },
     logout() {
       this.$store.dispatch("loginstore/logout");

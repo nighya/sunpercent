@@ -6,6 +6,8 @@ import Login from '@/components/Login'
 import Register from '@/components/Register'
 import Mypage from '@/components/Mypage'
 
+import store from "../store/index";
+
 
 Vue.use(Router)
 
@@ -32,9 +34,19 @@ export default new Router({
       component: Register
     },
     {
-      path: '/mypage',
+      path: '/mypage/:user_uid',
       name: 'Mypage',
-      component: Mypage
+      component: Mypage,
+      beforeEnter: (to, from, next) => {
+        if (
+          store.state.loginstore.userstate[0].user_uid === null ||
+          store.state.loginstore.userstate[0].user_uid === undefined
+        ) {
+          next({ path: "/login" });
+        } else {
+          next();
+        }
+      },
     },
   ]
 })
