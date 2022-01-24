@@ -35,12 +35,10 @@
     </v-navigation-drawer>
 
     <v-app-bar
-      height="100"
       app
       color="primary"
       dark
       :src="drawerImage"
-      prominent
     >
       <!-- <template v-slot:img="{ props }">
         <v-img
@@ -51,7 +49,7 @@
 
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-app-bar-title class="title"
+      <v-app-bar-title class="title" 
         ><router-link class="toolbar__title" to="/"
           >SunPercent</router-link
         ></v-app-bar-title

@@ -1,11 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
-import Content from '@/components/Content'
-import Login from '@/components/Login'
-import Register from '@/components/Register'
-import Mypage from '@/components/Mypage'
-
 import store from "../store/index";
 
 
@@ -21,22 +16,22 @@ export default new Router({
     {
       path: '/content',
       name: 'Content',
-      component: Content
+      component:() => import( "@/components/Content" )
     },
     {
       path: '/login',
       name: 'Login',
-      component: Login
+      component:() => import( "@/components/Login" )
     },
     {
       path: '/register',
       name: 'Register',
-      component: Register
+      component:() => import( "@/components/Register" )
     },
     {
       path: '/mypage/:user_uid',
       name: 'Mypage',
-      component: Mypage,
+      component:() => import( "@/components/Mypage" ),
       beforeEnter: (to, from, next) => {
         if (
           store.state.loginstore.userstate[0].user_uid === null ||
