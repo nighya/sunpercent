@@ -52,7 +52,7 @@
 
       <v-spacer></v-spacer>
       <div>
-        <v-btn
+        <!-- <v-btn
           class="min-button mr-8"
           icon
           v-if="IsLoginedgeters"
@@ -74,7 +74,7 @@
           v-if="!IsLoginedgeters"
           ><v-icon small>mdi-account-plus-outline</v-icon
           ><span>회원등록</span></v-btn
-        >
+        > -->
         <v-menu bottom left>
           <template v-slot:activator="{ on, attrs }">
             <v-btn dark icon v-bind="attrs" v-on="on">
@@ -88,7 +88,9 @@
               :key="i"
               @click="menuclick(menuitem)"
             >
+            <v-icon class="mr-2" small>{{ menuitem.icon }}</v-icon>
               <v-list-item-title>{{ menuitem.title }}</v-list-item-title>
+              
             </v-list-item>
           </v-list>
         </v-menu>
