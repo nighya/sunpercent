@@ -83,7 +83,11 @@
           </template>
 
           <v-list>
-            <v-list-item v-for="(menuitem, i) in menuitems" :key="i">
+            <v-list-item
+              v-for="(menuitem, i) in menuitems"
+              :key="i"
+              @click="menuclick(menuitem)"
+            >
               <v-list-item-title>{{ menuitem.title }}</v-list-item-title>
             </v-list-item>
           </v-list>
@@ -108,10 +112,10 @@ export default {
     ],
     drawerImage: drawerImage,
     menuitems: [
-      { title: "Click Me" },
-      { title: "Click Me" },
-      { title: "Click Me" },
-      { title: "Click Me 2" }
+      { title: "로그인", icon: "mdi-login"},
+      { title: "로그아웃", icon: "mdi-logout" },
+      { title: "내정보", icon: "mdi-card-account-details-outline" },
+      { title: "회원등록", icon: "mdi-account-plus-outline" }
     ]
   }),
   methods: {
@@ -119,12 +123,26 @@ export default {
       const user_uid = this.$store.state.loginstore.userstate[0].user_uid;
       if (this.$route.path !== `/mypage/${user_uid}`)
         this.$router.push(`/mypage/${user_uid}`);
-      console.log(user_uid);
     },
     logout() {
       this.$store.dispatch("loginstore/logout");
       sessionStorage.clear();
       this.$router.push({ name: "Login" });
+    },
+    menuclick(menuclick) {
+      switch (menuclick.title) {
+        case "로그인":
+          this.$router.push("/login");
+          break;
+        case "로그아웃":
+          this.logout();
+          break;
+        case "내정보":
+          this.moveMypage();
+          break;
+        case "회원등록":
+          this.$router.push("/register")
+      }
     }
   },
   mounted() {
