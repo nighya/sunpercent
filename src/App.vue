@@ -114,7 +114,7 @@ export default {
     ],
     drawerImage: drawerImage,
     menuitems: [
-      { title: "로그인", icon: "mdi-login"},
+      { title: "로그인", icon: "mdi-login",},
       { title: "로그아웃", icon: "mdi-logout" },
       { title: "내정보", icon: "mdi-card-account-details-outline" },
       { title: "회원등록", icon: "mdi-account-plus-outline" }
@@ -134,6 +134,7 @@ export default {
     menuclick(menuclick) {
       switch (menuclick.title) {
         case "로그인":
+          this.logout();
           this.$router.push("/login");
           break;
         case "로그아웃":
@@ -143,6 +144,7 @@ export default {
           this.moveMypage();
           break;
         case "회원등록":
+          this.logout();
           this.$router.push("/register")
       }
     }
