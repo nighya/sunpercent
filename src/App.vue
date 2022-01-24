@@ -34,12 +34,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar
-      app
-      color="primary"
-      dark
-      :src="drawerImage"
-    >
+    <v-app-bar app color="primary" dark :src="drawerImage">
       <!-- <template v-slot:img="{ props }">
         <v-img
           v-bind="props"
@@ -49,7 +44,7 @@
 
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-app-bar-title class="title" 
+      <v-app-bar-title class="title"
         ><router-link class="toolbar__title" to="/"
           >SunPercent</router-link
         ></v-app-bar-title
@@ -57,7 +52,11 @@
 
       <v-spacer></v-spacer>
       <div>
-        <v-btn class="min-button mr-8" icon v-if="IsLoginedgeters" @click="moveMypage"
+        <v-btn
+          class="min-button mr-8"
+          icon
+          v-if="IsLoginedgeters"
+          @click="moveMypage"
           ><v-icon small>mdi-card-account-details-outline</v-icon
           ><span>내 정보</span></v-btn
         >
@@ -76,6 +75,19 @@
           ><v-icon small>mdi-account-plus-outline</v-icon
           ><span>회원등록</span></v-btn
         >
+        <v-menu bottom left>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn dark icon v-bind="attrs" v-on="on">
+              <v-icon>mdi-dots-vertical</v-icon>
+            </v-btn>
+          </template>
+
+          <v-list>
+            <v-list-item v-for="(menuitem, i) in menuitems" :key="i">
+              <v-list-item-title>{{ menuitem.title }}</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </div>
     </v-app-bar>
 
@@ -94,7 +106,13 @@ export default {
       { title: "Home", icon: "mdi-home-heart", to: "/" },
       { title: "Content", icon: "mdi-format-list-text", to: "/content" }
     ],
-    drawerImage: drawerImage
+    drawerImage: drawerImage,
+    menuitems: [
+      { title: "Click Me" },
+      { title: "Click Me" },
+      { title: "Click Me" },
+      { title: "Click Me 2" }
+    ]
   }),
   methods: {
     moveMypage() {
