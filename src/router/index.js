@@ -43,5 +43,10 @@ export default new Router({
         }
       },
     },
+    {
+      path: '/contentupload',
+      name: 'ContentUpload',
+      component:() => import( "@/components/ContentUpload" )
+    },
   ]
 })
