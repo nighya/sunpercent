@@ -58,8 +58,11 @@
 </template>
 
 <script>
+import UploadService from "../services/UploadFileService";
+import axios from "axios";
+
 export default {
-  name: "upload-image",
+  name: "ContentUpload",
   data() {
     return {
       currentImage: undefined,
@@ -81,29 +84,34 @@ export default {
         this.message = "Please select an Image!";
         return;
       }
+      const fd = new FormData();
+      fd.append("image", this.currentImage);
+      fd.append("user_uid",this.$store.state.loginstore.userstate[0].user_uid)
       this.progress = 0;
-      UploadService.upload(this.currentImage, event => {
-        this.progress = Math.round((100 * event.loaded) / event.total);
-      })
-        .then(response => {
-          this.message = response.data.message;
-          return UploadService.getFiles();
-        })
-        .then(images => {
-          this.imageInfos = images.data;
-        })
+axios.post("http://localhost:4000/imageupload", fd,{withCredentials:true}).then((e)=>{this.progress = Math.round((100 * e.loaded) / e.total);})
+      // UploadService.upload(this.currentImage, event => {
+      //   this.progress = Math.round((100 * event.loaded) / event.total);
+      // })
+      //   .then(response => {
+      //     this.message = response.data.message;
+      //     // return UploadService.getFiles();
+      //     console.log(response);
+      //   })
+      //   .then(images => {
+      //     this.imageInfos = images.data;
+      //   })
         .catch(err => {
           this.progress = 0;
           this.message = "Could not upload the image! " + err;
-          this.currentImage = undefined;
+          // this.currentImage = undefined;
         });
     }
   },
-  mounted() {
-    UploadService.getFiles().then(response => {
-      this.imageInfos = response.data;
-    });
-  }
+  // mounted() {
+  //   UploadService.getFiles().then(response => {
+  //     this.imageInfos = response.data;
+  //   });
+  // }
 };
 </script>
 
