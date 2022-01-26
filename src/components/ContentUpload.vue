@@ -3,19 +3,27 @@
     <v-row no-gutters justify="center" align="center">
       <v-col cols="8">
         <v-file-input
+          ref="imageRef"
           chips
           prepend-icon="mdi-camera"
           counter
           show-size
           label="Select Image"
           accept="image/*"
-          truncate-length="15"
-          @change="selectImage" 
+          truncate-length="12"
+          @change="selectImage"
         ></v-file-input>
       </v-col>
 
       <v-col cols="4" class="pl-4">
-        <v-btn color="success" dark small @click.once="upload" :loading="loading">
+        <v-btn
+          color="success"
+          dark
+          small
+          @click="upload"
+          :loading="loading"
+          :key="buttonKey"
+        >
           Upload
           <v-icon right dark>mdi-cloud-upload</v-icon>
         </v-btn>
@@ -57,7 +65,7 @@
     </v-card>
 
     <div class="text-center">
-      <v-dialog v-model="dialog_success" width="500">
+      <v-dialog v-model="dialog_success" width="500" persistent>
         <v-card>
           <v-card-title class="text-h7 grey lighten-2">
             이미지가 업로드 되었습니다.
@@ -76,13 +84,13 @@
       </v-dialog>
     </div>
     <div class="text-center">
-      <v-dialog v-model="dialog_fail" width="500">
+      <v-dialog v-model="dialog_fail" width="500" persistent>
         <v-card>
           <v-card-title class="text-h7 grey lighten-2">
             이미지 업로드를 실패하였습니다.
           </v-card-title>
           <v-card-text>
-            이미지를 선택하여 다시 시도해 보세요
+            이미지를 선택하여 다시 시도해 보세요.
           </v-card-text>
           <v-divider></v-divider>
           <v-card-actions>
@@ -111,7 +119,8 @@ export default {
       imageInfos: [],
       dialog_success: false,
       dialog_fail: false,
-      loading:false,
+      loading: false,
+      buttonKey: 1
     };
   },
   methods: {
@@ -123,6 +132,9 @@ export default {
     },
     async upload() {
       if (!this.currentImage) {
+        if (this.buttonKey == 0 || this.buttonKey > 1) {
+          return (this.buttonKey = 1);
+        }
         this.message = "이미지가 선택되지 않았습니다.";
         return;
       }
@@ -131,17 +143,18 @@ export default {
       fd.append("user_uid", this.$store.state.loginstore.userstate[0].user_uid);
       this.progress = 0;
       await axios
-        .post("http://192.168.0123.12:4000/imageupload", fd, {
+        .post("http://192.168.0.12:4000/imageupload", fd, {
           withCredentials: true
-        }).then(this.loading = true)
+        })
+        .then((this.loading = true))
         .then(e => {
           this.loading = false;
           this.dialog_success = true;
           this.message = "이미지 업로드 성공";
-          // this.$router.go(-1)
         })
 
         .catch(err => {
+          this.$refs.imageRef.reset();
           this.loading = false;
           this.dialog_fail = true;
           this.message = "이미지 업로드 실패" + err;
@@ -151,11 +164,11 @@ export default {
       this.dialog_success = false;
       this.$router.go(-1);
     },
-     async failDialog() {
+    failDialog() {
+      this.buttonKey++;
       this.currentImage = null;
       this.previewImage = null;
       this.progress = 0;
-      await this.$router.go()
       this.dialog_fail = false;
     }
   }
