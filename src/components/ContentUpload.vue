@@ -14,7 +14,7 @@
       </v-col>
 
       <v-col cols="4" class="pl-4">
-        <v-btn color="success" dark small @click="upload">
+        <v-btn color="success" dark small @click.once="upload">
           Upload
           <v-icon right dark>mdi-cloud-upload</v-icon>
         </v-btn>
@@ -58,15 +58,14 @@
 </template>
 
 <script>
-import UploadService from "../services/UploadFileService";
 import axios from "axios";
 
 export default {
   name: "ContentUpload",
   data() {
     return {
-      currentImage: undefined,
-      previewImage: undefined,
+      currentImage: null,
+      previewImage: null,
       progress: 0,
       message: "",
       imageInfos: []
@@ -79,39 +78,37 @@ export default {
       this.progress = 0;
       this.message = "";
     },
-    upload() {
+    async upload() {
       if (!this.currentImage) {
         this.message = "Please select an Image!";
         return;
       }
       const fd = new FormData();
       fd.append("image", this.currentImage);
-      fd.append("user_uid",this.$store.state.loginstore.userstate[0].user_uid)
+      fd.append("user_uid", this.$store.state.loginstore.userstate[0].user_uid);
       this.progress = 0;
-axios.post("http://localhost:4000/imageupload", fd,{withCredentials:true}).then((e)=>{this.progress = Math.round((100 * e.loaded) / e.total);})
-      // UploadService.upload(this.currentImage, event => {
-      //   this.progress = Math.round((100 * event.loaded) / event.total);
-      // })
-      //   .then(response => {
-      //     this.message = response.data.message;
-      //     // return UploadService.getFiles();
-      //     console.log(response);
-      //   })
-      //   .then(images => {
-      //     this.imageInfos = images.data;
-      //   })
+      await axios
+        .post("http://localhost:4000/imageupload", fd, {
+          withCredentials: true
+        })
+        .then(e => {
+          // this.$router.go(-1)
+          this.modal_succeeded;
+        })
+
         .catch(err => {
           this.progress = 0;
           this.message = "Could not upload the image! " + err;
-          // this.currentImage = undefined;
+          this.currentImage = null;
         });
+    },
+    modal_succeeded() {
+      this.$dialog.confirm({
+        text: "test",
+        title: "확인"
+      });
     }
-  },
-  // mounted() {
-  //   UploadService.getFiles().then(response => {
-  //     this.imageInfos = response.data;
-  //   });
-  // }
+  }
 };
 </script>
 
