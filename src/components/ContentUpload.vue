@@ -102,6 +102,25 @@
         </v-card>
       </v-dialog>
     </div>
+    <div class="text-center">
+      <v-dialog v-model="dialog_relogin" width="500" persistent>
+        <v-card>
+          <v-card-title class="text-h7 grey lighten-2">
+            로그인 페이지 이동
+          </v-card-title>
+          <v-card-text>
+            로그인 하지 않았거나 인증서 만료로 재로그인이 필요합니다.
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="primary" text @click="relogin">
+              확인
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </div>
   </div>
 </template>
 
@@ -119,6 +138,7 @@ export default {
       imageInfos: [],
       dialog_success: false,
       dialog_fail: false,
+      dialog_relogin: false,
       loading: false,
       buttonKey: 1
     };
@@ -154,10 +174,14 @@ export default {
         })
 
         .catch(err => {
+          if (err.response.status == 403) {
+            this.dialog_relogin = true;
+          }
           this.$refs.imageRef.reset();
           this.loading = false;
           this.dialog_fail = true;
           this.message = "이미지 업로드 실패" + err;
+          // console.log(err.response.status);
         });
     },
     successDialog() {
@@ -170,6 +194,10 @@ export default {
       this.previewImage = null;
       this.progress = 0;
       this.dialog_fail = false;
+    },
+    relogin() {
+      this.dialog_relogin = false;
+      this.$router.push("/login");
     }
   }
 };
