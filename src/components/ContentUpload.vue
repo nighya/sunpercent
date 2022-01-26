@@ -9,12 +9,13 @@
           show-size
           label="Select Image"
           accept="image/*"
-          @change="selectImage"
+          truncate-length="15"
+          @change="selectImage" 
         ></v-file-input>
       </v-col>
 
       <v-col cols="4" class="pl-4">
-        <v-btn color="success" dark small @click.once="upload">
+        <v-btn color="success" dark small @click.once="upload" :loading="loading">
           Upload
           <v-icon right dark>mdi-cloud-upload</v-icon>
         </v-btn>
@@ -54,43 +55,45 @@
         </v-list-item-group>
       </v-list>
     </v-card>
-    <div class="text-center">
-    <v-dialog
-      v-model="dialog"
-      width="500"
-    >
-      <!-- <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          color="red lighten-2"
-          dark
-          v-bind="attrs"
-          v-on="on"
-        >
-          Click Me
-        </v-btn>
-      </template> -->
 
-      <v-card>
-        <v-card-title class="text-h7 grey lighten-2">
-          이미지가 업로드 되었습니다.
-        </v-card-title>
-        <v-card-text>
-          게시물 확인은 닉네임으로 검색해 보세요. 이전페이지로 이동합니다.
-        </v-card-text>
-        <v-divider></v-divider>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn 
-            color="primary"
-            text
-            @click="successDialog"
-          >
-           확인
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  </div>
+    <div class="text-center">
+      <v-dialog v-model="dialog_success" width="500">
+        <v-card>
+          <v-card-title class="text-h7 grey lighten-2">
+            이미지가 업로드 되었습니다.
+          </v-card-title>
+          <v-card-text>
+            게시물 확인은 닉네임으로 검색해 보세요. 이전페이지로 이동합니다.
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="primary" text @click="successDialog">
+              확인
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </div>
+    <div class="text-center">
+      <v-dialog v-model="dialog_fail" width="500">
+        <v-card>
+          <v-card-title class="text-h7 grey lighten-2">
+            이미지 업로드를 실패하였습니다.
+          </v-card-title>
+          <v-card-text>
+            이미지를 선택하여 다시 시도해 보세요
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="primary" text @click="failDialog">
+              확인
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </div>
   </div>
 </template>
 
@@ -106,7 +109,9 @@ export default {
       progress: 0,
       message: "",
       imageInfos: [],
-      dialog:false,
+      dialog_success: false,
+      dialog_fail: false,
+      loading:false,
     };
   },
   methods: {
@@ -118,7 +123,7 @@ export default {
     },
     async upload() {
       if (!this.currentImage) {
-        this.message = "Please select an Image!";
+        this.message = "이미지가 선택되지 않았습니다.";
         return;
       }
       const fd = new FormData();
@@ -126,25 +131,33 @@ export default {
       fd.append("user_uid", this.$store.state.loginstore.userstate[0].user_uid);
       this.progress = 0;
       await axios
-        .post("http://localhost:4000/imageupload", fd, {
+        .post("http://192.168.0123.12:4000/imageupload", fd, {
           withCredentials: true
-        })
+        }).then(this.loading = true)
         .then(e => {
-          this.dialog = true
+          this.loading = false;
+          this.dialog_success = true;
+          this.message = "이미지 업로드 성공";
           // this.$router.go(-1)
         })
 
         .catch(err => {
-          this.progress = 0;
-          this.message = "Could not upload the image! " + err;
-          this.currentImage = null;
+          this.loading = false;
+          this.dialog_fail = true;
+          this.message = "이미지 업로드 실패" + err;
         });
     },
-    successDialog(){
-      this.dialog = false
-      this.$router.go(-1)
+    successDialog() {
+      this.dialog_success = false;
+      this.$router.go(-1);
+    },
+     async failDialog() {
+      this.currentImage = null;
+      this.previewImage = null;
+      this.progress = 0;
+      await this.$router.go()
+      this.dialog_fail = false;
     }
-
   }
 };
 </script>
