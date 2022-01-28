@@ -24,7 +24,7 @@ export default {
   },
   actions: {
     async getallimages({ commit }) {
-      const response = await axios.get(res_uri, { withCredentials: true });
+      const response = await axios.get(`${res_uri}/getAllimages`, { withCredentials: true });
       commit("SET_IMAGE", response.data);
     },
     async deleteImage({ commit }, payload) {
