@@ -6,7 +6,7 @@
           <!-- :cols="card.flex" -->
           <v-card>
             <v-img
-              :src="`http://localhost:4000/${data.image_path}`"
+              :src="`http://192.168.0.12:4000/${data.image_path}`"
               class="white--text align-end"
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
               height="200px"
@@ -39,36 +39,37 @@
 <script>
 export default {
   data: () => ({
-    cards: [
-      {
-        title: "Pre-fab homes",
-        src: "https://cdn.vuetifyjs.com/images/cards/house.jpg",
-        flex: 12
-      },
-      {
-        title: "Favorite road trips",
-        src: "https://cdn.vuetifyjs.com/images/cards/road.jpg",
-        flex: 6
-      },
-      {
-        title: "Best airlines",
-        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
-        flex: 6
-      }
-    ]
+    // cards: [
+    //   {
+    //     title: "Pre-fab homes",
+    //     src: "https://cdn.vuetifyjs.com/images/cards/house.jpg",
+    //     flex: 12
+    //   },
+    //   {
+    //     title: "Favorite road trips",
+    //     src: "https://cdn.vuetifyjs.com/images/cards/road.jpg",
+    //     flex: 6
+    //   },
+    //   {
+    //     title: "Best airlines",
+    //     src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
+    //     flex: 6
+    //   }
+    // ]
   }),
   mounted() {
     this.$store.dispatch("imagestore/getallimages");
   },
-  methods: {
-    contentupload() {
-      this.$router.push("/contentupload");
-    }
-  },
+
   computed: {
     AllGetterslist() {
       return this.$store.getters["imagestore/allImagelist"];
     }
-  }
+  },
+    methods: {
+    contentupload() {
+      this.$router.push("/contentupload");
+    }
+  },
 };
 </script>
