@@ -12,6 +12,8 @@ import store from './store'
 
 Vue.config.productionTip = false
 
+Vue.use(vuetify);
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -61,7 +61,7 @@
           length="7"
           x-large
         ></v-rating>
-        <v-text name="v-text">{{this.rating}} / 7</v-text>
+        <v-card-text>{{this.rating}} / 7</v-card-text>
       </div>
     </v-card-text>
     <v-divider></v-divider>
