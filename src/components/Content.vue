@@ -4,7 +4,7 @@
       <v-row dense>
         <v-col v-for="(data, index) in AllGetterslist" :key="index">
           <!-- :cols="card.flex" -->
-          <v-card>
+          <v-card @click="ContentDetail(data)">
             <v-img
               :src="`http://192.168.0.12:4000/${data.image_path}`"
               class="white--text align-end"
@@ -66,10 +66,19 @@ export default {
       return this.$store.getters["imagestore/allImagelist"];
     }
   },
-    methods: {
+  methods: {
     contentupload() {
       this.$router.push("/contentupload");
+    },
+    ContentDetail(data) {
+      this.$router.push({
+        name: "ContentDetail",
+        params: {
+          content_uid: data.content_uid,
+          datas: data
+        }
+      });
     }
-  },
+  }
 };
 </script>
