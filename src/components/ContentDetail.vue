@@ -39,6 +39,44 @@
       ></v-radio>
     </v-radio-group>
     <v-btn @click="SendScore">제출</v-btn>
+
+    <!-- 별점주기 -->
+      <v-card
+    class="elevation-16 mx-auto"
+    width="400"
+  >
+    <v-card-title class="text-h5">
+      외모 점수를 몇점 주고 싶으세요?
+    </v-card-title>
+    <v-card-text>
+      게시물 작성자가 점수 공개하기 전까지는 해당 게시물 점수는 게시물 작성자만 알 수 있습니다.(7점 만점)
+
+      <div class="text-center mt-12">
+        <v-rating
+          v-model="rating"
+          color="yellow darken-3"
+          background-color="grey darken-1"
+          empty-icon="$ratingFull"
+          half-increments
+          length="7"
+          x-large
+        ></v-rating>
+        <v-text>{{this.rating}} / 7</v-text>
+      </div>
+    </v-card-text>
+    <v-divider></v-divider>
+    <v-card-actions class="justify-space-between">
+      <v-btn text>
+        No Thanks
+      </v-btn>
+      <v-btn
+        color="primary"
+        text
+      >
+        Rate Now
+      </v-btn>
+    </v-card-actions>
+  </v-card>
   </v-container>
   </div>
 </template>
@@ -47,6 +85,7 @@ export default {
   data() {
     return {
       radios:null,
+      rating:1,
     };
   },
   methods:{
