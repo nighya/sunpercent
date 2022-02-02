@@ -49,7 +49,7 @@ export default new Router({
       component:() => import( "@/components/ContentUpload" )
     },
     {
-      path: '/contentdetail/:content_uid',
+      path: '/:content_uid',
       name: 'ContentDetail',
       component:() => import( "@/components/ContentDetail" )
     },

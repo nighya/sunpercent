@@ -1,7 +1,8 @@
 <template>
   <div class="contentdetail pa-6 center">
+    {{ $route.params.content_uid }}
     <v-img
-      :src="`http://192.168.0.12:4000/${$route.params.datas.image_path}`"
+      :src="`http://192.168.0.12:4000${this.$store.state.imagestore.imagedetail[0].image_path}`"
     ></v-img>
     <v-card-actions class="justify-center">
       <v-btn color="purple lighten-3" dark @click="score">점수주기</v-btn>
@@ -62,6 +63,15 @@ export default {
     },
     score_cancel() {
       this.scoredialog = false;
+    }
+  },
+  mounted() {
+    this.$store.dispatch("imagestore/getimage",this.$route.params.content_uid);
+  },
+
+  computed: {
+    imageDetail() {
+      return this.$store.getters["imagestore/imageDetail"];
     }
   }
 };

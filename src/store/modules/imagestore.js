@@ -6,15 +6,23 @@ export default {
   namespaced: true,
   state: {
     imagestate: [],
+    imagedetail:[],
   },
   getters: {
     allImagelist: (state) => {
       return state.imagestate;
     },
+    imageDetail: (state) => {
+      return state.imagedetail;
+    },
+
   },
   mutations: {
     SET_IMAGE: (state, datas) => {
       state.imagestate = datas;
+    },
+    SET_IMAGE_DETAIL: (state, datas) => {
+      state.imagedetail = datas;
     },
     DELETE_IMAGE: (state, datas) => {
       state.imagestate = state.imagestate.filter(
@@ -26,6 +34,11 @@ export default {
     async getallimages({ commit }) {
       const response = await axios.get(`${res_uri}/getAllimages`, { withCredentials: true });
       commit("SET_IMAGE", response.data);
+    },
+    async getimage({ commit }, payload) {
+      console.log(payload)
+      const response = await axios.get(`${res_uri}/getimage/${payload}`, { withCredentials: true });
+      commit("SET_IMAGE_DETAIL", response.data);
     },
     async deleteImage({ commit }, payload) {
       const response = await axios.post(
