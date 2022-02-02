@@ -6,7 +6,7 @@ export default {
   namespaced: true,
   state: {
     imagestate: [],
-    imagedetail:[],
+    imagedetail: [{image_path: {}}],
   },
   getters: {
     allImagelist: (state) => {
@@ -36,7 +36,6 @@ export default {
       commit("SET_IMAGE", response.data);
     },
     async getimage({ commit }, payload) {
-      console.log(payload)
       const response = await axios.get(`${res_uri}/getimage/${payload}`, { withCredentials: true });
       commit("SET_IMAGE_DETAIL", response.data);
     },

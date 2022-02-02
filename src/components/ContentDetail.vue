@@ -1,7 +1,7 @@
 <template>
   <div class="contentdetail pa-6 center">
     {{ $route.params.content_uid }}
-    <v-img
+    <v-img 
       :src="`http://192.168.0.12:4000${this.$store.state.imagestore.imagedetail[0].image_path}`"
     ></v-img>
     <v-card-actions class="justify-center">
@@ -51,7 +51,7 @@ export default {
   data() {
     return {
       scoredialog: false,
-      rating: 1
+      rating: 1,
     };
   },
   methods: {
