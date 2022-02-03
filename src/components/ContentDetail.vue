@@ -1,8 +1,9 @@
 <template>
   <div class="contentdetail pa-6 center">
-    {{ $route.params.content_uid }}
-    <v-img 
-      :src="`http://192.168.0.12:4000${this.$store.state.imagestore.imagedetail[0].image_path}`"
+    <v-img
+      :src="
+        `http://192.168.0.12:4000${this.$store.state.imagestore.imagedetail[0].image_path}`
+      "
     ></v-img>
     <v-card-actions class="justify-center">
       <v-btn color="purple lighten-3" dark @click="score">점수주기</v-btn>
@@ -47,11 +48,12 @@
   </div>
 </template>
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
       scoredialog: false,
-      rating: 1,
+      rating: 1
     };
   },
   methods: {
@@ -59,14 +61,32 @@ export default {
       this.scoredialog = true;
     },
     score_send() {
-      this.scoredialog = false;
+      let scoredata = {
+        content_uid: this.$store.state.imagestore.imagedetail[0].content_uid,
+        to_uid: this.$store.state.imagestore.imagedetail[0].user_uid,
+        from_uid: this.$store.state.loginstore.userstate[0].user_uid,
+        content_score: this.rating
+      };
+      axios
+        .post("http://192.168.0.12:4000/contentscore", scoredata, {
+          withCredentials: true
+        })
+        .then(e => {
+          this.scoredialog = false;
+        })
+
+        .catch(err => {
+          if (err.response.status == 403) {
+          }
+          this.scoredialog = false;
+        });
     },
     score_cancel() {
       this.scoredialog = false;
     }
   },
   mounted() {
-    this.$store.dispatch("imagestore/getimage",this.$route.params.content_uid);
+    this.$store.dispatch("imagestore/getimage", this.$route.params.content_uid);
   },
 
   computed: {
