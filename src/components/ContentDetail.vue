@@ -1,14 +1,25 @@
 <template>
   <div class="contentdetail pa-6 center">
-    <v-img
-      :src="
-        `http://192.168.0.12:4000${this.$store.state.imagestore.imagedetail[0].image_path}`
-      "
-    ></v-img>
-    <v-card-actions class="justify-center">
-      <v-btn color="purple lighten-3" dark @click="score">점수주기</v-btn>
-    </v-card-actions>
+    <v-card>
+      <v-img
+        :src="
+          `http://192.168.0.12:4000${this.$store.state.imagestore.imagedetail[0].image_path}`
+        "
+        class="white--text align-end"
+        gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+        max-height="500px"
+        max-width="1000px"
+      >
+        <v-card-text
+          v-text="this.$store.state.imagestore.imagedetail[0].date"
+        ></v-card-text>
+      </v-img>
 
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="purple lighten-3" dark @click="score">점수주기</v-btn>
+      </v-card-actions>
+    </v-card>
     <!-- 별점주기 -->
 
     <div class="text-center">
