@@ -11,13 +11,17 @@
         max-width="1000px"
       >
         <v-card-text
+          v-text="this.$store.state.loginstore.userstate[0].nickname"
+        ></v-card-text>
+        <v-card-text
           v-text="this.$store.state.imagestore.imagedetail[0].date"
         ></v-card-text>
       </v-img>
-
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="purple lighten-3" dark @click="score">점수주기</v-btn>
+        <v-btn color="purple lighten-3" dark @click.prevent="score"
+          >점수주기</v-btn
+        >
       </v-card-actions>
     </v-card>
     <!-- 별점주기 -->
@@ -49,7 +53,7 @@
             <v-btn text @click="score_cancel">
               취소
             </v-btn>
-            <v-btn color="primary" text @click="score_send">
+            <v-btn color="primary" text @click.prevent="score_send">
               점수 보내기
             </v-btn>
           </v-card-actions>
@@ -76,7 +80,8 @@ export default {
         content_uid: this.$store.state.imagestore.imagedetail[0].content_uid,
         to_uid: this.$store.state.imagestore.imagedetail[0].user_uid,
         from_uid: this.$store.state.loginstore.userstate[0].user_uid,
-        content_score: this.rating
+        content_score: this.rating,
+        gender: this.$store.state.loginstore.userstate[0].gender
       };
       axios
         .post("http://192.168.0.12:4000/contentscore", scoredata, {

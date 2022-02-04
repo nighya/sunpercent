@@ -161,6 +161,8 @@ export default {
       const fd = new FormData();
       fd.append("image", this.currentImage);
       fd.append("user_uid", this.$store.state.loginstore.userstate[0].user_uid);
+      fd.append("nickname", this.$store.state.loginstore.userstate[0].nickname);
+      fd.append("gender", this.$store.state.loginstore.userstate[0].gender);
       this.progress = 0;
       await axios
         .post("http://192.168.0.12:4000/imageupload", fd, {

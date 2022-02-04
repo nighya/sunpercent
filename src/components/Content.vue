@@ -12,6 +12,9 @@
               height="200px"
             >
               <v-card-title v-text="data.user_uid"></v-card-title>
+                      <v-card-text
+          v-text="data.nickname"
+        ></v-card-text>
             </v-img>
 
             <v-card-actions>
