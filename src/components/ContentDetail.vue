@@ -62,7 +62,7 @@
     </div>
     <div class="example">
       <apexcharts
-        width="500"
+        max-width="700"
         height="350"
         type="bar"
         :options="chartOptions"
@@ -85,7 +85,7 @@ export default {
       chartOptions: {
         chart: {
           type: "bar",
-          height: 350
+          height: 350,
         },
         plotOptions: {
           bar: {
