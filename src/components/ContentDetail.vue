@@ -60,7 +60,7 @@
         </v-card>
       </v-dialog>
     </div>
-    <div class="example">
+    <div class="mt-10">
       <apexcharts
         max-width="700"
         height="350"
@@ -93,10 +93,24 @@ export default {
             horizontal: true
           }
         },
-        xaxis: { categories: [1991, 1992, 1993] }
+        xaxis: { categories: ["평균점수"] },
+        title: {
+    text: "평균점수",
+    align: 'center',
+    margin: 30,
+    offsetX: 0,
+    offsetY: 0,
+    floating: false,
+    style: {
+      fontSize:  '25px',
+      fontWeight:  'bold',
+      fontFamily:  undefined,
+      color:  '#263238'
+    },
+}
       },
 
-      series: [{ name: "series-1", data: [3.2, 3.0, 5.5] }]
+      series: [{ name: "전체평균", data: [3.2] },{ name: "남자가 준 점수", data: [3.0] },{ name: "여자가 준 점수", data: [5.5] }]
     };
   },
   methods: {
