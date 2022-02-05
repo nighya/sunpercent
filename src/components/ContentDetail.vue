@@ -97,7 +97,7 @@ export default {
             horizontal: true
           }
         },
-        xaxis: { categories: ["평균점수"] },
+        xaxis: { categories: ["평균점수"], },
         title: {
           text: "평균점수",
           align: "center",
