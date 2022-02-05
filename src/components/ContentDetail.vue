@@ -60,15 +60,43 @@
         </v-card>
       </v-dialog>
     </div>
+    <div class="example">
+      <apexcharts
+        width="500"
+        height="350"
+        type="bar"
+        :options="chartOptions"
+        :series="series"
+      />
+    </div>
   </div>
 </template>
 <script>
 import axios from "axios";
+import VueApexCharts from "vue-apexcharts";
 export default {
+  components: {
+    apexcharts: VueApexCharts
+  },
   data() {
     return {
       scoredialog: false,
-      rating: 1
+      rating: 1,
+      chartOptions: {
+        chart: {
+          type: "bar",
+          height: 350
+        },
+        plotOptions: {
+          bar: {
+            borderRadius: 4,
+            horizontal: true
+          }
+        },
+        xaxis: { categories: [1991, 1992, 1993] }
+      },
+
+      series: [{ name: "series-1", data: [3.2, 3.0, 5.5] }]
     };
   },
   methods: {
