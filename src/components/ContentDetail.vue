@@ -64,7 +64,7 @@
         </v-card>
       </v-dialog>
     </div>
-    <div class="mt-10">
+    <div class="mt-10 mr-7">
       <apexcharts
         max-width="700"
         height="350"
@@ -99,7 +99,7 @@ export default {
         },
         xaxis: { categories: ["평균점수"], },
         title: {
-          text: "평균점수",
+          text: "평균점수(7점만점)",
           align: "center",
           margin: 30,
           offsetX: 0,

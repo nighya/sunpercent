@@ -56,7 +56,7 @@ export default {
       // this.$store.dispatch("loginstore/actionsadduserLogin", userloginObj);
       this.$store.dispatch("loginstore/login", userloginObj);
       this.clearForm();
-      this.$router.push("/");
+      this.$router.go(-1);
     },
     clearForm() {
       this.email = "";
