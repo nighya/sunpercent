@@ -1,29 +1,33 @@
 <template>
   <div class="contentdetail pa-6 center">
-    <v-card>
-      <v-img
-        :src="
-          `http://192.168.0.12:4000${this.$store.state.imagestore.imagedetail[0].image_path}`
-        "
-        class="white--text align-end"
-        gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-        max-height="500px"
-        max-width="1000px"
-      >
-        <v-card-text
-          v-text="this.$store.state.loginstore.userstate[0].nickname"
-        ></v-card-text>
-        <v-card-text
-          v-text="this.$store.state.imagestore.imagedetail[0].date"
-        ></v-card-text>
-      </v-img>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="purple lighten-3" dark @click.prevent="score"
-          >점수주기</v-btn
-        >
-      </v-card-actions>
-    </v-card>
+    <v-col cols="12">
+      <v-row justify="center">
+        <v-card width="100%" max-width="780px" class="justify-center">
+          <v-img
+            :src="
+              `http://192.168.0.12:4000${this.$store.state.imagestore.imagedetail[0].image_path}`
+            "
+            class="white--text align-end mx-auto"
+            gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+            max-height="500px"
+            max-width="1000px"
+          >
+            <v-card-text
+              v-text="this.$store.state.loginstore.userstate[0].nickname"
+            ></v-card-text>
+            <v-card-text
+              v-text="this.$store.state.imagestore.imagedetail[0].date"
+            ></v-card-text>
+          </v-img>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="purple lighten-3" dark @click.prevent="score"
+              >점수주기</v-btn
+            >
+          </v-card-actions>
+        </v-card>
+      </v-row>
+    </v-col>
     <!-- 별점주기 -->
 
     <div class="text-center">
@@ -85,7 +89,7 @@ export default {
       chartOptions: {
         chart: {
           type: "bar",
-          height: 350,
+          height: 350
         },
         plotOptions: {
           bar: {
@@ -95,22 +99,25 @@ export default {
         },
         xaxis: { categories: ["평균점수"] },
         title: {
-    text: "평균점수",
-    align: 'center',
-    margin: 30,
-    offsetX: 0,
-    offsetY: 0,
-    floating: false,
-    style: {
-      fontSize:  '25px',
-      fontWeight:  'bold',
-      fontFamily:  undefined,
-      color:  '#263238'
-    },
-}
+          text: "평균점수",
+          align: "center",
+          margin: 30,
+          offsetX: 0,
+          offsetY: 0,
+          floating: false,
+          style: {
+            fontSize: "25px",
+            fontWeight: "bold",
+            fontFamily: undefined,
+            color: "#263238"
+          }
+        }
       },
-
-      series: [{ name: "전체평균", data: [3.2] },{ name: "남자가 준 점수", data: [3.0] },{ name: "여자가 준 점수", data: [5.5] }]
+      series: [
+        { name: "전체평균", data: [3.2] },
+        { name: "남자가 준 점수", data: [3.0] },
+        { name: "여자가 준 점수", data: [5.5] }
+      ]
     };
   },
   methods: {
