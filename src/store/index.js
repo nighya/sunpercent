@@ -5,6 +5,7 @@ import datastore from "./modules/datastore"
 import loginstore from "./modules/loginstore"
 import createPersistedState from "vuex-persistedstate";
 import imagestore from "./modules/imagestore";
+import scorestore from "./modules/scorestore";
 
 
 Vue.use(Vuex);
@@ -20,6 +21,7 @@ export default new Vuex.Store({
     datastore: datastore,
     loginstore: loginstore,
     imagestore: imagestore,
+    scorestore: scorestore,
   },
   plugins: [createPersistedState({
     storage: window.sessionStorage,

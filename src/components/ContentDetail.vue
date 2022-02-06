@@ -73,6 +73,7 @@
         :series="series"
       />
     </div>
+    {{totalscore}}
   </div>
 </template>
 <script>
@@ -84,6 +85,9 @@ export default {
   },
   data() {
     return {
+      totalscore:null,
+      malescore:null,
+      femalescore:null,
       scoredialog: false,
       rating: 1,
       chartOptions: {
@@ -97,7 +101,7 @@ export default {
             horizontal: true
           }
         },
-        xaxis: { categories: ["평균점수"], },
+        xaxis: { categories: ["평균점수"] },
         title: {
           text: "평균점수(7점만점)",
           align: "center",
@@ -152,12 +156,17 @@ export default {
   },
   mounted() {
     this.$store.dispatch("imagestore/getimage", this.$route.params.content_uid);
+    this.$store.dispatch("scorestore/getscore", this.$route.params.content_uid);
   },
 
   computed: {
     imageDetail() {
       return this.$store.getters["imagestore/imageDetail"];
-    }
+    },
+    scoreContent() {
+      return this.totalscore = this.$store.getters["scorestore/scoreContent"];
+    },
+
   }
 };
 </script>
