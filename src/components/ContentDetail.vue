@@ -66,6 +66,7 @@
     </div>
     <div class="mt-10 mr-7">
       <apexcharts
+        ref="chart"
         max-width="700"
         height="350"
         type="bar"
@@ -73,21 +74,19 @@
         :series="series"
       />
     </div>
-    {{totalscore}}
   </div>
 </template>
 <script>
 import axios from "axios";
 import VueApexCharts from "vue-apexcharts";
+import lodash from "lodash";
 export default {
   components: {
     apexcharts: VueApexCharts
   },
   data() {
     return {
-      totalscore:null,
-      malescore:null,
-      femalescore:null,
+      totalscore: 7,
       scoredialog: false,
       rating: 1,
       chartOptions: {
@@ -118,9 +117,9 @@ export default {
         }
       },
       series: [
-        { name: "전체평균", data: [3.2] },
-        { name: "남자가 준 점수", data: [3.0] },
-        { name: "여자가 준 점수", data: [5.5] }
+        { name: "전체평균", data: [1] },
+        { name: "남자가 준 점수", data: [1.0] },
+        { name: "여자가 준 점수", data: [1.5] }
       ]
     };
   },
@@ -152,21 +151,24 @@ export default {
     },
     score_cancel() {
       this.scoredialog = false;
-    }
+    },
   },
   mounted() {
     this.$store.dispatch("imagestore/getimage", this.$route.params.content_uid);
     this.$store.dispatch("scorestore/getscore", this.$route.params.content_uid);
+
+    const total = this.$store.getters["scorestore/scoreContent"];
+    const arrscoretotal = total.map(item => item.content_score);
+    const totalaverage = (
+      lodash.sum(arrscoretotal) / arrscoretotal.length
+    );
+
   },
 
   computed: {
     imageDetail() {
       return this.$store.getters["imagestore/imageDetail"];
-    },
-    scoreContent() {
-      return this.totalscore = this.$store.getters["scorestore/scoreContent"];
-    },
-
+    }
   }
 };
 </script>
