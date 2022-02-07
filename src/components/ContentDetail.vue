@@ -74,7 +74,9 @@
         :series="series"
       />
     </div>
-   전체평균 :  {{average_total}}
+    전체평균 : {{ average_total }}<br />
+    남자 : {{ average_male }} <br />
+    여자 : {{ average_female }}
   </div>
 </template>
 <script>
@@ -87,7 +89,6 @@ export default {
   },
   data() {
     return {
-      totalscore: 7,
       scoredialog: false,
       rating: 1,
       chartOptions: {
@@ -119,8 +120,8 @@ export default {
       },
       series: [
         { name: "전체평균", data: [] },
-        { name: "남자가 준 점수", data: [1.0] },
-        { name: "여자가 준 점수", data: [1.5] }
+        { name: "남자가 준 점수", data: [] },
+        { name: "여자가 준 점수", data: [] }
       ]
     };
   },
@@ -152,7 +153,7 @@ export default {
     },
     score_cancel() {
       this.scoredialog = false;
-    },
+    }
   },
   mounted() {
     this.$store.dispatch("imagestore/getimage", this.$route.params.content_uid);
@@ -163,7 +164,6 @@ export default {
     // const totalaverage = (
     //   lodash.sum(arrscoretotal) / arrscoretotal.length
     // );
-
   },
 
   computed: {
@@ -171,8 +171,26 @@ export default {
       return this.$store.getters["imagestore/imageDetail"];
     },
     average_total() {
-      const arrscoretotal = this.$store.state.scorestore.scorestate.map(item=>item.content_score);
-      return this.series[0].data[0] = (lodash.sum(arrscoretotal) / arrscoretotal.length);
+      const arrscoretotal = this.$store.state.scorestore.scorestate.map(
+        item => item.content_score
+      );
+      return (this.series[0].data[0] =
+        lodash.sum(arrscoretotal) / arrscoretotal.length);
+    },
+    average_male() {
+      const arrscoremale = this.$store.state.scorestore.scorestate
+        .filter(item => item.gender == "male")
+        .map(item => item.content_score);
+      return (this.series[1].data[0] =
+        lodash.sum(arrscoremale) / arrscoremale.length);
+    },
+    average_female() {
+      const arrscorefemale = this.$store.state.scorestore.scorestate
+        .filter(item => item.gender == "female")
+        .map(item => item.content_score);
+      return (this.series[2].data[0] = (
+        lodash.sum(arrscorefemale) / arrscorefemale.length
+      ).toFixed(2));
     }
   }
 };
