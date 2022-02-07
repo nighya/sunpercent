@@ -174,23 +174,23 @@ export default {
       const arrscoretotal = this.$store.state.scorestore.scorestate.map(
         item => item.content_score
       );
-      return (this.series[0].data[0] =
-        lodash.sum(arrscoretotal) / arrscoretotal.length);
+      return this.series[0].data[0] =
+        (lodash.sum(arrscoretotal) / arrscoretotal.length).toFixed(1);
     },
     average_male() {
       const arrscoremale = this.$store.state.scorestore.scorestate
         .filter(item => item.gender == "male")
         .map(item => item.content_score);
-      return (this.series[1].data[0] =
-        lodash.sum(arrscoremale) / arrscoremale.length);
+      return this.series[1].data[0] =
+        (lodash.sum(arrscoremale) / arrscoremale.length).toFixed(1);
     },
     average_female() {
       const arrscorefemale = this.$store.state.scorestore.scorestate
         .filter(item => item.gender == "female")
         .map(item => item.content_score);
-      return (this.series[2].data[0] = (
-        lodash.sum(arrscorefemale) / arrscorefemale.length
-      ).toFixed(2));
+      return this.series[2].data[0] =(
+        (lodash.sum(arrscorefemale) / arrscorefemale.length).toFixed(1)
+      );
     }
   }
 };
