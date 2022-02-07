@@ -102,6 +102,45 @@ export default {
             horizontal: true
           }
         },
+        dataLabels: {
+          enabled: true,
+          enabledOnSeries: undefined,
+          textAnchor: "start",
+          distributed: false,
+          offsetX: 0,
+          offsetY: 0,
+          style: {
+            fontSize: "14px",
+            fontFamily: "Helvetica, Arial, sans-serif",
+            fontWeight: "bold",
+            colors: undefined
+          },
+          background: {
+            enabled: true,
+            foreColor: "#fff",
+            padding: 4,
+            borderRadius: 2,
+            borderWidth: 1,
+            borderColor: "#fff",
+            opacity: 0.9,
+            dropShadow: {
+              enabled: false,
+              top: 1,
+              left: 1,
+              blur: 1,
+              color: "#000",
+              opacity: 0.45
+            }
+          },
+          dropShadow: {
+            enabled: false,
+            top: 1,
+            left: 1,
+            blur: 1,
+            color: "#000",
+            opacity: 0.45
+          }
+        },
         xaxis: { categories: ["평균점수"] },
         title: {
           text: "평균점수(7점만점)",
@@ -120,8 +159,8 @@ export default {
       },
       series: [
         { name: "전체평균", data: [] },
-        { name: "남자가 준 점수", data: [] },
-        { name: "여자가 준 점수", data: [] }
+        { name: "남자가 준 평균점수", data: [] },
+        { name: "여자가 준 평균점수", data: [] }
       ]
     };
   },
