@@ -74,6 +74,7 @@
         :series="series"
       />
     </div>
+   전체평균 :  {{average_total}}
   </div>
 </template>
 <script>
@@ -117,7 +118,7 @@ export default {
         }
       },
       series: [
-        { name: "전체평균", data: [1] },
+        { name: "전체평균", data: [] },
         { name: "남자가 준 점수", data: [1.0] },
         { name: "여자가 준 점수", data: [1.5] }
       ]
@@ -157,17 +158,21 @@ export default {
     this.$store.dispatch("imagestore/getimage", this.$route.params.content_uid);
     this.$store.dispatch("scorestore/getscore", this.$route.params.content_uid);
 
-    const total = this.$store.getters["scorestore/scoreContent"];
-    const arrscoretotal = total.map(item => item.content_score);
-    const totalaverage = (
-      lodash.sum(arrscoretotal) / arrscoretotal.length
-    );
+    // const total = this.$store.getters["scorestore/scoreContent"];
+    // const arrscoretotal = total.map(item => item.content_score);
+    // const totalaverage = (
+    //   lodash.sum(arrscoretotal) / arrscoretotal.length
+    // );
 
   },
 
   computed: {
     imageDetail() {
       return this.$store.getters["imagestore/imageDetail"];
+    },
+    average_total() {
+      const arrscoretotal = this.$store.state.scorestore.scorestate.map(item=>item.content_score);
+      return this.series[0].data[0] = (lodash.sum(arrscoretotal) / arrscoretotal.length);
     }
   }
 };
