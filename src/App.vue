@@ -1,6 +1,7 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer v-model="drawer" app dark :src="drawerImage_h">
+    <v-navigation-drawer width="200" 
+         v-model="drawer" app dark :src="drawerImage_h">
       <v-list>
         <v-list-item class="ma-0.5" @click="moveMypage">
           <v-list-item-avatar>

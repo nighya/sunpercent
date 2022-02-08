@@ -66,17 +66,19 @@
     </div>
     <div class="mt-10 mr-7">
       <apexcharts
-        ref="chart"
         max-width="700"
         height="350"
         type="bar"
         :options="chartOptions"
         :series="series"
       />
+
+      <div v-if="scoretext == true">
+        전체평균 : {{ average_total }}<br />
+        남자 : {{ average_male }} <br />
+        여자 : {{ average_female }}
+      </div>
     </div>
-    전체평균 : {{ average_total }}<br />
-    남자 : {{ average_male }} <br />
-    여자 : {{ average_female }}
   </div>
 </template>
 <script>
@@ -89,6 +91,7 @@ export default {
   },
   data() {
     return {
+      scoretext: false,
       scoredialog: false,
       rating: 1,
       chartOptions: {
