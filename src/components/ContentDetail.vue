@@ -73,11 +73,9 @@
         :series="series"
       />
 
-      <div v-if="scoretext == true">
         전체평균 : {{ average_total }}<br />
         남자 : {{ average_male }} <br />
         여자 : {{ average_female }}
-      </div>
     </div>
   </div>
 </template>
@@ -91,7 +89,6 @@ export default {
   },
   data() {
     return {
-      scoretext: false,
       scoredialog: false,
       rating: 1,
       chartOptions: {
