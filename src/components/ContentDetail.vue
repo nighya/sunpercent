@@ -24,6 +24,9 @@
             <v-btn color="purple lighten-3" dark @click.prevent="score"
               >점수주기</v-btn
             >
+            <v-btn color="purple lighten-3" dark @click.prevent="score"
+              >점수주기</v-btn
+            >
           </v-card-actions>
         </v-card>
       </v-row>
@@ -37,8 +40,7 @@
             이 사진의 외모는 몇점 입니까?
           </v-card-title>
           <v-card-text>
-            게시물 작성자가 점수 공개하기 전까지는 해당 게시물 점수는 게시물
-            작성자만 알 수 있습니다.(7점 만점)
+            해당 게시물 점수는 게시물 작성자에게만 표시 됩니다.<br>(7점 만점)
             <div class="text-center mt-12">
               <v-rating
                 v-model="rating"
@@ -85,9 +87,11 @@
         </v-row>
       </div>
     </div>
-    <div>        
-          총합계 평균점수 및 차트는 해당 게시물의 당사자만 볼 수 있습니다.
-        </div>
+    <div v-else class="pt-10">
+      <v-alert border="left" color="indigo" dark>
+        총합계 평균점수 및 차트는 해당 게시물의 작성자에게만 표시 됩니다.
+      </v-alert>
+    </div>
   </div>
 </template>
 <script>
