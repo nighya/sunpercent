@@ -19,9 +19,32 @@
               v-text="this.$store.state.imagestore.imagedetail[0].date"
             ></v-card-text>
           </v-img>
+          <v-alert
+            v-if="
+              this.$store.state.scorestore.scorestate.filter(
+                item =>
+                  item.from_uid ==
+                  this.$store.state.loginstore.userstate[0].user_uid
+              ).length > 0
+            "
+            type="success"
+            >점수가 등록된 게시물</v-alert
+          >
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="purple lighten-3" dark @click.prevent="score"
+            <v-btn
+              v-if="
+                this.$store.state.scorestore.scorestate.filter(
+                  item =>
+                    item.from_uid ==
+                    this.$store.state.loginstore.userstate[0].user_uid
+                ).length <= 0 &&
+                  this.$store.state.imagestore.imagedetail[0].user_uid !=
+                    this.$store.state.loginstore.userstate[0].user_uid
+              "
+              color="purple lighten-3"
+              dark
+              @click.prevent="score"
               >점수주기</v-btn
             >
           </v-card-actions>
@@ -31,7 +54,7 @@
     <!-- 별점주기 -->
 
     <div class="text-center">
-      <v-dialog v-model="scoredialog" width="500" persistent>
+      <v-dialog v-model="scoredialog" width="400" persistent>
         <v-card class="elevation-16 mx-auto " width="400">
           <v-card-title class="text-h5">
             이 사진의 외모는 몇점 입니까?
@@ -195,10 +218,10 @@ export default {
         .then(e => {
           this.scoredialog = false;
         })
-
+        .then(() => this.$router.go(0))
         .catch(err => {
           if (err.response.status == 403) {
-            this.$alert("권한이 없습니다.")
+            this.$alert("권한이 없습니다.");
           } else if (err.response.status == 400) {
             this.$alert("이미 점수가 등록된 게시물 입니다.")
               .then(() => (this.scoredialog = false))
