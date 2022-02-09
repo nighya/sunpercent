@@ -24,9 +24,6 @@
             <v-btn color="purple lighten-3" dark @click.prevent="score"
               >점수주기</v-btn
             >
-            <v-btn color="purple lighten-3" dark @click.prevent="score"
-              >점수주기</v-btn
-            >
           </v-card-actions>
         </v-card>
       </v-row>
