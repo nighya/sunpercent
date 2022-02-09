@@ -198,8 +198,15 @@ export default {
 
         .catch(err => {
           if (err.response.status == 403) {
+            this.$alert("권한이 없습니다.")
+          } else if (err.response.status == 400) {
+            this.$alert("이미 점수가 등록된 게시물 입니다.")
+              .then(() => (this.scoredialog = false))
+              .then(() => this.$router.go(0));
+            // this.$router.go(0)
+          } else {
+            this.scoredialog = false;
           }
-          this.scoredialog = false;
         });
     },
     score_cancel() {
