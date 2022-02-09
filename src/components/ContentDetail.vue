@@ -72,10 +72,13 @@
         :options="chartOptions"
         :series="series"
       />
-
-        전체평균 : {{ average_total }}<br />
-        남자 : {{ average_male }} <br />
-        여자 : {{ average_female }}
+      <div>
+        <v-row justify="center">
+          총합계평균점수 : {{ average_total }} &nbsp;&nbsp;&nbsp;
+          남자 : {{ average_male }} &nbsp;&nbsp;&nbsp;
+          여자 : {{ average_female }}</v-row
+        >
+      </div>
     </div>
   </div>
 </template>
@@ -194,7 +197,7 @@ export default {
       this.scoredialog = false;
     }
   },
-  mounted() {
+  mounted: function mounted() {
     this.$store.dispatch("imagestore/getimage", this.$route.params.content_uid);
     this.$store.dispatch("scorestore/getscore", this.$route.params.content_uid);
     window.dispatchEvent(new Event("resize"));
