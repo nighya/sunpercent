@@ -12,6 +12,7 @@ export default {
   },
   mutations: {
     SET_SCORE_CONTENT: (state, datas) => {
+      window.dispatchEvent(new Event("resize"));
       state.scorestate = datas;
     }
   },

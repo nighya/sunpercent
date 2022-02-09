@@ -40,7 +40,7 @@
             이 사진의 외모는 몇점 입니까?
           </v-card-title>
           <v-card-text>
-            해당 게시물 점수는 게시물 작성자에게만 표시 됩니다.<br>(7점 만점)
+            해당 게시물 점수는 게시물 작성자에게만 표시 됩니다.<br />(7점 만점)
             <div class="text-center mt-12">
               <v-rating
                 v-model="rating"
@@ -209,7 +209,7 @@ export default {
       this.scoredialog = false;
     }
   },
-  mounted: function mounted() {
+  mounted() {
     this.$store.dispatch("imagestore/getimage", this.$route.params.content_uid);
     this.$store.dispatch("scorestore/getscore", this.$route.params.content_uid);
     window.dispatchEvent(new Event("resize"));
@@ -229,7 +229,7 @@ export default {
       const arrscoretotal = this.$store.state.scorestore.scorestate.map(
         item => item.content_score
       );
-
+      // window.dispatchEvent(new Event("resize"));
       return (this.series[0].data[0] = (
         lodash.sum(arrscoretotal) / arrscoretotal.length
       ).toFixed(1));
