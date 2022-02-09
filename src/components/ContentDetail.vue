@@ -64,7 +64,13 @@
         </v-card>
       </v-dialog>
     </div>
-    <div class="mt-10 mr-7">
+    <div
+      class="mt-10 mr-7"
+      v-if="
+        this.$store.state.imagestore.imagedetail[0].user_uid ===
+          this.$store.state.loginstore.userstate[0].user_uid
+      "
+    >
       <apexcharts
         max-width="700"
         height="350"
@@ -74,12 +80,14 @@
       />
       <div>
         <v-row justify="center">
-          총합계평균점수 : {{ average_total }} &nbsp;&nbsp;&nbsp;
-          남자 : {{ average_male }} &nbsp;&nbsp;&nbsp;
-          여자 : {{ average_female }}</v-row
-        >
+          총합계 평균점수 : {{ average_total }} &nbsp;&nbsp;&nbsp; 남자 :
+          {{ average_male }} &nbsp;&nbsp;&nbsp; 여자 : {{ average_female }}
+        </v-row>
       </div>
     </div>
+    <div>        
+          총합계 평균점수 및 차트는 해당 게시물의 당사자만 볼 수 있습니다.
+        </div>
   </div>
 </template>
 <script>
