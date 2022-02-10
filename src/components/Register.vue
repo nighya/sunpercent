@@ -82,7 +82,8 @@ export default {
         .dispatch("loginstore/register", userregisterObj)
         .then((res, err) => {
           if (res.status === 200) {
-            this.$router.push("/login");
+          this.$alert("회원가입이 성공했습니다. 로그인 해주세요.").then(()=>this.$router.push("/"))
+            
           } else {
             console.log(err);
           }

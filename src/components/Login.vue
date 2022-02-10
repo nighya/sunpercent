@@ -29,6 +29,10 @@
               </v-form>
             </v-card-text>
             <v-card-actions class="justify-center">
+              <v-btn color="purple lighten-3" dark @click="moveRegisterpage"
+                >회원가입</v-btn
+              >
+              <v-spacer></v-spacer>
               <v-btn color="purple lighten-3" dark @click="login">로그인</v-btn>
             </v-card-actions>
           </v-card>
@@ -45,15 +49,15 @@ export default {
       password: null
     };
   },
-
+  mounted: function mounted() {
+    this.logout();
+  },
   methods: {
     login() {
       let userloginObj = {
         email: this.email,
         password: this.password
       };
-      //   this.$store.commit("addusers", userObj);
-      // this.$store.dispatch("loginstore/actionsadduserLogin", userloginObj);
       this.$store.dispatch("loginstore/login", userloginObj);
       this.clearForm();
       this.$router.go(-1);
@@ -61,6 +65,13 @@ export default {
     clearForm() {
       this.email = "";
       this.password = "";
+    },
+    moveRegisterpage() {
+      this.$router.push("/register");
+    },
+    logout() {
+      this.$store.dispatch("loginstore/logout");
+      sessionStorage.clear();
     }
   }
 };
