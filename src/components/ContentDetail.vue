@@ -221,7 +221,9 @@ export default {
         .then(() => this.$router.go(0))
         .catch(err => {
           if (err.response.status == 403) {
-            this.$alert("권한이 없습니다.");
+            this.scoredialog = false
+            this.$alert("권한이 없습니다. 로그인 페이지로 이동합니다.")
+            .then(()=>this.$router.push('/login'));
           } else if (err.response.status == 400) {
             this.$alert("이미 점수가 등록된 게시물 입니다.")
               .then(() => (this.scoredialog = false))

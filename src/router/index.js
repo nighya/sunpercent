@@ -51,7 +51,7 @@ export default new Router({
     {
       path: '/:content_uid',
       name: 'ContentDetail',
-      component:() => import( "@/components/ContentDetail" )
+      component: () => import("@/components/ContentDetail"),
     },
   ]
 })
