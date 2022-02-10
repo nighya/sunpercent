@@ -67,7 +67,7 @@ export default {
       nickname: null,
       password: null,
       confirm: null,
-      gender: null,
+      gender: null
     };
   },
   methods: {
@@ -82,10 +82,14 @@ export default {
         .dispatch("loginstore/register", userregisterObj)
         .then((res, err) => {
           if (res.status === 200) {
-          this.$alert("회원가입이 성공했습니다. 로그인 해주세요.").then(()=>this.$router.push("/"))
-            
+            this.$alert("회원등록이 성공했습니다. 로그인 해주세요.").then(() =>
+              this.$router.push("/")
+            );
+          } else if (err) {
+            this.$alert("회원등록이 되지 않았습니다. 다시 등록해주세요");
+            console.log("else log  :  "+err.status)
           } else {
-            console.log(err);
+            console.log("else log  :  "+err.status);
           }
         });
       // this.clearForm();

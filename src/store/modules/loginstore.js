@@ -70,7 +70,7 @@ export default {
             resove(res);
           })
           .catch(err => {
-            console.log(err.message);
+            alert("회원등록이 되지 않았습니다.다시 등록해 주세요.")
             reject(err.message);
           });
       });
