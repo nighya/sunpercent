@@ -138,7 +138,7 @@ export default {
       switch (menuclick.title) {
         case "로그인":
           this.logout();
-          this.$router.push("/login");
+          this.$router.push("/login").catch(()=>{});
           break;
         case "로그아웃":
           this.logout();
