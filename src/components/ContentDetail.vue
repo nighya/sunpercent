@@ -18,6 +18,18 @@
             <v-card-text
               v-text="this.$store.state.imagestore.imagedetail[0].date"
             ></v-card-text>
+                  <template v-slot:placeholder>
+        <v-row
+          class="fill-height ma-0"
+          align="center"
+          justify="center"
+        >
+          <v-progress-circular
+            indeterminate
+            color="grey lighten-5"
+          ></v-progress-circular>
+        </v-row>
+      </template>
           </v-img>
           <v-alert
             v-if="
