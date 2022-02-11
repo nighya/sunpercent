@@ -49,10 +49,15 @@ export default {
     //   commit("POST_LOGIN", payload);
     // },
     async login({ commit }, payload) {
-      const response = await axios.post(res_uri, payload, {
-        withCredentials: true
-      });
-      commit("loginToken", response.data);
+      try {
+        const response = await axios.post(res_uri, payload, {
+          withCredentials: true
+        });
+        commit("loginToken", response.data);
+      } catch (err) {
+        alert("로그인 되지 않았습니다.");
+        throw err;
+      }
     },
     logout({ commit }) {
       commit("LOGOUT");
@@ -70,7 +75,7 @@ export default {
             resove(res);
           })
           .catch(err => {
-            alert("회원등록이 되지 않았습니다.다시 등록해 주세요.")
+            alert("회원등록이 되지 않았습니다.다시 등록해 주세요.");
             reject(err.message);
           });
       });
