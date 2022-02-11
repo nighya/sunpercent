@@ -75,7 +75,7 @@ export default {
             resove(res);
           })
           .catch(err => {
-            alert("회원등록이 되지 않았습니다.다시 등록해 주세요.");
+            alert("회원등록이 되지 않았습니다.이메일이나 닉네임을 바꿔 다시 등록해 주세요.");
             reject(err.message);
           });
       });
