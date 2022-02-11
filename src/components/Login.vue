@@ -9,7 +9,7 @@
               <v-spacer></v-spacer>
             </v-toolbar>
             <v-card-text>
-              <v-form>
+              <v-form ref="form">
                 <v-text-field
                   id="email"
                   label="email"
@@ -17,6 +17,7 @@
                   prepend-icon="mdi-account"
                   type="email"
                   v-model="email"
+                  :rules="emailRules"
                 ></v-text-field>
                 <v-text-field
                   id="password"
@@ -25,6 +26,7 @@
                   prepend-icon="mdi-lock"
                   type="password"
                   v-model="password"
+                  :rules="passwordRules"
                 ></v-text-field>
               </v-form>
             </v-card-text>
@@ -45,6 +47,13 @@
 export default {
   data() {
     return {
+      passwordRules: [value => !!value || "비밀번호를 입력해 주세요."],
+      emailRules: [
+        v =>
+          !!v || "이메일을 입력해 주세요", 
+        v =>  /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
+          "이메일 형식에 맞춰 입력하세요."
+      ],
       email: null,
       password: null
     };
@@ -54,13 +63,18 @@ export default {
   },
   methods: {
     login() {
-      let userloginObj = {
-        email: this.email,
-        password: this.password
-      };
-      this.$store.dispatch("loginstore/login", userloginObj);
-      this.clearForm();
-      this.$router.go(-1);
+      const validate = this.$refs.form.validate();
+      if (validate) {
+        let userloginObj = {
+          email: this.email,
+          password: this.password
+        };
+        this.$store.dispatch("loginstore/login", userloginObj);
+        this.clearForm();
+        this.$router.go(-1);
+      }else{
+        alert("로그인되지 않았습니다.")
+      }
     },
     clearForm() {
       this.email = "";
