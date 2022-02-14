@@ -5,7 +5,7 @@ const res_uri = "http://192.168.0.12:4000/login";
 export default {
   namespaced: true,
   state: {
-    userstate: [{ user_uid: null, email: null, nickname: null, gender: null }],
+    userstate: [{ user_uid: null, email: null, nickname: null, gender: null, max_score:null,profile_image:null }],
     isLogined: false
   },
   getters: {
@@ -32,6 +32,8 @@ export default {
       state.userstate[0].email = payload.email;
       state.userstate[0].nickname = payload.nickname;
       state.userstate[0].gender = payload.gender;
+      state.userstate[0].max_score = payload.max_score;
+      state.userstate[0].profile_image = payload.profile_image;
       state.isLogined = true;
       // state.userstate = payload
     },
@@ -40,6 +42,8 @@ export default {
       state.userstate[0].email = null;
       state.userstate[0].nickname = null;
       state.userstate[0].gender = null;
+      state.userstate[0].max_score =null;
+      state.userstate[0].profile_image = null;
       state.isLogined = false;
     }
   },
