@@ -20,6 +20,9 @@ export default {
     // POST_LOGIN: (state, datas) => {
     //   state.userstate.push(datas);
     // },
+    SET_PROFILE_IMAGE: (state, datas) => {
+      state.userstate[0].profile_image = datas.profile_image;
+    },
     SET_MEMBER: (state, datas) => {
       state.userstate = datas;
     },
@@ -27,7 +30,6 @@ export default {
     loginToken(state, payload) {
       // VueCookies.set("accessToken", payload.accessToken, "60s");
       // VueCookies.set("refreshToken", payload.refreshToken, "1h");
-      console.log(payload);
       state.userstate[0].user_uid = payload.user_uid;
       state.userstate[0].email = payload.email;
       state.userstate[0].nickname = payload.nickname;
@@ -90,6 +92,23 @@ export default {
         { withCredentials: true }
       );
       commit("SET_MEMBER", response.data);
-    }
+    },
+    async profile_image_update({ commit }, payload) {
+      const fd = new FormData();
+      fd.append("image", payload.image);
+      fd.append("user_uid", payload.user_uid);
+      try {
+        const response = await axios.post(
+          `http://192.168.0.12:4000/Mypage/${payload.user_uid}`,
+          fd,
+          {
+            withCredentials: true
+          }
+        );
+        commit("SET_PROFILE_IMAGE", response.data);
+      } catch (err) {
+        console.log(err)
+      }
+    },
   }
 };

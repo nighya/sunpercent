@@ -49,9 +49,9 @@ export default {
     return {
       passwordRules: [value => !!value || "비밀번호를 입력해 주세요."],
       emailRules: [
+        v => !!v || "이메일을 입력해 주세요",
         v =>
-          !!v || "이메일을 입력해 주세요", 
-        v =>  /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
+          /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
           "이메일 형식에 맞춰 입력하세요."
       ],
       email: null,
@@ -63,18 +63,26 @@ export default {
   },
   methods: {
     login() {
-      const validate = this.$refs.form.validate();
-      if (validate) {
-        let userloginObj = {
-          email: this.email,
-          password: this.password
-        };
-        this.$store.dispatch("loginstore/login", userloginObj);
-        this.clearForm();
-        this.$router.go(-1);
-      }else{
-        alert("로그인되지 않았습니다.")
-      }
+      // const validate = this.$refs.form.validate();
+
+      // if (validate) {
+      //   let userloginObj = {
+      //     email: this.email,
+      //     password: this.password
+      //   };
+      //   this.$store.dispatch("loginstore/login", userloginObj);
+      //   this.clearForm();
+      //   this.$router.go(-1);
+      // }else{
+      //   alert("로그인되지 않았습니다.")
+      // }
+      let userloginObj = {
+        email: this.email,
+        password: this.password
+      };
+      this.$store.dispatch("loginstore/login", userloginObj);
+      this.clearForm();
+      this.$router.go(-1);
     },
     clearForm() {
       this.email = "";

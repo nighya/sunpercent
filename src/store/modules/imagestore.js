@@ -24,6 +24,7 @@ export default {
     SET_IMAGE_DETAIL: (state, datas) => {
       state.imagedetail = datas;
     },
+
     DELETE_IMAGE: (state, datas) => {
       state.imagestate = state.imagestate.filter(
         (t) => datas.content_uid !== t.content_uid
@@ -47,5 +48,6 @@ export default {
       console.log("이미지스토어payload:", payload);
       commit("DELETE_IMAGE", payload);
     },
+
   },
 };
