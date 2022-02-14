@@ -1,17 +1,20 @@
 <template>
   <div class="mypage pa-6">
-    <!-- <v-img
-      :src="
-        `http://192.168.0.12:4000${this.$store.state.loginstore.userstate[0].profile_image}`
-      "
-    ></v-img> -->
-    <v-avatar color="primary" size="128">
+    <v-avatar
+      v-if="this.$store.state.loginstore.userstate[0].profile_image == null"
+      color="warning lighten-2"
+      size="128"
+    >
+      <v-img :src="baseimage"></v-img>
+    </v-avatar>
+    <v-avatar v-else color="warning lighten-2" size="128">
       <v-img
         :src="
           `http://192.168.0.12:4000${this.$store.state.loginstore.userstate[0].profile_image}`
         "
-      ></v-img
-    ></v-avatar>
+      ></v-img>
+    </v-avatar>
+
     <p @click="show_dialog">프로필사진 수정</p>
     <v-list-item-content>
       <v-list-item-title class="text-h6">
@@ -76,6 +79,7 @@
   </div>
 </template>
 <script>
+import baseimage from "../assets/bg.png";
 export default {
   data() {
     return {
@@ -84,7 +88,8 @@ export default {
       previewImage: null,
       imageInfos: [],
       loading: false,
-      buttonKey: 1
+      buttonKey: 1,
+      baseimage: baseimage
     };
   },
   methods: {

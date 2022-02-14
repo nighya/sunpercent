@@ -6,7 +6,7 @@
         <v-list-item class="ma-0.5" @click="moveMypage">
           <v-list-item-avatar>
             <v-img
-              src="https://randomuser.me/api/portraits/women/85.jpg"
+              :src="`http://192.168.0.12:4000${this.$store.state.loginstore.userstate[0].profile_image}`"
             ></v-img>
           </v-list-item-avatar>
           <v-list-item-content>
