@@ -76,55 +76,30 @@
         </v-card>
       </v-dialog>
     </div>
-
-        <v-container fluid>
-      <v-row dense>
-        <v-col v-for="(data, index) in mycontentGetterslist" :key="index">
-          <!-- :cols="card.flex" -->
-          <v-card @click="ContentDetail(data)">
-            <v-img
-              :src="`http://192.168.0.12:4000/${data.image_path}`"
-              class="white--text align-end"
-              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-              height="200px"
-            >
-              <v-card-title v-text="data.user_uid"></v-card-title>
-                      <v-card-text
-          v-text="data.nickname"
-        ></v-card-text>
-              <template v-slot:placeholder>
-        <v-row
-          class="fill-height ma-0"
-          align="center"
-          justify="center"
+    <v-row>
+      <v-col
+        v-for="(data, index) in mycontentGetterslist"
+        :key="index"
+        class="d-flex child-flex"
+        cols="4"
+      >
+        <v-img
+          :src="`http://192.168.0.12:4000/${data.image_path}`"
+          :lazy-src="`http://192.168.0.12:4000/${data.image_path}`"
+          aspect-ratio="1"
+          class="grey lighten-2"
         >
-          <v-progress-circular
-            indeterminate
-            color="grey lighten-5"
-          ></v-progress-circular>
-        </v-row>
-      </template>
-            </v-img>
-
-            <v-card-actions>
-              <v-spacer></v-spacer>
-
-              <v-btn icon>
-                <v-icon>mdi-heart</v-icon>
-              </v-btn>
-
-              <v-btn icon>
-                <v-icon>mdi-bookmark</v-icon>
-              </v-btn>
-
-              <v-btn icon>
-                <v-icon>mdi-share-variant</v-icon>
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
+          <template v-slot:placeholder>
+            <v-row class="fill-height ma-0" align="center" justify="center">
+              <v-progress-circular
+                indeterminate
+                color="grey lighten-5"
+              ></v-progress-circular>
+            </v-row>
+          </template>
+        </v-img>
+      </v-col>
+    </v-row>
   </div>
 </template>
 <script>
@@ -132,7 +107,7 @@ import baseimage from "../assets/bg.png";
 export default {
   data() {
     return {
-      user_uid:this.$store.state.loginstore.userstate[0].user_uid,
+      user_uid: this.$store.state.loginstore.userstate[0].user_uid,
       dialog_profile_image_update: false,
       currentImage: null,
       previewImage: null,
@@ -142,8 +117,8 @@ export default {
       baseimage: baseimage
     };
   },
-    mounted() {
-    this.$store.dispatch("imagestore/mycontentimage",this.user_uid);
+  mounted() {
+    this.$store.dispatch("imagestore/mycontentimage", this.user_uid);
   },
 
   computed: {
