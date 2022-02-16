@@ -88,6 +88,7 @@
           :lazy-src="`http://192.168.0.12:4000/${data.image_path}`"
           aspect-ratio="1"
           class="grey lighten-2"
+          @click="ContentDetail(data)"
         >
           <template v-slot:placeholder>
             <v-row class="fill-height ma-0" align="center" justify="center">
@@ -171,6 +172,15 @@ export default {
         this.dialog_profile_image_update = false;
         // console.log(err.response.status);
       }
+    },
+    ContentDetail(data) {
+      this.$router.push({
+        name: "ContentDetail",
+        params: {
+          content_uid: data.content_uid,
+          datas: data
+        }
+      });
     }
   }
 };
