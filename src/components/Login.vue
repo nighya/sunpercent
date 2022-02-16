@@ -63,26 +63,26 @@ export default {
   },
   methods: {
     login() {
-      // const validate = this.$refs.form.validate();
+      const validate = this.$refs.form.validate();
 
-      // if (validate) {
-      //   let userloginObj = {
-      //     email: this.email,
-      //     password: this.password
-      //   };
-      //   this.$store.dispatch("loginstore/login", userloginObj);
-      //   this.clearForm();
-      //   this.$router.go(-1);
-      // }else{
-      //   alert("로그인되지 않았습니다.")
-      // }
-      let userloginObj = {
-        email: this.email,
-        password: this.password
-      };
-      this.$store.dispatch("loginstore/login", userloginObj);
-      this.clearForm();
-      this.$router.go(-1);
+      if (validate) {
+        let userloginObj = {
+          email: this.email,
+          password: this.password
+        };
+        this.$store.dispatch("loginstore/login", userloginObj);
+        this.clearForm();
+        this.$router.go(-1);
+      } else {
+        alert("로그인되지 않았습니다.");
+      }
+      // let userloginObj = {
+      //   email: this.email,
+      //   password: this.password
+      // };
+      // this.$store.dispatch("loginstore/login", userloginObj);
+      // this.clearForm();
+      // this.$router.go(-1);
     },
     clearForm() {
       this.email = "";
