@@ -40,7 +40,7 @@
               ).length > 0
             "
             type="success"
-            >점수가 등록된 게시물</v-alert
+            >이미 내가 점수 등록한 게시물</v-alert
           >
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -114,8 +114,8 @@
       />
       <div>
         <v-row justify="center">
-          총합계 평균점수 : {{ average_total }} &nbsp;&nbsp;&nbsp; 남자 :
-          {{ average_male }} &nbsp;&nbsp;&nbsp; 여자 : {{ average_female }}
+          총합계 평균점수 : {{ average_total }}&nbsp;({{total_number}}명) &nbsp;&nbsp;&nbsp; 남자 :
+          {{ average_male }}&nbsp;({{male_number}}명) &nbsp;&nbsp;&nbsp; 여자 : {{ average_female }}&nbsp;({{female_number}}명)
         </v-row>
       </div>
     </div>
@@ -208,7 +208,10 @@ export default {
         { name: "전체평균", data: [] },
         { name: "남자가 준 평균점수", data: [] },
         { name: "여자가 준 평균점수", data: [] }
-      ]
+      ],
+      total_number:null,
+      male_number:null,
+      female_number:null,
     };
   },
   methods: {
@@ -270,7 +273,7 @@ export default {
       const arrscoretotal = this.$store.state.scorestore.scorestate.map(
         item => item.content_score
       );
-      // window.dispatchEvent(new Event("resize"));
+       this.total_number = arrscoretotal.length;
       return (this.series[0].data[0] = (
         lodash.sum(arrscoretotal) / arrscoretotal.length
       ).toFixed(1));
@@ -279,6 +282,7 @@ export default {
       const arrscoremale = this.$store.state.scorestore.scorestate
         .filter(item => item.gender == "male")
         .map(item => item.content_score);
+        this.male_number = arrscoremale.length;
       return (this.series[1].data[0] = (
         lodash.sum(arrscoremale) / arrscoremale.length
       ).toFixed(1));
@@ -287,6 +291,7 @@ export default {
       const arrscorefemale = this.$store.state.scorestore.scorestate
         .filter(item => item.gender == "female")
         .map(item => item.content_score);
+        this.female_number = arrscorefemale.length;
       return (this.series[2].data[0] = (
         lodash.sum(arrscorefemale) / arrscorefemale.length
       ).toFixed(1));

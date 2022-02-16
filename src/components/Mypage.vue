@@ -16,6 +16,7 @@
     </v-avatar>
 
     <p @click="show_dialog">프로필사진 수정</p>
+    <p>내최고 점수 :{{this.$store.state.loginstore.userstate[0].max_score}} </p>
     <v-list-item-content>
       <v-list-item-title class="text-h6">
         {{ this.$store.state.loginstore.userstate[0].nickname }}
