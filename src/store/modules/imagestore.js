@@ -6,9 +6,13 @@ export default {
   namespaced: true,
   state: {
     imagestate: [],
-    imagedetail: [{image_path: {}}],
+    imagedetail: [{ image_path: {} }],
+    imagemycontentstate:[],
   },
   getters: {
+    mycontentimagegetters: (state) => {
+      return state.imagemycontentstate;
+    },
     allImagelist: (state) => {
       return state.imagestate;
     },
@@ -18,6 +22,9 @@ export default {
 
   },
   mutations: {
+    SET_MYCONTENT_IMAGE: (state, datas) => {
+      state.imagemycontentstate = datas;
+    },
     SET_IMAGE: (state, datas) => {
       state.imagestate = datas;
     },
@@ -32,6 +39,10 @@ export default {
     },
   },
   actions: {
+    async mycontentimage({ commit },payload) {
+      const response = await axios.get(`${res_uri}/Mypage/mycontentimage/${payload}`, { withCredentials: true });
+      commit("SET_MYCONTENT_IMAGE", response.data);
+    },
     async getallimages({ commit }) {
       const response = await axios.get(`${res_uri}/getAllimages`, { withCredentials: true });
       commit("SET_IMAGE", response.data);
