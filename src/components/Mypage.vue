@@ -87,10 +87,12 @@
         <v-img
           :src="`http://192.168.0.12:4000/${data.image_path}`"
           :lazy-src="`http://192.168.0.12:4000/${data.image_path}`"
+          
           aspect-ratio="1"
           class="grey lighten-2"
           @click="ContentDetail(data)"
-        >
+        >              <span>{{data.content_average_score}}</span>
+
           <template v-slot:placeholder>
             <v-row class="fill-height ma-0" align="center" justify="center">
               <v-progress-circular

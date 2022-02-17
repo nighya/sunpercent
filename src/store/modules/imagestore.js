@@ -1,4 +1,5 @@
 import axios from "axios";
+import { data } from "vue-apexcharts";
 
 const res_uri = "http://192.168.0.12:4000";
 
@@ -7,21 +8,24 @@ export default {
   state: {
     imagestate: [],
     imagedetail: [{ image_path: {} }],
-    imagemycontentstate:[],
+    imagemycontentstate: []
   },
   getters: {
-    mycontentimagegetters: (state) => {
+    mycontentimagegetters: state => {
       return state.imagemycontentstate;
     },
-    allImagelist: (state) => {
+    allImagelist: state => {
       return state.imagestate;
     },
-    imageDetail: (state) => {
+    imageDetail: state => {
       return state.imagedetail;
-    },
-
+    }
   },
   mutations: {
+    CONTENT_SCORE: (state, datas) => {
+      state.imagedetail[0].content_average_score = datas.content_average_score;
+      state.imagedetail[0].score_count = datas.score_count;
+    },
     SET_MYCONTENT_IMAGE: (state, datas) => {
       state.imagemycontentstate = datas;
     },
@@ -34,21 +38,28 @@ export default {
 
     DELETE_IMAGE: (state, datas) => {
       state.imagestate = state.imagestate.filter(
-        (t) => datas.content_uid !== t.content_uid
+        t => datas.content_uid !== t.content_uid
       );
-    },
+    }
   },
   actions: {
-    async mycontentimage({ commit },payload) {
-      const response = await axios.get(`${res_uri}/Mypage/mycontentimage/${payload}`, { withCredentials: true });
+    async mycontentimage({ commit }, payload) {
+      const response = await axios.get(
+        `${res_uri}/Mypage/mycontentimage/${payload}`,
+        { withCredentials: true }
+      );
       commit("SET_MYCONTENT_IMAGE", response.data);
     },
     async getallimages({ commit }) {
-      const response = await axios.get(`${res_uri}/getAllimages`, { withCredentials: true });
+      const response = await axios.get(`${res_uri}/getAllimages`, {
+        withCredentials: true
+      });
       commit("SET_IMAGE", response.data);
     },
     async getimage({ commit }, payload) {
-      const response = await axios.get(`${res_uri}/getimage/${payload}`, { withCredentials: true });
+      const response = await axios.get(`${res_uri}/getimage/${payload}`, {
+        withCredentials: true
+      });
       commit("SET_IMAGE_DETAIL", response.data);
     },
     async deleteImage({ commit }, payload) {
@@ -56,9 +67,15 @@ export default {
         `http://localhost:4000/api/test/getimage/${payload.content_uid}`,
         payload
       );
-      console.log("이미지스토어payload:", payload);
       commit("DELETE_IMAGE", payload);
     },
 
-  },
+    async contentscore({ commit }, payload) {
+      const response = await axios.post(`${res_uri}/contentscore/${payload.content_uid}`,payload, {
+        withCredentials: true
+      });
+      console.log("contentscore payload:  ", payload);
+      commit("CONTENT_SCORE", response.data);
+    }
+  }
 };

@@ -18,18 +18,14 @@
             <v-card-text
               v-text="this.$store.state.imagestore.imagedetail[0].date"
             ></v-card-text>
-                  <template v-slot:placeholder>
-        <v-row
-          class="fill-height ma-0"
-          align="center"
-          justify="center"
-        >
-          <v-progress-circular
-            indeterminate
-            color="grey lighten-5"
-          ></v-progress-circular>
-        </v-row>
-      </template>
+            <template v-slot:placeholder>
+              <v-row class="fill-height ma-0" align="center" justify="center">
+                <v-progress-circular
+                  indeterminate
+                  color="grey lighten-5"
+                ></v-progress-circular>
+              </v-row>
+            </template>
           </v-img>
           <v-alert
             v-if="
@@ -114,8 +110,12 @@
       />
       <div>
         <v-row justify="center">
-          총합계 평균점수 : {{ average_total }}&nbsp;({{total_number}}명) &nbsp;&nbsp;&nbsp; 남자 :
-          {{ average_male }}&nbsp;({{male_number}}명) &nbsp;&nbsp;&nbsp; 여자 : {{ average_female }}&nbsp;({{female_number}}명)
+          총합계 평균점수 : {{ average_total }}&nbsp;({{ total_number }}명)
+          &nbsp;&nbsp;&nbsp; 남자 : {{ average_male }}&nbsp;({{
+            male_number
+          }}명) &nbsp;&nbsp;&nbsp; 여자 : {{ average_female }}&nbsp;({{
+            female_number
+          }}명)
         </v-row>
       </div>
     </div>
@@ -209,9 +209,9 @@ export default {
         { name: "남자가 준 평균점수", data: [] },
         { name: "여자가 준 평균점수", data: [] }
       ],
-      total_number:null,
-      male_number:null,
-      female_number:null,
+      total_number: null,
+      male_number: null,
+      female_number: null
     };
   },
   methods: {
@@ -236,9 +236,10 @@ export default {
         .then(() => this.$router.go(0))
         .catch(err => {
           if (err.response.status == 403) {
-            this.scoredialog = false
-            this.$alert("권한이 없습니다. 로그인 페이지로 이동합니다.")
-            .then(()=>this.$router.push('/login'));
+            this.scoredialog = false;
+            this.$alert(
+              "권한이 없습니다. 로그인 페이지로 이동합니다."
+            ).then(() => this.$router.push("/login"));
           } else if (err.response.status == 400) {
             this.$alert("이미 점수가 등록된 게시물 입니다.")
               .then(() => (this.scoredialog = false))
@@ -273,7 +274,17 @@ export default {
       const arrscoretotal = this.$store.state.scorestore.scorestate.map(
         item => item.content_score
       );
-       this.total_number = arrscoretotal.length;
+      this.total_number = arrscoretotal.length;
+      try {
+        let contentscore = {
+          content_uid: this.$store.state.imagestore.imagedetail[0].content_uid,
+          content_average_score: (this.series[0].data[0] = (
+            lodash.sum(arrscoretotal) / arrscoretotal.length
+          ).toFixed(1)),
+          score_count: arrscoretotal.length
+        };
+          this.$store.dispatch("imagestore/contentscore", contentscore);
+      } catch (err) {}
       return (this.series[0].data[0] = (
         lodash.sum(arrscoretotal) / arrscoretotal.length
       ).toFixed(1));
@@ -282,7 +293,7 @@ export default {
       const arrscoremale = this.$store.state.scorestore.scorestate
         .filter(item => item.gender == "male")
         .map(item => item.content_score);
-        this.male_number = arrscoremale.length;
+      this.male_number = arrscoremale.length;
       return (this.series[1].data[0] = (
         lodash.sum(arrscoremale) / arrscoremale.length
       ).toFixed(1));
@@ -291,7 +302,7 @@ export default {
       const arrscorefemale = this.$store.state.scorestore.scorestate
         .filter(item => item.gender == "female")
         .map(item => item.content_score);
-        this.female_number = arrscorefemale.length;
+      this.female_number = arrscorefemale.length;
       return (this.series[2].data[0] = (
         lodash.sum(arrscorefemale) / arrscorefemale.length
       ).toFixed(1));
