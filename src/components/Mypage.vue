@@ -16,7 +16,9 @@
     </v-avatar>
 
     <p @click="show_dialog">프로필사진 수정</p>
-    <p>내최고 점수 :{{this.$store.state.loginstore.userstate[0].max_score}} </p>
+    <p>
+      내최고 점수 :{{ this.$store.state.loginstore.userstate[0].max_score }}
+    </p>
     <v-list-item-content>
       <v-list-item-title class="text-h6">
         {{ this.$store.state.loginstore.userstate[0].nickname }}
@@ -87,11 +89,12 @@
         <v-img
           :src="`http://192.168.0.12:4000/${data.image_path}`"
           :lazy-src="`http://192.168.0.12:4000/${data.image_path}`"
-          
           aspect-ratio="1"
           class="grey lighten-2"
           @click="ContentDetail(data)"
-        >              <span>{{data.content_average_score}}</span>
+        >
+          <span class="white--text">{{ data.content_average_score }}점</span>
+          <span class="white--text">({{ data.score_count }}명)</span>
 
           <template v-slot:placeholder>
             <v-row class="fill-height ma-0" align="center" justify="center">
