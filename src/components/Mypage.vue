@@ -10,7 +10,7 @@
     <v-avatar v-else color="warning lighten-2" size="128">
       <v-img
         :src="
-          `http://192.168.0.12:4000${this.$store.state.loginstore.userstate[0].profile_image}`
+          `https://192.168.0.12:4000${this.$store.state.loginstore.userstate[0].profile_image}`
         "
       ></v-img>
     </v-avatar>
@@ -87,8 +87,8 @@
         cols="4"
       >
         <v-img
-          :src="`http://192.168.0.12:4000/${data.image_path}`"
-          :lazy-src="`http://192.168.0.12:4000/${data.image_path}`"
+          :src="`https://192.168.0.12:4000/${data.image_path}`"
+          :lazy-src="`https://192.168.0.12:4000/${data.image_path}`"
           aspect-ratio="1"
           class="grey lighten-2"
           @click="ContentDetail(data)"

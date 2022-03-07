@@ -40,7 +40,7 @@ export default {
       fd.append("image", this.selectedFile);
       fd.append("user_uid",this.$store.state.loginstore.userstate[0].uid )
       axios
-        .post("http://localhost:4000/api/test/imageupload", fd, {
+        .post("https://localhost:4000/api/test/imageupload", fd, {
           withCredentials: true,
         })
         .then((res) => {

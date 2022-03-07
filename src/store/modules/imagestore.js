@@ -1,7 +1,7 @@
 import axios from "axios";
 import { data } from "vue-apexcharts";
 
-const res_uri = "http://192.168.0.12:4000";
+const res_uri = "https://192.168.0.12:4000";
 
 export default {
   namespaced: true,
@@ -64,7 +64,7 @@ export default {
     },
     async deleteImage({ commit }, payload) {
       const response = await axios.post(
-        `http://localhost:4000/api/test/getimage/${payload.content_uid}`,
+        `https://localhost:4000/api/test/getimage/${payload.content_uid}`,
         payload
       );
       commit("DELETE_IMAGE", payload);

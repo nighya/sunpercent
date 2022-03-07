@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const res_uri = "http://192.168.0.12:4000/login";
+const res_uri = "https://192.168.0.12:4000/login";
 
 export default {
   namespaced: true,
@@ -72,7 +72,7 @@ export default {
     register: ({ commit }, params) => {
       return new Promise((resove, reject) => {
         axios
-          .post("http://192.168.0.12:4000/register", params, {
+          .post("https://192.168.0.12:4000/register", params, {
             withCredentials: true
           })
           .then(res => {
@@ -88,7 +88,7 @@ export default {
     },
     async getMember({ commit }, payload) {
       const response = await axios.get(
-        `http://192.168.0.12:4000/api/test/Mypage/${payload}`,
+        `https://192.168.0.12:4000/api/test/Mypage/${payload}`,
         { withCredentials: true }
       );
       commit("SET_MEMBER", response.data);
@@ -99,7 +99,7 @@ export default {
       fd.append("user_uid", payload.user_uid);
       try {
         const response = await axios.post(
-          `http://192.168.0.12:4000/Mypage/${payload.user_uid}`,
+          `https://192.168.0.12:4000/Mypage/${payload.user_uid}`,
           fd,
           {
             withCredentials: true

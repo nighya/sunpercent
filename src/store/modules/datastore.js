@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const res_uri = "http://localhost:4000/api/test/data";
+const res_uri = "https://localhost:4000/api/test/data";
 
 export default {
   namespaced: true,
@@ -51,13 +51,13 @@ export default {
 
     async deleteDatas({ commit }, payload) {
       const response = await axios.delete(
-        `http://localhost:4000/api/test/UserDataView/${payload}`
+        `https://localhost:4000/api/test/UserDataView/${payload}`
       );
       commit("DELETE_DATAS", payload);
     },
     async updataDatas({ commit }, payload) {
       const response = await axios.post(
-        `http://localhost:4000/api/test/UserDataView/${payload.id}/Edit`,
+        `https://localhost:4000/api/test/UserDataView/${payload.id}/Edit`,
         payload
       );
       commit("UPDATA_DATAS", payload);

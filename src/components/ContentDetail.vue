@@ -5,7 +5,7 @@
         <v-card width="100%" max-width="780px" class="justify-center">
           <v-img
             :src="
-              `http://192.168.0.12:4000${this.$store.state.imagestore.imagedetail[0].image_path}`
+              `https://192.168.0.12:4000${this.$store.state.imagestore.imagedetail[0].image_path}`
             "
             class="white--text align-end mx-auto"
             gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
@@ -227,7 +227,7 @@ export default {
         gender: this.$store.state.loginstore.userstate[0].gender
       };
       axios
-        .post("http://192.168.0.12:4000/contentscore", scoredata, {
+        .post("https://192.168.0.12:4000/contentscore", scoredata, {
           withCredentials: true
         })
         .then(e => {

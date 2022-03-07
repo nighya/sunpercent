@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const res_uri = "http://192.168.0.12:4000";
+const res_uri = "https://192.168.0.12:4000";
 
 export default {
   namespaced: true,

@@ -165,7 +165,7 @@ export default {
       fd.append("gender", this.$store.state.loginstore.userstate[0].gender);
       this.progress = 0;
       await axios
-        .post("http://192.168.0.12:4000/imageupload", fd, {
+        .post("https://192.168.0.12:4000/imageupload", fd, {
           withCredentials: true
         })
         .then((this.loading = true))
