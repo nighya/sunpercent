@@ -13,8 +13,6 @@ import VueSimpleAlert from "vue-simple-alert";
 Vue.use(VueSimpleAlert);
 
 
-
-
 Vue.config.productionTip = false
 
 Vue.use(vuetify);
