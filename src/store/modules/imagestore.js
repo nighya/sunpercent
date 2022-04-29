@@ -36,11 +36,11 @@ export default {
       state.imagedetail = datas;
     },
 
-    DELETE_IMAGE: (state, datas) => {
-      state.imagestate = state.imagestate.filter(
-        t => datas.content_uid !== t.content_uid
-      );
-    }
+    // DELETE_IMAGE: (state, datas) => {
+    //   state.imagestate = state.imagestate.filter(
+    //     t => datas.content_uid !== t.content_uid
+    //   );
+    // }
   },
   actions: {
     async mycontentimage({ commit }, payload) {
@@ -62,13 +62,13 @@ export default {
       });
       commit("SET_IMAGE_DETAIL", response.data);
     },
-    async deleteImage({ commit }, payload) {
-      const response = await axios.post(
-        `https://localhost:4000/api/test/getimage/${payload.content_uid}`,
-        payload
-      );
-      commit("DELETE_IMAGE", payload);
-    },
+    // async deleteImage({ commit }, payload) {
+    //   const response = await axios.post(
+    //     `https://localhost:4000/api/test/getimage/${payload.content_uid}`,
+    //     payload
+    //   );
+    //   commit("DELETE_IMAGE", payload);
+    // },
 
     async contentscore({ commit }, payload) {
       const response = await axios.post(`${res_uri}/contentscore/${payload.content_uid}`,payload, {

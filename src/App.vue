@@ -50,12 +50,6 @@
     </v-navigation-drawer>
 
     <v-app-bar app color="primary" dark :src="drawerImage">
-      <!-- <template v-slot:img="{ props }">
-        <v-img
-          v-bind="props"
-          gradient="to top right, rgba(19,84,122,.5), rgba(128,208,199,.8)"
-        ></v-img>
-      </template> -->
 
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
@@ -67,29 +61,6 @@
 
       <v-spacer></v-spacer>
       <div>
-        <!-- <v-btn
-          class="min-button mr-8"
-          icon
-          v-if="IsLoginedgeters"
-          @click="moveMypage"
-          ><v-icon small>mdi-card-account-details-outline</v-icon
-          ><span>내 정보</span></v-btn
-        >
-        <v-btn class="min-button mr-8" icon to="/login" v-if="!IsLoginedgeters"
-          ><v-icon small>mdi-login</v-icon><span>로그인</span></v-btn
-        >
-        <v-btn class="min-button mr-8" icon v-else @click="logout"
-          ><v-icon small>mdi-logout</v-icon><span>로그아웃</span></v-btn
-        >
-
-        <v-btn
-          class="min-button mr-5"
-          icon
-          to="/register"
-          v-if="!IsLoginedgeters"
-          ><v-icon small>mdi-account-plus-outline</v-icon
-          ><span>회원등록</span></v-btn
-        > -->
         <v-menu bottom left>
           <template v-slot:activator="{ on, attrs }">
             <v-btn dark icon v-bind="attrs" v-on="on">

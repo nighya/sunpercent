@@ -86,13 +86,6 @@ export default {
           });
       });
     },
-    async getMember({ commit }, payload) {
-      const response = await axios.get(
-        `https://192.168.0.12:4000/api/test/Mypage/${payload}`,
-        { withCredentials: true }
-      );
-      commit("SET_MEMBER", response.data);
-    },
     async profile_image_update({ commit }, payload) {
       const fd = new FormData();
       fd.append("image", payload.image);
