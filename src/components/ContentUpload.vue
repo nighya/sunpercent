@@ -126,7 +126,7 @@
 
 <script>
 import axios from "axios";
-
+import http from "../http/http"
 export default {
   name: "ContentUpload",
   data() {
@@ -164,8 +164,8 @@ export default {
       fd.append("nickname", this.$store.state.loginstore.userstate[0].nickname);
       fd.append("gender", this.$store.state.loginstore.userstate[0].gender);
       this.progress = 0;
-      await axios
-        .post("https://192.168.0.12:4000/imageupload", fd, {
+      await http
+        .post("/imageupload", fd, {
           withCredentials: true
         })
         .then((this.loading = true))

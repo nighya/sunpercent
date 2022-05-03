@@ -19,7 +19,7 @@
           <v-list-item-avatar v-else>
             <v-img
               :src="
-                `https://192.168.0.12:4000${this.$store.state.loginstore.userstate[0].profile_image}`
+                `http://192.168.0.12:4000${this.$store.state.loginstore.userstate[0].profile_image}`
               "
             ></v-img>
           </v-list-item-avatar>

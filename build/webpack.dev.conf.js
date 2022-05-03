@@ -50,11 +50,11 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     watchOptions: {
       poll: config.dev.poll
     },
-    https: {
-      key: fs.readFileSync("./cert/domain.com.key"),
-      cert: fs.readFileSync("./cert/domain.com.crt"),
-      ca: fs.readFileSync("./cert/rootca.crt")
-    }
+    // https: {
+    //   key: fs.readFileSync("./cert/domain.com.key"),
+    //   cert: fs.readFileSync("./cert/domain.com.crt"),
+    //   ca: fs.readFileSync("./cert/rootca.crt")
+    // }
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -96,8 +96,8 @@ module.exports = new Promise((resolve, reject) => {
         new FriendlyErrorsPlugin({
           compilationSuccessInfo: {
             messages: [
-              `Your application is running here: https://${devWebpackConfig.devServer.host}:${port}`,
-              `https://192.168.0.12:8080`
+              `Your application is running here: http://${devWebpackConfig.devServer.host}:${port}`,
+              `http://192.168.0.12:8080`
             ]
           },
           onErrors: config.dev.notifyOnErrors

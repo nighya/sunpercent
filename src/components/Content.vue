@@ -6,7 +6,7 @@
           <!-- :cols="card.flex" -->
           <v-card @click="ContentDetail(data)">
             <v-img
-              :src="`https://192.168.0.12:4000/${data.image_path}`"
+              :src="`http://192.168.0.12:4000/${data.image_path}`"
               class="white--text align-end"
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
               height="200px"

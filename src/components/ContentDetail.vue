@@ -5,7 +5,7 @@
         <v-card width="100%" max-width="780px" class="justify-center">
           <v-img
             :src="
-              `https://192.168.0.12:4000${this.$store.state.imagestore.imagedetail[0].image_path}`
+              `http://192.168.0.12:4000${this.$store.state.imagestore.imagedetail[0].image_path}`
             "
             class="white--text align-end mx-auto"
             gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
@@ -130,6 +130,7 @@
 import axios from "axios";
 import VueApexCharts from "vue-apexcharts";
 import lodash from "lodash";
+import http from "../http/http"
 export default {
   components: {
     apexcharts: VueApexCharts
@@ -226,8 +227,8 @@ export default {
         content_score: this.rating,
         gender: this.$store.state.loginstore.userstate[0].gender
       };
-      axios
-        .post("https://192.168.0.12:4000/contentscore", scoredata, {
+      http
+        .post("/contentscore", scoredata, {
           withCredentials: true
         })
         .then(e => {

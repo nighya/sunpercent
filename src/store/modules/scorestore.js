@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import http from "../../http/http"
 const res_uri = "https://192.168.0.12:4000";
 
 export default {
@@ -18,7 +18,7 @@ export default {
   },
   actions: {
     async getscore({ commit }, payload) {
-      const response = await axios.get(`${res_uri}/getscore/${payload}`, {
+      const response = await http.get(`/getscore/${payload}`, {
         withCredentials: true
       });
       commit("SET_SCORE_CONTENT", response.data);

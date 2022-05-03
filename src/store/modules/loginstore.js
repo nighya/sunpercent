@@ -1,4 +1,5 @@
 import axios from "axios";
+import http from "../../http/http"
 
 const res_uri = "https://192.168.0.12:4000/login";
 
@@ -51,12 +52,12 @@ export default {
   },
   actions: {
     // async actionsadduserLogin({ commit }, payload) {
-    //   const response = await axios.post(res_uri, payload);
+    //   const response = await http.post(res_uri, payload);
     //   commit("POST_LOGIN", payload);
     // },
     async login({ commit }, payload) {
       try {
-        const response = await axios.post(res_uri, payload, {
+        const response = await http.post("/login", payload, {
           withCredentials: true
         });
         commit("loginToken", response.data);
@@ -71,8 +72,8 @@ export default {
 
     register: ({ commit }, params) => {
       return new Promise((resove, reject) => {
-        axios
-          .post("https://192.168.0.12:4000/register", params, {
+        http
+          .post("/register", params, {
             withCredentials: true
           })
           .then(res => {
@@ -91,8 +92,8 @@ export default {
       fd.append("image", payload.image);
       fd.append("user_uid", payload.user_uid);
       try {
-        const response = await axios.post(
-          `https://192.168.0.12:4000/Mypage/${payload.user_uid}`,
+        const response = await http.post(
+          `/Mypage/${payload.user_uid}`,
           fd,
           {
             withCredentials: true

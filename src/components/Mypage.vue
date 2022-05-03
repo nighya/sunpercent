@@ -87,8 +87,8 @@
         cols="4"
       >
         <v-img
-          :src="`https://192.168.0.12:4000/${data.image_path}`"
-          :lazy-src="`https://192.168.0.12:4000/${data.image_path}`"
+          :src="`http://192.168.0.12:4000/${data.image_path}`"
+          :lazy-src="`http://192.168.0.12:4000/${data.image_path}`"
           aspect-ratio="1"
           class="grey lighten-2"
           @click="ContentDetail(data)"
