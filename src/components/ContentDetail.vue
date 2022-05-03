@@ -13,7 +13,7 @@
             max-width="1000px"
           >
             <v-card-text
-              v-text="this.$store.state.loginstore.userstate[0].nickname"
+              v-text="this.$store.state.imagestore.imagedetail[0].nickname"
             ></v-card-text>
             <v-card-text
               v-text="this.$store.state.imagestore.imagedetail[0].date"
@@ -256,9 +256,17 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch("imagestore/getimage", this.$route.params.content_uid);
-    this.$store.dispatch("scorestore/getscore", this.$route.params.content_uid);
-    window.dispatchEvent(new Event("resize"));
+
+      this.$store.dispatch(
+        "imagestore/getimage",
+        this.$route.params.content_uid
+      );
+      this.$store.dispatch(
+        "scorestore/getscore",
+        this.$route.params.content_uid
+      );
+      window.dispatchEvent(new Event("resize"));
+    
 
     // const total = this.$store.getters["scorestore/scoreContent"];
     // const arrscoretotal = total.map(item => item.content_score);
