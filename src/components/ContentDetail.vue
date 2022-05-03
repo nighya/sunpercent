@@ -130,7 +130,7 @@
 import axios from "axios";
 import VueApexCharts from "vue-apexcharts";
 import lodash from "lodash";
-import http from "../http/http"
+import http from "../http/http";
 export default {
   components: {
     apexcharts: VueApexCharts
@@ -275,6 +275,7 @@ export default {
       const arrscoretotal = this.$store.state.scorestore.scorestate.map(
         item => item.content_score
       );
+      console.log("arrscoretotal      " + arrscoretotal);
       this.total_number = arrscoretotal.length;
       try {
         let contentscore = {
@@ -284,8 +285,10 @@ export default {
           ).toFixed(1)),
           score_count: arrscoretotal.length
         };
-          this.$store.dispatch("imagestore/contentscore", contentscore);
-      } catch (err) {}
+        this.$store.dispatch("imagestore/contentscore", contentscore);
+      } catch (err) {
+        console.log("catch err" + err);
+      }
       return (this.series[0].data[0] = (
         lodash.sum(arrscoretotal) / arrscoretotal.length
       ).toFixed(1));
