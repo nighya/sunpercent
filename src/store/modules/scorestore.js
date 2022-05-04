@@ -18,6 +18,7 @@ export default {
   },
   actions: {
     async getscore({ commit }, payload) {
+      console.log("getscore  payload   :  "+ payload)
       const response = await http.get(`/getscore/${payload}`, {
         withCredentials: true
       });

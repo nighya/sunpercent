@@ -307,12 +307,6 @@ export default {
     this.$store.dispatch("imagestore/getimage", this.$route.params.content_uid);
     this.$store.dispatch("scorestore/getscore", this.$route.params.content_uid);
     window.dispatchEvent(new Event("resize"));
-
-    // const total = this.$store.getters["scorestore/scoreContent"];
-    // const arrscoretotal = total.map(item => item.content_score);
-    // const totalaverage = (
-    //   lodash.sum(arrscoretotal) / arrscoretotal.length
-    // );
   },
 
   computed: {
