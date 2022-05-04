@@ -17,11 +17,8 @@
                   prepend-icon="mdi-account"
                   type="email"
                   v-model="this.fields.email"
-                  :rules="[
-                    rules.email.require,
-                    rules.email.valid,
-                    rules.email.duplicate
-                  ]"
+                  :rules="[rules.email.require, rules.email.duplicate]"
+                  :error-messages="email_dup"
                 ></v-text-field>
                 <v-text-field
                   id="nickname"
@@ -108,11 +105,11 @@ export default {
             !v ||
             /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
             "이메일 형식에 맞춰 입력하세요.",
-          duplicate: v => this.duplicateEmail(v)
+          duplicate: v => this.duplicateEmail(v) || "중복된 email 주소입니다."
         }
       },
       fields: {
-        email: "",
+        email: null,
         nickname: null,
         password: null,
         confirm: null,
@@ -131,21 +128,25 @@ export default {
         const response = await http.post("/email_validate", emailObj, {
           withCredentials: true
         });
-        console.log(response.data);
+        // console.log(response.data.msg);
+        if (response.data.msg == "Email Address empty") {
+          this.email_dup = []
+        } else if (response.data.msg == "Email Address Exists") {
+          this.email_dup = ['이미 등록된 이메일 주소입니다.']
+          return false;
+        }
       } catch (err) {
-        // alert("로그인 되지 않았습니다.");
         throw err;
       }
-
     },
     register() {
       const validate = this.$refs.form.validate();
       if (validate) {
         let userregisterObj = {
-          email: this.email,
-          nickname: this.nickname,
-          password: this.password,
-          gender: this.gender
+          email: this.fields.email,
+          nickname: this.fields.nickname,
+          password: this.fields.password,
+          gender: this.fields.gender
         };
         this.$store
           .dispatch("loginstore/register", userregisterObj)
@@ -167,9 +168,9 @@ export default {
       }
     },
     clearForm() {
-      this.email = "";
-      this.nickname = "";
-      this.password = "";
+      this.fields.email = "";
+      this.fields.nickname = "";
+      this.fields.password = "";
     }
   }
 };
