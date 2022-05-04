@@ -107,14 +107,12 @@
     <div class="text-center">
       <v-dialog v-model="deletedialog" width="400" persistent>
         <v-card class="elevation-16 mx-auto " width="400">
-          <v-card-title class="text-h5 justify-center">
-            게시물과 점수를 삭제하며 복구되지 않습니다.
+          <v-card-title class="text-h10 justify-center">
+            사진과 점수를 삭제합니다.
           </v-card-title>
-          <v-card-text class="text-center mt-12">
+          <v-card-text class="text-center mt-5">
             해당 게시물을 삭제하시겠습니까?
-            <!-- <div class="text-center mt-12">
 
-            </div> -->
           </v-card-text>
           <v-divider></v-divider>
           <v-card-actions class="justify-space-between">
