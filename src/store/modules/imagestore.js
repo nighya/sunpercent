@@ -62,10 +62,14 @@ export default {
       });
       commit("SET_IMAGE_DETAIL", response.data);
     },
+
     async deleteImage({ commit }, payload) {
       const response = await http.post(
         `/getimage/${payload.content_uid}`,
-        payload
+        payload,
+        {
+          withCredentials: true
+        }
       );
       commit("DELETE_IMAGE", payload);
     },

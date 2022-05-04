@@ -112,7 +112,6 @@
           </v-card-title>
           <v-card-text class="text-center mt-5">
             해당 게시물을 삭제하시겠습니까?
-
           </v-card-text>
           <v-divider></v-divider>
           <v-card-actions class="justify-space-between">
