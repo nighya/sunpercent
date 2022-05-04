@@ -55,6 +55,16 @@
               @click.prevent="score"
               >점수주기</v-btn
             >
+            <v-btn
+              v-if="
+                this.$store.state.imagestore.imagedetail[0].user_uid ==
+                  this.$store.state.loginstore.userstate[0].user_uid
+              "
+              color="purple lighten-3"
+              dark
+              @click.prevent="delete_dialog"
+              >삭제하기</v-btn
+            >
           </v-card-actions>
         </v-card>
       </v-row>
@@ -89,6 +99,30 @@
             </v-btn>
             <v-btn color="primary" text @click.prevent="score_send">
               점수 보내기
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </div>
+    <div class="text-center">
+      <v-dialog v-model="deletedialog" width="400" persistent>
+        <v-card class="elevation-16 mx-auto " width="400">
+          <v-card-title class="text-h5 justify-center">
+            게시물과 점수를 삭제하며 복구되지 않습니다.
+          </v-card-title>
+          <v-card-text class="text-center mt-12">
+            해당 게시물을 삭제하시겠습니까?
+            <!-- <div class="text-center mt-12">
+
+            </div> -->
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions class="justify-space-between">
+            <v-btn text @click="delete_cancel">
+              취소
+            </v-btn>
+            <v-btn color="primary" text @click.prevent="deleteimage">
+              삭제
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -138,6 +172,7 @@ export default {
   data() {
     return {
       scoredialog: false,
+      deletedialog: false,
       rating: 1,
       chartOptions: {
         chart: {
@@ -219,6 +254,10 @@ export default {
     score() {
       this.scoredialog = true;
     },
+    delete_dialog() {
+      this.deletedialog = true;
+    },
+
     score_send() {
       let scoredata = {
         content_uid: this.$store.state.imagestore.imagedetail[0].content_uid,
@@ -253,20 +292,24 @@ export default {
     },
     score_cancel() {
       this.scoredialog = false;
+    },
+    delete_cancel() {
+      this.deletedialog = false;
+    },
+    deleteimage() {
+      let imagedataObj = {
+        content_uid: this.$store.state.imagestore.imagedetail[0].content_uid,
+        image_path: this.$store.state.imagestore.imagedetail[0].image_path
+      };
+      console.log(imagedataObj);
+      this.$store.dispatch("imagestore/deleteImage", imagedataObj);
+      this.$router.go(-1);
     }
   },
   mounted() {
-
-      this.$store.dispatch(
-        "imagestore/getimage",
-        this.$route.params.content_uid
-      );
-      this.$store.dispatch(
-        "scorestore/getscore",
-        this.$route.params.content_uid
-      );
-      window.dispatchEvent(new Event("resize"));
-    
+    this.$store.dispatch("imagestore/getimage", this.$route.params.content_uid);
+    this.$store.dispatch("scorestore/getscore", this.$route.params.content_uid);
+    window.dispatchEvent(new Event("resize"));
 
     // const total = this.$store.getters["scorestore/scoreContent"];
     // const arrscoretotal = total.map(item => item.content_score);

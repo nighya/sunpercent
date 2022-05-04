@@ -1,6 +1,6 @@
 import axios from "axios";
 import { data } from "vue-apexcharts";
-import http from "../../http/http"
+import http from "../../http/http";
 
 const res_uri = "https://192.168.0.12:4000";
 
@@ -37,18 +37,17 @@ export default {
       state.imagedetail = datas;
     },
 
-    // DELETE_IMAGE: (state, datas) => {
-    //   state.imagestate = state.imagestate.filter(
-    //     t => datas.content_uid !== t.content_uid
-    //   );
-    // }
+    DELETE_IMAGE: (state, datas) => {
+      state.imagestate = state.imagestate.filter(
+        t => datas.content_uid !== t.content_uid
+      );
+    }
   },
   actions: {
     async mycontentimage({ commit }, payload) {
-      const response = await http.get(
-        `/Mypage/mycontentimage/${payload}`,
-        { withCredentials: true }
-      );
+      const response = await http.get(`/Mypage/mycontentimage/${payload}`, {
+        withCredentials: true
+      });
       commit("SET_MYCONTENT_IMAGE", response.data);
     },
     async getallimages({ commit }) {
@@ -63,18 +62,22 @@ export default {
       });
       commit("SET_IMAGE_DETAIL", response.data);
     },
-    // async deleteImage({ commit }, payload) {
-    //   const response = await http.post(
-    //     `https://localhost:4000/api/test/getimage/${payload.content_uid}`,
-    //     payload
-    //   );
-    //   commit("DELETE_IMAGE", payload);
-    // },
+    async deleteImage({ commit }, payload) {
+      const response = await http.post(
+        `/getimage/${payload.content_uid}`,
+        payload
+      );
+      commit("DELETE_IMAGE", payload);
+    },
 
     async contentscore({ commit }, payload) {
-      const response = await http.post(`/contentscore/${payload.content_uid}`,payload, {
-        withCredentials: true
-      });
+      const response = await http.post(
+        `/contentscore/${payload.content_uid}`,
+        payload,
+        {
+          withCredentials: true
+        }
+      );
       console.log("contentscore payload:  ", payload);
       commit("CONTENT_SCORE", response.data);
     }
