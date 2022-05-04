@@ -16,8 +16,12 @@
                   name="email"
                   prepend-icon="mdi-account"
                   type="email"
-                  v-model="email"
-                  :rules="emailRules"
+                  v-model="this.fields.email"
+                  :rules="[
+                    rules.email.require,
+                    rules.email.valid,
+                    rules.email.duplicate
+                  ]"
                 ></v-text-field>
                 <v-text-field
                   id="nickname"
@@ -25,7 +29,7 @@
                   name="nickname"
                   prepend-icon="mdi-alert-circle-check"
                   type="text"
-                  v-model="nickname"
+                  v-model="this.fields.nickname"
                   :rules="nicknameRules"
                 ></v-text-field>
                 <v-text-field
@@ -34,7 +38,7 @@
                   name="password"
                   prepend-icon="mdi-lock"
                   type="password"
-                  v-model="password"
+                  v-model="this.fields.password"
                   :rules="passwordRules"
                 ></v-text-field>
                 <v-text-field
@@ -43,12 +47,12 @@
                   name="confirm"
                   prepend-icon="mdi-alert-circle-check"
                   type="password"
-                  v-model="confirm"
+                  v-model="this.fields.confirm"
                   :rules="confirmPasswordRules"
                 ></v-text-field>
                 <v-radio-group
                   id="gender"
-                  v-model="gender"
+                  v-model="this.fields.gender"
                   row
                   :rules="genderRules"
                 >
@@ -69,6 +73,7 @@
   </div>
 </template>
 <script>
+import http from "../http/http";
 export default {
   data() {
     return {
@@ -80,7 +85,8 @@ export default {
       ],
       confirmPasswordRules: [
         value => !!value || "비밀번호를 다시 입력해 주세요.",
-        value => value === this.password || "비밀번호가 일치하지 않습니다."
+        value =>
+          value === this.fields.password || "비밀번호가 일치하지 않습니다."
       ],
       emailRules: [
         v =>
@@ -96,15 +102,42 @@ export default {
           !/[~!@#$%^&*()_+|<>?:{}]/.test(v) ||
           "닉네임에는 특수문자를 사용할 수 없습니다."
       ],
+      rules: {
+        email: {
+          require: v =>
+            !v ||
+            /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
+            "이메일 형식에 맞춰 입력하세요.",
+          duplicate: v => this.duplicateEmail(v)
+        }
+      },
+      fields: {
+        email: "",
+        nickname: null,
+        password: null,
+        confirm: null,
+        gender: null
+      },
 
-      email: null,
-      nickname: null,
-      password: null,
-      confirm: null,
-      gender: null
+      email_dup: []
     };
   },
   methods: {
+    async duplicateEmail(value) {
+      let emailObj = {
+        email: value
+      };
+      try {
+        const response = await http.post("/email_validate", emailObj, {
+          withCredentials: true
+        });
+        console.log(response.data);
+      } catch (err) {
+        // alert("로그인 되지 않았습니다.");
+        throw err;
+      }
+
+    },
     register() {
       const validate = this.$refs.form.validate();
       if (validate) {
