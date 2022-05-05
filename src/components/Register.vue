@@ -18,7 +18,7 @@
                   type="email"
                   v-model="fields.email"
                   :rules="[rules.email.require, rules.email.duplicate]"
-                  :error-messages="email_dup"
+                  :error-messages="email_err_msg"
                 ></v-text-field>
                 <v-text-field
                   id="nickname"
@@ -27,7 +27,13 @@
                   prepend-icon="mdi-alert-circle-check"
                   type="text"
                   v-model="fields.nickname"
-                  :rules="nicknameRules"
+                  :rules="[
+                    rules.nickname.require1,
+                    rules.nickname.require2,
+                    rules.nickname.require3,
+                    rules.nickname.duplicate
+                  ]"
+                  :error-messages="nickname_err_msg"
                 ></v-text-field>
                 <v-text-field
                   id="password"
@@ -106,6 +112,15 @@ export default {
             /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
             "이메일 형식에 맞춰 입력하세요.",
           duplicate: v => this.duplicateEmail(v) || "중복된 email 주소입니다."
+        },
+        nickname: {
+          require1: v => !!v || "닉네임을 입력해 주세요.",
+          require2: v =>
+            !(v && v.length >= 30) || "닉네임은 30자 이상 입력할 수 없습니다.",
+          require3: v =>
+            !/[~!@#$%^&*()_+|<>?:{}]/.test(v) ||
+            "닉네임에는 특수문자를 사용할 수 없습니다.",
+          duplicate: v => this.duplicateNickname(v)
         }
       },
       fields: {
@@ -116,7 +131,8 @@ export default {
         gender: null
       },
 
-      email_dup: []
+      email_err_msg: [],
+      nickname_err_msg: []
     };
   },
   methods: {
@@ -128,12 +144,29 @@ export default {
         const response = await http.post("/email_validate", emailObj, {
           withCredentials: true
         });
-        // console.log(response.data.msg);
+        // console.log("response.data.msg"+ response.data.msg);
         if (response.data.msg == "Email Address empty") {
-          this.email_dup = []
+          this.email_err_msg = [];
         } else if (response.data.msg == "Email Address Exists") {
-          this.email_dup = ['이미 등록된 이메일 주소입니다.']
-          return false;
+          this.email_err_msg = ["이미 등록된 이메일 주소입니다."];
+        }
+      } catch (err) {
+        throw err;
+      }
+    },
+    async duplicateNickname(value) {
+      let nicknameObj = {
+        nickname: value
+      };
+      try {
+        const response = await http.post("/nickname_validate", nicknameObj, {
+          withCredentials: true
+        });
+        if (response.data.msg == "Nickname empty") {
+          this.nickname_err_msg = [];
+        } else if (response.data.msg == "Nickname Exists") {
+          this.nickname_err_msg = ["중복된 닉네임 입니다."];
+          
         }
       } catch (err) {
         throw err;
@@ -157,9 +190,7 @@ export default {
               ).then(() => this.$router.push("/"));
             } else if (err) {
               this.$alert("회원등록이 되지 않았습니다. 다시 등록해주세요");
-              console.log("else log  :  " + err.status);
             } else {
-              console.log("else log  :  " + err.status);
             }
           });
         // this.clearForm();
