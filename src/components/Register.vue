@@ -16,7 +16,7 @@
                   name="email"
                   prepend-icon="mdi-account"
                   type="email"
-                  v-model="this.fields.email"
+                  v-model="fields.email"
                   :rules="[rules.email.require, rules.email.duplicate]"
                   :error-messages="email_dup"
                 ></v-text-field>
@@ -26,7 +26,7 @@
                   name="nickname"
                   prepend-icon="mdi-alert-circle-check"
                   type="text"
-                  v-model="this.fields.nickname"
+                  v-model="fields.nickname"
                   :rules="nicknameRules"
                 ></v-text-field>
                 <v-text-field
@@ -35,7 +35,7 @@
                   name="password"
                   prepend-icon="mdi-lock"
                   type="password"
-                  v-model="this.fields.password"
+                  v-model="fields.password"
                   :rules="passwordRules"
                 ></v-text-field>
                 <v-text-field
@@ -44,12 +44,12 @@
                   name="confirm"
                   prepend-icon="mdi-alert-circle-check"
                   type="password"
-                  v-model="this.fields.confirm"
+                  v-model="fields.confirm"
                   :rules="confirmPasswordRules"
                 ></v-text-field>
                 <v-radio-group
                   id="gender"
-                  v-model="this.fields.gender"
+                  v-model="fields.gender"
                   row
                   :rules="genderRules"
                 >
