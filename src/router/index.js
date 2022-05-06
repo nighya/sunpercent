@@ -53,5 +53,10 @@ export default new Router({
       name: 'ContentDetail',
       component: () => import("@/components/ContentDetail"),
     },
+    {
+      path: '/content/search',
+      name: 'Search',
+      component:() => import( "@/components/Search" )
+    },
   ]
 })

@@ -50,7 +50,6 @@
     </v-navigation-drawer>
 
     <v-app-bar app color="primary" dark :src="drawerImage">
-
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
       <v-app-bar-title class="title"
@@ -61,6 +60,9 @@
 
       <v-spacer></v-spacer>
       <div>
+        <v-btn class="search" icon to="/content/search">
+          <v-icon>mdi-magnify</v-icon>
+        </v-btn>
         <v-menu bottom left>
           <template v-slot:activator="{ on, attrs }">
             <v-btn dark icon v-bind="attrs" v-on="on">
