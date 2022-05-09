@@ -8,6 +8,11 @@
       persistent-hint
       @keydown.prevent.enter="search_result"
       v-model="search_keyword"
+            :rules="[
+        rules.nickname.require2,
+        rules.nickname.require3,
+      ]"
+      :error-messages="nickname_err_msg"
     ></v-text-field>
 
     <!-- <v-row>
@@ -66,6 +71,18 @@ import http from "../http/http";
 export default {
   data() {
     return {
+      nickname_err_msg: [],
+      rules: {
+        nickname: {
+          // require1: v => !!v || "닉네임을 입력해 주세요.",
+          require2: v =>
+            !(v && v.length >= 30) || "30자 이상 입력할 수 없습니다.",
+          require3: v =>
+            !/[~!@#$%^&*()_+|<>?:{} ]/.test(v) ||
+            "빈칸 및 특수문자를 사용할 수 없습니다.",
+          // duplicate: v => this.duplicateNickname(v)
+        }
+      },
       content_data: [],
       content_no_data_msg: false,
       search_keyword: null,

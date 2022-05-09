@@ -98,13 +98,6 @@ export default {
           "이메일 형식에 맞춰 입력하세요."
       ],
       genderRules: [v => !!v || "성별이 선택되지 않았습니다."],
-      nicknameRules: [
-        v => !!v || "닉네임을 입력해 주세요.",
-        v => !(v && v.length >= 30) || "닉네임은 30자 이상 입력할 수 없습니다.",
-        v =>
-          !/[~!@#$%^&*()_+|<>?:{}]/.test(v) ||
-          "닉네임에는 특수문자를 사용할 수 없습니다."
-      ],
       rules: {
         email: {
           require: v =>
@@ -118,7 +111,7 @@ export default {
           require2: v =>
             !(v && v.length >= 30) || "닉네임은 30자 이상 입력할 수 없습니다.",
           require3: v =>
-            !/[~!@#$%^&*()_+|<>?:{}]/.test(v) ||
+            !/[~!@#$%^&*()_+|<>?:{} ]/.test(v) ||
             "닉네임에는 특수문자를 사용할 수 없습니다.",
           duplicate: v => this.duplicateNickname(v)
         }
