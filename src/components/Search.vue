@@ -9,7 +9,8 @@
       @keydown.prevent.enter="search_result"
       v-model="search_keyword"
     ></v-text-field>
-    <v-row>
+
+    <!-- <v-row>
       <v-col
         v-for="(data, index) in content_data"
         :key="index"
@@ -25,7 +26,6 @@
         >
           <span class="white--text">{{ data.nickname }}</span>
           <span class="white--text">({{ data.date }})</span>
-
           <template v-slot:placeholder>
             <v-row class="fill-height ma-0" align="center" justify="center">
               <v-progress-circular
@@ -36,7 +36,27 @@
           </template>
         </v-img>
       </v-col>
-    </v-row>
+    </v-row> -->
+    <div>
+      <v-data-table
+        :headers="headers"
+        :items="content_data"
+        :items-per-page="5"
+        class="elevation-1 ma-5"
+      >
+        <template v-slot:[`item.image_path`]="{ item }">
+          <img
+            :src="`http://192.168.0.12:4000/${item.image_path}`"
+            style="width: 80px; height: 80px"
+            @click="ContentDetail(item)"
+          />
+        </template>
+      </v-data-table>
+    </div>
+    <v-alert v-model="content_no_data_msg" dense outlined type="error">
+      검색한 <strong>닉네임</strong>으로 검색된 게시물이
+      <strong>없습니다.</strong>
+    </v-alert>
   </div>
 </template>
 
@@ -46,21 +66,28 @@ import http from "../http/http";
 export default {
   data() {
     return {
-      content_data: "",
-      content_no_data_msg: "",
-      search_keyword: null
+      content_data: [],
+      content_no_data_msg: false,
+      search_keyword: null,
+      headers: [
+        { text: "content", value: "image_path",align: 'center', sortable: false, },
+        { text: "nickname", value: "nickname", align: 'center',sortable: false,},
+        { text: "date", value: "date",align: 'center', sortable: true,}
+      ]
     };
   },
   methods: {
     async search_result() {
       const nicknameObj = { nickname: this.search_keyword };
-      console.log("nicknameObj :  " + nicknameObj);
+      console.log("nicknameObj :  " + JSON.stringify(nicknameObj));
       const response = await http.post(`/content/search`, nicknameObj, {
         withCredentials: true
       });
       this.content_data = response.data;
+      this.content_no_data_msg = false;
       if (response.data.msg == "No Data") {
-        this.content_no_data_msg = "검색 결과가 없습니다.";
+        this.content_no_data_msg = true;
+        this.content_data = [];
       }
     },
     ContentDetail(data) {
