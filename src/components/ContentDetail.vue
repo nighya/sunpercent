@@ -18,6 +18,9 @@
             <v-card-text
               v-text="this.$store.state.imagestore.imagedetail[0].date"
             ></v-card-text>
+                        <v-card-text
+              v-text="this.$store.state.imagestore.imagedetail[0].view_count"
+            ></v-card-text>
             <template v-slot:placeholder>
               <v-row class="fill-height ma-0" align="center" justify="center">
                 <v-progress-circular
@@ -132,7 +135,7 @@
           this.$store.state.loginstore.userstate[0].user_uid
       "
     >
-      <apexcharts
+      <apexcharts 
         max-width="700"
         height="350"
         type="bar"
