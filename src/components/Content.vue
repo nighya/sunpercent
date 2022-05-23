@@ -42,7 +42,6 @@
         </v-col>
       </v-row>
     </v-container>
-    <v-btn @click="contentupload">이미지 업로드</v-btn>
   </v-card>
 </template>
 <script>

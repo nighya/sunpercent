@@ -152,7 +152,9 @@ export default {
     },
     async upload() {
       if (this.$store.state.loginstore.userstate[0].point <= 0) {
-        alert("게시물을 업로드 하시려면 포인트 2점이 필요합니다. 다른 게시물에 점수를 주면 포인트를 얻을 수 있습니다.")
+        alert(
+          "게시물을 업로드 하시려면 포인트 2점이 필요합니다. 다른 게시물에 점수를 주면 포인트를 얻을 수 있습니다."
+        );
       } else {
         if (!this.currentImage) {
           if (this.buttonKey == 0 || this.buttonKey > 1) {
@@ -187,11 +189,16 @@ export default {
           .catch(err => {
             if (err.response.status == 403) {
               this.dialog_relogin = true;
+            } else if (err.response.status == 400) {
+              alert(
+                "게시물을 업로드 하시려면 포인트 2점이 필요합니다. 다른 게시물에 점수를 주면 포인트를 얻을 수 있습니다."
+              );
+              this.$router.go();
             }
             this.$refs.imageRef.reset();
             this.loading = false;
             this.dialog_fail = true;
-            this.message = "이미지 업로드 실패" + err;
+            this.message = "이미지 업로드 실패";
             // console.log(err.response.status);
           });
       }
