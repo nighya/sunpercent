@@ -126,7 +126,7 @@
 
 <script>
 import axios from "axios";
-import http from "../http/http"
+import http from "../http/http";
 export default {
   name: "ContentUpload",
   data() {
@@ -151,40 +151,50 @@ export default {
       this.message = "";
     },
     async upload() {
-      if (!this.currentImage) {
-        if (this.buttonKey == 0 || this.buttonKey > 1) {
-          return (this.buttonKey = 1);
-        }
-        this.message = "이미지가 선택되지 않았습니다.";
-        return;
-      }
-      const fd = new FormData();
-      fd.append("image", this.currentImage);
-      fd.append("user_uid", this.$store.state.loginstore.userstate[0].user_uid);
-      fd.append("nickname", this.$store.state.loginstore.userstate[0].nickname);
-      fd.append("gender", this.$store.state.loginstore.userstate[0].gender);
-      this.progress = 0;
-      await http
-        .post("/imageupload", fd, {
-          withCredentials: true
-        })
-        .then((this.loading = true))
-        .then(e => {
-          this.loading = false;
-          this.dialog_success = true;
-          this.message = "이미지 업로드 성공";
-        })
-
-        .catch(err => {
-          if (err.response.status == 403) {
-            this.dialog_relogin = true;
+      if (this.$store.state.loginstore.userstate[0].point <= 0) {
+        alert("게시물을 업로드 하시려면 포인트 2점이 필요합니다. 다른 게시물에 점수를 주면 포인트를 얻을 수 있습니다.")
+      } else {
+        if (!this.currentImage) {
+          if (this.buttonKey == 0 || this.buttonKey > 1) {
+            return (this.buttonKey = 1);
           }
-          this.$refs.imageRef.reset();
-          this.loading = false;
-          this.dialog_fail = true;
-          this.message = "이미지 업로드 실패" + err;
-          // console.log(err.response.status);
-        });
+          this.message = "이미지가 선택되지 않았습니다.";
+          return;
+        }
+        const fd = new FormData();
+        fd.append("image", this.currentImage);
+        fd.append(
+          "user_uid",
+          this.$store.state.loginstore.userstate[0].user_uid
+        );
+        fd.append(
+          "nickname",
+          this.$store.state.loginstore.userstate[0].nickname
+        );
+        fd.append("gender", this.$store.state.loginstore.userstate[0].gender);
+        this.progress = 0;
+        await http
+          .post("/imageupload", fd, {
+            withCredentials: true
+          })
+          .then((this.loading = true))
+          .then(e => {
+            this.loading = false;
+            this.dialog_success = true;
+            this.message = "이미지 업로드 성공";
+          })
+
+          .catch(err => {
+            if (err.response.status == 403) {
+              this.dialog_relogin = true;
+            }
+            this.$refs.imageRef.reset();
+            this.loading = false;
+            this.dialog_fail = true;
+            this.message = "이미지 업로드 실패" + err;
+            // console.log(err.response.status);
+          });
+      }
     },
     successDialog() {
       this.dialog_success = false;

@@ -141,12 +141,22 @@ export default {
     }
   },
   mounted() {
+    this.$store.dispatch(
+      "loginstore/getUser",
+      this.$store.state.loginstore.userstate[0].user_uid
+    );
     this.$store.state.loginstore.userstate;
   },
   computed: {
     IsLoginedgeters() {
       return this.$store.getters["loginstore/isLoginedgetters"];
-    }
+    },
+    // getUser() {
+    //   return this.$store.dispatch(
+    //     "loginstore/getUser",
+    //     this.$store.state.loginstore.userstate[0].user_uid
+    //   );
+    // }
   }
 };
 </script>

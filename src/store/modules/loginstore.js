@@ -6,7 +6,7 @@ const res_uri = "https://192.168.0.12:4000/login";
 export default {
   namespaced: true,
   state: {
-    userstate: [{ user_uid: null, email: null, nickname: null, gender: null, max_score:null,profile_image:null }],
+    userstate: [{ user_uid: null, email: null, nickname: null, gender: null, max_score:null,profile_image:null,point:null }],
     isLogined: false
   },
   getters: {
@@ -24,8 +24,14 @@ export default {
     SET_PROFILE_IMAGE: (state, datas) => {
       state.userstate[0].profile_image = datas.profile_image;
     },
-    SET_MEMBER: (state, datas) => {
-      state.userstate = datas;
+    SET_MEMBER: (state, payload) => {
+      state.userstate[0].user_uid = payload.user_uid;
+      state.userstate[0].email = payload.email;
+      state.userstate[0].nickname = payload.nickname;
+      state.userstate[0].gender = payload.gender;
+      state.userstate[0].max_score = payload.max_score;
+      state.userstate[0].profile_image = payload.profile_image;
+      state.userstate[0].point = payload.point;
     },
     register(state, payload) {},
     loginToken(state, payload) {
@@ -37,6 +43,7 @@ export default {
       state.userstate[0].gender = payload.gender;
       state.userstate[0].max_score = payload.max_score;
       state.userstate[0].profile_image = payload.profile_image;
+      state.userstate[0].point = payload.point;
       state.isLogined = true;
       // state.userstate = payload
     },
@@ -47,6 +54,7 @@ export default {
       state.userstate[0].gender = null;
       state.userstate[0].max_score =null;
       state.userstate[0].profile_image = null;
+      state.userstate[0].point = null;
       state.isLogined = false;
     }
   },
@@ -63,11 +71,27 @@ export default {
         commit("loginToken", response.data);
       } catch (err) {
         alert("로그인 되지 않았습니다.");
+        console.log("에러  :" +err)
         throw err;
       }
     },
     logout({ commit }) {
       commit("LOGOUT");
+    },
+
+
+    async getUser({ commit }, payload) {
+      try {
+        console.log("getUser payload   :   "+payload)
+        const response = await http.post("/getUser", payload, {
+          withCredentials: true
+        });
+        commit("SET_MEMBER", response.data);
+      } catch (err) {
+        // alert("getuser error.");
+        console.log("getUser error  :  "+err)
+        throw err;
+      }
     },
 
     register: ({ commit }, params) => {
