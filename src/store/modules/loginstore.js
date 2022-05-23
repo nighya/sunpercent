@@ -24,16 +24,16 @@ export default {
     SET_PROFILE_IMAGE: (state, datas) => {
       state.userstate[0].profile_image = datas.profile_image;
     },
-    SET_MEMBER: (state, payload) => {
-      state.userstate[0].user_uid = payload.user_uid;
-      state.userstate[0].email = payload.email;
-      state.userstate[0].nickname = payload.nickname;
-      state.userstate[0].gender = payload.gender;
-      state.userstate[0].max_score = payload.max_score;
-      state.userstate[0].profile_image = payload.profile_image;
-      state.userstate[0].point = payload.point;
+
+    SET_USER_POINT: (state, payload) => {
+      console.log("payload.point1   :   " + JSON.stringify(payload[0].point))
+      console.log("payload.point2   :   "+Object.keys(payload))
+      
+      state.userstate[0].point = JSON.stringify(payload[0].point);
     },
-    register(state, payload) {},
+
+    register(state, payload) { },
+    
     loginToken(state, payload) {
       // VueCookies.set("accessToken", payload.accessToken, "60s");
       // VueCookies.set("refreshToken", payload.refreshToken, "1h");
@@ -80,13 +80,15 @@ export default {
     },
 
 
-    async getUser({ commit }, payload) {
+    async getUserPoint({ commit }, payload) {
+
       try {
-        console.log("getUser payload   :   "+payload)
-        const response = await http.post("/getUser", payload, {
+        console.log("getUserPoint payload   :   "+ payload)
+        const response = await http.post("/getUserPoint", payload, {
           withCredentials: true
         });
-        commit("SET_MEMBER", response.data);
+        commit("SET_USER_POINT", response.data);
+        console.log("response.data  :"+JSON.stringify(response.data))
       } catch (err) {
         // alert("getuser error.");
         console.log("getUser error  :  "+err)

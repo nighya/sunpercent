@@ -30,6 +30,9 @@
             <v-list-item-subtitle>{{
               this.$store.state.loginstore.userstate[0].email
             }}</v-list-item-subtitle>
+                        <v-list-item-subtitle>{{
+              this.$store.state.loginstore.userstate[0].point
+            }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -141,16 +144,17 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch(
-      "loginstore/getUser",
-      this.$store.state.loginstore.userstate[0].user_uid
-    );
     this.$store.state.loginstore.userstate;
+    // const obj = {
+    //   user_uid: this.$store.state.loginstore.userstate[0].user_uid
+    // };
+    // this.$store.dispatch("loginstore/getUser", obj);
+    this.$store.dispatch("loginstore/getUserPoint", this.$store.state.loginstore.userstate[0].user_uid);
   },
   computed: {
     IsLoginedgeters() {
       return this.$store.getters["loginstore/isLoginedgetters"];
-    },
+    }
     // getUser() {
     //   return this.$store.dispatch(
     //     "loginstore/getUser",
