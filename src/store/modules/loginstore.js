@@ -26,9 +26,8 @@ export default {
     },
 
     SET_USER_POINT: (state, payload) => {
-      console.log("payload.point1   :   " + JSON.stringify(payload[0].point))
-      console.log("payload.point2   :   "+Object.keys(payload))
-      
+      // console.log("payload.point1   :   " + JSON.stringify(payload[0].point))
+      // console.log("payload.point2   :   "+Object.keys(payload))
       state.userstate[0].point = JSON.stringify(payload[0].point);
     },
 
@@ -83,12 +82,12 @@ export default {
     async getUserPoint({ commit }, payload) {
 
       try {
-        console.log("getUserPoint payload   :   "+ payload)
+        // console.log("getUserPoint payload   :   "+ payload)
         const response = await http.post("/getUserPoint", payload, {
           withCredentials: true
         });
         commit("SET_USER_POINT", response.data);
-        console.log("response.data  :"+JSON.stringify(response.data))
+        // console.log("response.data  :"+JSON.stringify(response.data))
       } catch (err) {
         // alert("getuser error.");
         console.log("getUser error  :  "+err)
