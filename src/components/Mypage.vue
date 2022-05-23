@@ -19,6 +19,9 @@
     <p>
       내최고 점수 :{{ this.$store.state.loginstore.userstate[0].max_score }}
     </p>
+        <p>
+      포인트 :{{ this.$store.state.loginstore.userstate[0].point }}
+    </p>
     <v-list-item-content>
       <v-list-item-title class="text-h6">
         {{ this.$store.state.loginstore.userstate[0].nickname }}

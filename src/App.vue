@@ -30,7 +30,7 @@
             <v-list-item-subtitle>{{
               this.$store.state.loginstore.userstate[0].email
             }}</v-list-item-subtitle>
-                        <v-list-item-subtitle>{{
+            <v-list-item-subtitle>{{
               this.$store.state.loginstore.userstate[0].point
             }}</v-list-item-subtitle>
           </v-list-item-content>
@@ -63,6 +63,9 @@
 
       <v-spacer></v-spacer>
       <div>
+        <v-btn class="search" icon to="/contentupload">
+          <v-icon>mdi-plus</v-icon>
+        </v-btn>
         <v-btn class="search" icon to="/content/search">
           <v-icon>mdi-magnify</v-icon>
         </v-btn>
@@ -149,7 +152,10 @@ export default {
     //   user_uid: this.$store.state.loginstore.userstate[0].user_uid
     // };
     // this.$store.dispatch("loginstore/getUser", obj);
-    this.$store.dispatch("loginstore/getUserPoint", this.$store.state.loginstore.userstate[0].user_uid);
+    this.$store.dispatch(
+      "loginstore/getUserPoint",
+      this.$store.state.loginstore.userstate[0].user_uid
+    );
   },
   computed: {
     IsLoginedgeters() {

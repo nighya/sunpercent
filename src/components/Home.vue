@@ -7,6 +7,9 @@
 export default {
   data() {
     return {};
-  }
+  },
+  // mounted(){
+  //   this.$router.go(); 
+  // }
 };
 </script>
