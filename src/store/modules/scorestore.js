@@ -18,8 +18,12 @@ export default {
   },
   actions: {
     async getscore({ commit }, payload) {
-      console.log("getscore  payload   :  "+ payload)
-      const response = await http.get(`/getscore/${payload}`, {
+      const content_uid = payload.content_uid
+      const current_user_uid = payload.user_uid
+      // console.log("getscore  content_uid   :  " + payload.content_uid)
+      // console.log("getscore  current_user_uid 2  :  "+payload.user_uid )
+      
+      const response = await http.post(`/getscore/${content_uid}`, current_user_uid,{
         withCredentials: true
       });
       commit("SET_SCORE_CONTENT", response.data);

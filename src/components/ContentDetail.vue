@@ -18,7 +18,7 @@
             <v-card-text
               v-text="this.$store.state.imagestore.imagedetail[0].date"
             ></v-card-text>
-                        <v-card-text
+            <v-card-text
               v-text="this.$store.state.imagestore.imagedetail[0].view_count"
             ></v-card-text>
             <template v-slot:placeholder>
@@ -135,7 +135,7 @@
           this.$store.state.loginstore.userstate[0].user_uid
       "
     >
-      <apexcharts 
+      <apexcharts
         max-width="700"
         height="350"
         type="bar"
@@ -308,7 +308,11 @@ export default {
   },
   mounted() {
     this.$store.dispatch("imagestore/getimage", this.$route.params.content_uid);
-    this.$store.dispatch("scorestore/getscore", this.$route.params.content_uid);
+    const obj = {
+      content_uid: this.$route.params.content_uid,
+      user_uid: this.$store.state.loginstore.userstate[0].user_uid
+    };
+    this.$store.dispatch("scorestore/getscore", obj);
     window.dispatchEvent(new Event("resize"));
   },
 
