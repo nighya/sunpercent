@@ -44,6 +44,7 @@
   </div>
 </template>
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
@@ -62,13 +63,14 @@ export default {
     this.logout();
   },
   methods: {
-    login() {
+    async login() {
       const validate = this.$refs.form.validate();
-
+      const user_login_ip = await axios.get("https://api.ipify.org");
       if (validate) {
         let userloginObj = {
           email: this.email,
-          password: this.password
+          password: this.password,
+          user_login_ip: user_login_ip.data
         };
         this.$store.dispatch("loginstore/login", userloginObj);
         this.clearForm();
