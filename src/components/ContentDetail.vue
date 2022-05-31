@@ -245,9 +245,9 @@ export default {
         { name: "남자가 준 평균점수", data: [] },
         { name: "여자가 준 평균점수", data: [] }
       ],
-      total_number: null,
-      male_number: null,
-      female_number: null
+      total_number: 0,
+      male_number: 0,
+      female_number: 0
     };
   },
   methods: {
@@ -306,7 +306,9 @@ export default {
       this.$router.go(-1);
     }
   },
+
   mounted() {
+    
     this.$store.dispatch("imagestore/getimage", this.$route.params.content_uid);
     const obj = {
       content_uid: this.$route.params.content_uid,
@@ -325,22 +327,28 @@ export default {
         item => item.content_score
       );
       console.log("arrscoretotal      " + arrscoretotal);
-      this.total_number = arrscoretotal.length;
-      try {
-        let contentscore = {
-          content_uid: this.$store.state.imagestore.imagedetail[0].content_uid,
-          content_average_score: (this.series[0].data[0] = (
-            lodash.sum(arrscoretotal) / arrscoretotal.length
-          ).toFixed(1)),
-          score_count: arrscoretotal.length
-        };
-        this.$store.dispatch("imagestore/contentscore", contentscore);
-      } catch (err) {
-        console.log("catch err" + err);
+      if (arrscoretotal.length > 0) {
+        this.total_number = arrscoretotal.length;
+        try {
+          let contentscore = {
+            content_uid: this.$store.state.imagestore.imagedetail[0]
+              .content_uid,
+            content_average_score: (this.series[0].data[0] = (
+              lodash.sum(arrscoretotal) / arrscoretotal.length
+            ).toFixed(1)),
+            score_count: arrscoretotal.length
+          };
+          this.$store.dispatch("imagestore/contentscore", contentscore);
+        } catch (err) {
+          console.log("catch err" + err);
+        }
+        return (this.series[0].data[0] = (
+          lodash.sum(arrscoretotal) / arrscoretotal.length
+        ).toFixed(1));
+      } else {
+        this.series[0].data[0] = 0;
+        this.total_number = 0;
       }
-      return (this.series[0].data[0] = (
-        lodash.sum(arrscoretotal) / arrscoretotal.length
-      ).toFixed(1));
     },
     average_male() {
       const arrscoremale = this.$store.state.scorestore.scorestate
