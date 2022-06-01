@@ -91,7 +91,7 @@
     </v-app-bar>
 
     <v-main>
-      <router-view></router-view>
+      <router-view :key="$route.fullPath"></router-view>
     </v-main>
   </v-app>
 </template>
@@ -121,18 +121,18 @@ export default {
     moveMypage() {
       const user_uid = this.$store.state.loginstore.userstate[0].user_uid;
       if (this.$route.path !== `/mypage/${user_uid}`)
-        this.$router.push(`/mypage/${user_uid}`);
+        this.$router.push(`/mypage/${user_uid}`).catch(()=>true);
     },
     logout() {
       this.$store.dispatch("loginstore/logout");
       sessionStorage.clear();
-      this.$router.push({ name: "Login" });
+      this.$router.push({ name: "Login" }).catch(()=>true);
     },
     menuclick(menuclick) {
       switch (menuclick.title) {
         case "로그인":
           this.logout();
-          this.$router.push("/login").catch(() => {});
+          this.$router.push("/login").catch(() => true);
           break;
         case "로그아웃":
           this.logout();
@@ -142,7 +142,7 @@ export default {
           break;
         case "회원등록":
           this.logout();
-          this.$router.push("/register");
+          this.$router.push("/register").catch(()=>true);
       }
     }
   },
