@@ -63,10 +63,12 @@ export default {
     this.logout();
   },
   methods: {
-     async login() {
-      const proxy_cors_url="http://192.168.0.12:8888/"
+    async login() {
+      const proxy_cors_url = "http://192.168.0.25:8888/";
       const validate = this.$refs.form.validate();
-      const user_login_ip = await axios.get(proxy_cors_url+"https://api.ipify.org");
+      const user_login_ip = await axios.get(
+        proxy_cors_url + "https://api.ipify.org"
+      );
       if (validate) {
         let userloginObj = {
           email: this.email,
