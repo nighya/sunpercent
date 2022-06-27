@@ -12,15 +12,35 @@
             max-height="500px"
             max-width="1000px"
           >
-            <v-card-text
-              v-text="this.$store.state.imagestore.imagedetail[0].nickname"
-            ></v-card-text>
-            <v-card-text
-              v-text="this.$store.state.imagestore.imagedetail[0].date"
-            ></v-card-text>
-            <v-card-text
-              v-text="this.$store.state.imagestore.imagedetail[0].view_count"
-            ></v-card-text>
+            <div class="ms-4">
+              닉네임
+              <v-card-text
+                v-text="this.$store.state.imagestore.imagedetail[0].nickname"
+              >
+              </v-card-text>
+            </div>
+            <div class="ms-4">
+              날짜
+              <v-card-text
+                v-text="this.$store.state.imagestore.imagedetail[0].date"
+              ></v-card-text>
+            </div>
+            <div class="ms-4">
+              조회수
+              <v-card-text
+                v-text="this.$store.state.imagestore.imagedetail[0].view_count"
+              ></v-card-text>
+            </div>
+            <div class="ms-4">
+              신고하기
+              <v-card-text
+                v-text="
+                  this.$store.state.imagestore.imagedetail[0].report_count
+                "
+              >
+              </v-card-text>
+            </div>
+
             <template v-slot:placeholder>
               <v-row class="fill-height ma-0" align="center" justify="center">
                 <v-progress-circular
@@ -39,7 +59,7 @@
               ).length > 0
             "
             type="success"
-            >이미 내가 점수 등록한 게시물</v-alert
+            >내가 점수 등록한 게시물</v-alert
           >
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -308,7 +328,6 @@ export default {
   },
 
   mounted() {
-    
     this.$store.dispatch("imagestore/getimage", this.$route.params.content_uid);
     const obj = {
       content_uid: this.$route.params.content_uid,

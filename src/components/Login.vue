@@ -30,6 +30,7 @@
                 ></v-text-field>
               </v-form>
             </v-card-text>
+            <v-card-text @click="FindPassword">비밀번호 찾기</v-card-text>
             <v-card-actions class="justify-center">
               <v-btn color="purple lighten-3" dark @click="moveRegisterpage"
                 >회원가입</v-btn
@@ -99,6 +100,9 @@ export default {
     logout() {
       this.$store.dispatch("loginstore/logout");
       sessionStorage.clear();
+    },
+    FindPassword() {
+      this.$router.push("/findpassword")
     }
   }
 };

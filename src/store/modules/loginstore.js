@@ -33,6 +33,7 @@ export default {
     },
 
     register(state, payload) { },
+    PASSWORD_RESET_MAIL_SEND(state, payload){},
     
     loginToken(state, payload) {
       // VueCookies.set("accessToken", payload.accessToken, "60s");
@@ -71,6 +72,18 @@ export default {
         commit("loginToken", response.data);
       } catch (err) {
         alert("로그인 되지 않았습니다.");
+        console.log("에러  :" +err)
+        throw err;
+      }
+    },
+    async password_reset_mail_send({ commit }, payload) {
+      try {
+        const response = await http.post("/login/forgotpassword", payload, {
+          withCredentials: true
+        });
+        commit("PASSWORD_RESET_MAIL_SEND", response.data);
+      } catch (err) {
+        alert("비밀번호 초기화에 실패하였습니다.");
         console.log("에러  :" +err)
         throw err;
       }

@@ -25,6 +25,11 @@ export default new Router({
       component:() => import( "@/components/Login" )
     },
     {
+      path: '/findpassword',
+      name: 'FindPassword',
+      component:() => import( "@/components/FindPassword" )
+    },
+    {
       path: '/register',
       name: 'Register',
       component:() => import( "@/components/Register" )
