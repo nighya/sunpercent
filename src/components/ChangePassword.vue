@@ -10,7 +10,7 @@
             </v-toolbar>
             <v-card-text>
               <v-form ref="form">
-                <v-text-field>아이디</v-text-field>
+                <v-text>아이디 :  {{this.fields.email}}</v-text>
                 <v-text-field
                   id="password"
                   label="현재 비밀번호"
@@ -58,7 +58,7 @@ export default {
   data() {
     return {
       fields: {
-        email: null,
+        email: this.$store.state.loginstore.userstate[0].email,
         old_password: null,
         new_password: null,
         confirm: null
@@ -81,9 +81,9 @@ export default {
       const validate = this.$refs.form.validate();
       if (validate) {
         let passwordChangeObj = {
-          email: this.email,
-          old_password: old_password,
-          new_password: new_password
+          email: this.fields.email,
+          old_password: this.fields.old_password,
+          new_password: this.fields.new_password
         };
         // this.$store
         //     .dispatch("loginstore/password_reset_mail_send", passwordResetObj)

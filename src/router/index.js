@@ -22,7 +22,18 @@ export default new Router({
     {
       path: '/login',
       name: 'Login',
-      component:() => import( "@/components/Login" )
+      component: () => import("@/components/Login"),
+      afterEach: (to, from) => {
+        if (
+          store.state.loginstore.userstate[0].needchpw > 0
+        ) {
+          console.log("needchpw 0보다 큼")
+          to({ path: "/changepassword" });
+        } else {
+          next();
+        }
+      },
+
     },
     {
       path: '/findpassword',
@@ -35,8 +46,8 @@ export default new Router({
       component:() => import( "@/components/ChangePassword" ),
       beforeEnter: (to, from, next) => {
         if (
-          store.state.loginstore.userstate[0].user_uid === null ||
-          store.state.loginstore.userstate[0].user_uid === undefined
+          store.state.loginstore.userstate[0].email === null ||
+          store.state.loginstore.userstate[0].email === undefined
         ) {
           next({ path: "/login" });
         } else {

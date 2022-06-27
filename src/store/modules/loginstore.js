@@ -47,7 +47,7 @@ export default {
       state.userstate[0].point = payload.point;
       state.userstate[0].needchpw = payload.needchpw;
       state.isLogined = true;
-      // state.userstate = payload
+            // state.userstate = payload
     },
     LOGOUT(state) {
       state.userstate[0].user_uid = null;
