@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/components/Home'
 import store from "../store/index";
 
 
@@ -12,28 +11,35 @@ export default new Router({
     {
       path: '/',
       name: 'Home',
-      component: Home
+      component: () => import("@/components/Home"),
+      beforeEnter: (to, from, next) => {
+        if (
+          store.state.loginstore.userstate[0].needchpw > 0
+        ) {
+          next({ path: "/changepassword" });
+        } else {
+          next();
+        }
+      },
     },
     {
       path: '/content',
       name: 'Content',
-      component:() => import( "@/components/Content" )
+      component: () => import("@/components/Content"),
+      beforeEnter: (to, from, next) => {
+        if (
+          store.state.loginstore.userstate[0].needchpw > 0
+        ) {
+          next({ path: "/changepassword" });
+        } else {
+          next();
+        }
+      },
     },
     {
       path: '/login',
       name: 'Login',
       component: () => import("@/components/Login"),
-      afterEach: (to, from) => {
-        if (
-          store.state.loginstore.userstate[0].needchpw > 0
-        ) {
-          console.log("needchpw 0보다 큼")
-          to({ path: "/changepassword" });
-        } else {
-          next();
-        }
-      },
-
     },
     {
       path: '/findpassword',
@@ -78,7 +84,17 @@ export default new Router({
     {
       path: '/contentupload',
       name: 'ContentUpload',
-      component:() => import( "@/components/ContentUpload" )
+      component: () => import("@/components/ContentUpload"),
+      beforeEnter: (to, from, next) => {
+        if (
+          store.state.loginstore.userstate[0].user_uid === null ||
+          store.state.loginstore.userstate[0].user_uid === undefined
+        ) {
+          next({ path: "/login" });
+        } else {
+          next();
+        }
+      },
     },
     {
       path: '/:content_uid',

@@ -16,6 +16,7 @@
     </v-avatar>
 
     <p @click="show_dialog">프로필사진 수정</p>
+    <p @click="ChangePassword">비밀번호 변경</p>
     <p>
       내최고 점수 :{{ this.$store.state.loginstore.userstate[0].max_score }}
     </p>
@@ -142,6 +143,9 @@ export default {
     //     user_uid: this.$store.state.loginstore.userstate[0].user_uid
     //   };
     // },
+        ChangePassword() {
+      this.$router.push("/changepassword")
+    },
     cancel() {
       this.dialog_profile_image_update = false;
     },
