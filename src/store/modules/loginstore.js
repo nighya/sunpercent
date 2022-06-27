@@ -33,7 +33,7 @@ export default {
     },
 
     register(state, payload) { },
-    PASSWORD_RESET_MAIL_SEND(state, payload){},
+    // PASSWORD_RESET_MAIL_SEND(state, payload){},
     
     loginToken(state, payload) {
       // VueCookies.set("accessToken", payload.accessToken, "60s");
@@ -45,6 +45,7 @@ export default {
       state.userstate[0].max_score = payload.max_score;
       state.userstate[0].profile_image = payload.profile_image;
       state.userstate[0].point = payload.point;
+      state.userstate[0].needchpw = payload.needchpw;
       state.isLogined = true;
       // state.userstate = payload
     },
@@ -56,6 +57,7 @@ export default {
       state.userstate[0].max_score =null;
       state.userstate[0].profile_image = null;
       state.userstate[0].point = null;
+      state.userstate[0].needchpw = null;
       state.isLogined = false;
     }
   },
@@ -76,18 +78,18 @@ export default {
         throw err;
       }
     },
-    async password_reset_mail_send({ commit }, payload) {
-      try {
-        const response = await http.post("/login/forgotpassword", payload, {
-          withCredentials: true
-        });
-        commit("PASSWORD_RESET_MAIL_SEND", response.data);
-      } catch (err) {
-        alert("비밀번호 초기화에 실패하였습니다.");
-        console.log("에러  :" +err)
-        throw err;
-      }
-    },
+    // async password_reset_mail_send({ commit }, payload) {
+    //   try {
+    //     const response = await http.post("/login/forgotpassword", payload, {
+    //       withCredentials: true
+    //     });
+    //     commit("PASSWORD_RESET_MAIL_SEND", response.data);
+    //   } catch (err) {
+    //     alert("비밀번호 초기화에 실패하였습니다.");
+    //     console.log("에러  :" +err)
+    //     throw err;
+    //   }
+    // },
     logout({ commit }) {
       commit("LOGOUT");
     },

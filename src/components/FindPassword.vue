@@ -85,7 +85,7 @@ export default {
           } else {
             this.$alert("메일 발송에 실패하였습니다.");
           }
-          console.log("response :  " + JSON.stringify(response));
+        //   console.log("response :  " + JSON.stringify(response));
         } catch (err) {
           alert("비밀번호 초기화에 실패하였습니다.");
           console.log("에러  :" + err);

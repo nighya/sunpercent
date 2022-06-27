@@ -30,6 +30,21 @@ export default new Router({
       component:() => import( "@/components/FindPassword" )
     },
     {
+      path: '/changepassword',
+      name: 'ChangePassword',
+      component:() => import( "@/components/ChangePassword" ),
+      beforeEnter: (to, from, next) => {
+        if (
+          store.state.loginstore.userstate[0].user_uid === null ||
+          store.state.loginstore.userstate[0].user_uid === undefined
+        ) {
+          next({ path: "/login" });
+        } else {
+          next();
+        }
+      },
+    },
+    {
       path: '/register',
       name: 'Register',
       component:() => import( "@/components/Register" )
