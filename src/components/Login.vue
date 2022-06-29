@@ -36,7 +36,7 @@
                 >회원가입</v-btn
               >
               <v-spacer></v-spacer>
-              <v-btn color="purple lighten-3" dark @click="login">로그인</v-btn>
+              <v-btn color="purple lighten-3" dark @click="login" :loading="loading">로그인</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -49,6 +49,7 @@ import axios from "axios";
 export default {
   data() {
     return {
+      loading:false,
       passwordRules: [value => !!value || "비밀번호를 입력해 주세요."],
       emailRules: [
         v => !!v || "이메일을 입력해 주세요",
@@ -65,6 +66,7 @@ export default {
   },
   methods: {
     async login() {
+      this.loading = true;
       const proxy_cors_url = "http://192.168.0.25:8888/";
       const validate = this.$refs.form.validate();
       const user_login_ip = await axios.get(
@@ -78,6 +80,7 @@ export default {
         };
         this.$store.dispatch("loginstore/login", userloginObj);
         this.clearForm();
+        this.loading = false
         this.$router.go(-1);
       } else {
         alert("로그인되지 않았습니다.");
