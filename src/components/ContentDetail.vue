@@ -148,16 +148,28 @@
         </v-card>
       </v-dialog>
     </div>
-    <div class="text-center">
+    <div class="text-center" ref="report_form">
       <v-dialog v-model="reportdialog" width="400" persistent>
         <v-card class="elevation-16 mx-auto " width="400">
           <v-card-title class="text-h10 justify-center">
-            신고사유를 선택해 주세요.
+            신고하기
           </v-card-title>
+          <v-divider></v-divider>
           <v-card-text class="text-center mt-5">
             해당 게시물을 신고하시겠습니까?
           </v-card-text>
-          <v-divider></v-divider>
+          <v-row align="center" justify="center">
+            <v-col class="d-flex" cols="12" sm="10">
+              <v-select
+                :items="report_reason_list"
+                label="신고사유를 선택해 주세요."
+                outlined
+                required
+                :rules="reportRules"
+                v-model="report_reason"
+              ></v-select>
+            </v-col>
+          </v-row>
           <v-card-actions class="justify-space-between">
             <v-btn text @click="report_cancel">
               취소
@@ -212,6 +224,15 @@ export default {
   },
   data() {
     return {
+      reportRules: [v => !!v || "신고사유가 선택되지 않았습니다."],
+      report_reason: null,
+      report_reason_list: [
+        "너무 선정적 입니다.",
+        "사진을 알아볼 수가 없어요.",
+        "중복된 게시물 입니다.",
+        "게시판 성격과 맞지 않아요.",
+        "광고성 게시물 입니다."
+      ],
       reportdialog: false,
       scoredialog: false,
       deletedialog: false,
@@ -353,35 +374,40 @@ export default {
       this.$router.go(-1);
     },
     report_content() {
-      let reportdataObj = {
-        content_uid: this.$store.state.imagestore.imagedetail[0].content_uid,
-        to_uid: this.$store.state.imagestore.imagedetail[0].user_uid,
-        from_uid: this.$store.state.loginstore.userstate[0].user_uid,
-        report_reason: "신고사유 테스트여 본섭에서 보냈어"
-      };
-      http
-        .post("/report", reportdataObj, {
-          withCredentials: true
-        })
-        .then(e => {
-          this.reportdialog = false;
-        })
-        .then(() => this.$router.go(0))
-        .catch(err => {
-          if (err.response.status == 403) {
+      const validate = this.$refs.report_form.validate();
+      if (validate) {
+        let reportdataObj = {
+          content_uid: this.$store.state.imagestore.imagedetail[0].content_uid,
+          to_uid: this.$store.state.imagestore.imagedetail[0].user_uid,
+          from_uid: this.$store.state.loginstore.userstate[0].user_uid,
+          report_reason: this.report_reason
+        };
+        http
+          .post("/report", reportdataObj, {
+            withCredentials: true
+          })
+          .then(e => {
             this.reportdialog = false;
-            this.$alert(
-              "권한이 없습니다. 로그인 페이지로 이동합니다."
-            ).then(() => this.$router.push("/login"));
-          } else if (err.response.status == 400) {
-            this.$alert("이미 신고완료한 게시물 입니다.")
-              .then(() => (this.reportdialog = false))
-              .then(() => this.$router.go(0));
-            // this.$router.go(0)
-          } else {
-            this.reportdialog = false;
-          }
-        });
+          })
+          .then(() => this.$router.go(0))
+          .catch(err => {
+            if (err.response.status == 403) {
+              this.reportdialog = false;
+              this.$alert(
+                "권한이 없습니다. 로그인 페이지로 이동합니다."
+              ).then(() => this.$router.push("/login"));
+            } else if (err.response.status == 400) {
+              this.$alert("이미 신고완료한 게시물 입니다.")
+                .then(() => (this.reportdialog = false))
+                .then(() => this.$router.go(0));
+              // this.$router.go(0)
+            } else {
+              this.reportdialog = false;
+            }
+          });
+      } else {
+        alert("ㅋㅋㅋ")
+      }
     }
   },
 
