@@ -158,6 +158,7 @@
           <v-card-text class="text-center mt-5">
             해당 게시물을 신고하시겠습니까?
           </v-card-text>
+          <v-form ref="report_form">
           <v-row align="center" justify="center">
             <v-col class="d-flex" cols="12" sm="10">
               <v-select
@@ -170,6 +171,7 @@
               ></v-select>
             </v-col>
           </v-row>
+          </v-form>
           <v-card-actions class="justify-space-between">
             <v-btn text @click="report_cancel">
               취소
@@ -406,7 +408,7 @@ export default {
             }
           });
       } else {
-        alert("ㅋㅋㅋ")
+        alert("신고사유가 선택되지 않았습니다.")
       }
     }
   },
