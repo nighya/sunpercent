@@ -32,7 +32,7 @@
               ></v-card-text>
             </div>
             <div class="ms-4">
-              신고하기
+              <v-btn @click="report">신고하기</v-btn>
               <v-card-text
                 v-text="
                   this.$store.state.imagestore.imagedetail[0].report_count
@@ -148,6 +148,27 @@
         </v-card>
       </v-dialog>
     </div>
+    <div class="text-center">
+      <v-dialog v-model="reportdialog" width="400" persistent>
+        <v-card class="elevation-16 mx-auto " width="400">
+          <v-card-title class="text-h10 justify-center">
+            신고사유를 선택해 주세요.
+          </v-card-title>
+          <v-card-text class="text-center mt-5">
+            해당 게시물을 신고하시겠습니까?
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions class="justify-space-between">
+            <v-btn text @click="report_cancel">
+              취소
+            </v-btn>
+            <v-btn color="primary" text @click.prevent="report_content">
+              신고
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </div>
     <div
       class="mt-10 mr-7"
       v-if="
@@ -191,6 +212,7 @@ export default {
   },
   data() {
     return {
+      reportdialog: false,
       scoredialog: false,
       deletedialog: false,
       rating: 1,
@@ -271,6 +293,9 @@ export default {
     };
   },
   methods: {
+    report() {
+      this.reportdialog = true;
+    },
     score() {
       this.scoredialog = true;
     },
@@ -310,6 +335,9 @@ export default {
           }
         });
     },
+    report_cancel() {
+      this.reportdialog = false;
+    },
     score_cancel() {
       this.scoredialog = false;
     },
@@ -321,9 +349,39 @@ export default {
         content_uid: this.$store.state.imagestore.imagedetail[0].content_uid,
         image_path: this.$store.state.imagestore.imagedetail[0].image_path
       };
-      console.log(imagedataObj);
       this.$store.dispatch("imagestore/deleteImage", imagedataObj);
       this.$router.go(-1);
+    },
+    report_content() {
+      let reportdataObj = {
+        content_uid: this.$store.state.imagestore.imagedetail[0].content_uid,
+        to_uid: this.$store.state.imagestore.imagedetail[0].user_uid,
+        from_uid: this.$store.state.loginstore.userstate[0].user_uid,
+        report_reason: "신고사유 테스트여 본섭에서 보냈어"
+      };
+      http
+        .post("/report", reportdataObj, {
+          withCredentials: true
+        })
+        .then(e => {
+          this.reportdialog = false;
+        })
+        .then(() => this.$router.go(0))
+        .catch(err => {
+          if (err.response.status == 403) {
+            this.reportdialog = false;
+            this.$alert(
+              "권한이 없습니다. 로그인 페이지로 이동합니다."
+            ).then(() => this.$router.push("/login"));
+          } else if (err.response.status == 400) {
+            this.$alert("이미 신고완료한 게시물 입니다.")
+              .then(() => (this.reportdialog = false))
+              .then(() => this.$router.go(0));
+            // this.$router.go(0)
+          } else {
+            this.reportdialog = false;
+          }
+        });
     }
   },
 
