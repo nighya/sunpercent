@@ -18,10 +18,10 @@
                 v-text="this.$store.state.imagestore.imagedetail[0].nickname"
               >
               </v-card-text>
-
+              <!-- 메뉴띄우기 -->
               <template>
                 <div>
-                  <v-menu offset-y>
+                  <v-menu offset-y max-width="120px">
                     <template v-slot:activator="{ on, attrs }">
                       <v-card-text
                         v-bind="attrs"
@@ -247,10 +247,8 @@ export default {
   data() {
     return {
       items: [
-        { title: "Click Me" },
-        { title: "Click Me" },
-        { title: "Click Me" },
-        { title: "Click Me 2" }
+        { title: "프로필" },
+        { title: "쪽지보내기" },
       ],
       nickname: this.$store.state.imagestore.imagedetail[0].nickname,
       reportRules: [v => !!v || "신고사유가 선택되지 않았습니다."],
