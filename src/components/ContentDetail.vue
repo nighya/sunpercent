@@ -20,10 +20,14 @@
               </v-card-text>
 
               <template>
-                <div >
+                <div>
                   <v-menu offset-y>
                     <template v-slot:activator="{ on, attrs }">
-                      <v-card-text v-bind="attrs" v-on="on" v-text="$store.state.imagestore.imagedetail[0].nickname">
+                      <v-card-text
+                        v-bind="attrs"
+                        v-on="on"
+                        v-text="$store.state.imagestore.imagedetail[0].nickname"
+                      >
                       </v-card-text>
                     </template>
                     <v-list>
@@ -34,7 +38,6 @@
                   </v-menu>
                 </div>
               </template>
-
             </div>
             <div class="ms-4">
               날짜
@@ -249,7 +252,7 @@ export default {
         { title: "Click Me" },
         { title: "Click Me 2" }
       ],
-      nickname: this.$store.state.imagestore.imagedetail[0].nickname ,
+      nickname: this.$store.state.imagestore.imagedetail[0].nickname,
       reportRules: [v => !!v || "신고사유가 선택되지 않았습니다."],
       report_reason: null,
       report_reason_list: [
@@ -443,7 +446,13 @@ export default {
       content_uid: this.$route.params.content_uid,
       user_uid: this.$store.state.loginstore.userstate[0].user_uid
     };
-    this.$store.dispatch("scorestore/getscore", obj);
+    if (
+      this.$store.state.imagestore.imagedetail[0].user_uid ==
+      this.$store.state.loginstore.userstate[0].user_uid
+    ) {
+      this.$store.dispatch("scorestore/getscore", obj);
+    }
+
     window.dispatchEvent(new Event("resize"));
   },
 
