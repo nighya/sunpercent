@@ -3,7 +3,6 @@
     <v-container fluid>
       <v-row dense>
         <v-col v-for="(data, index) in AllGetterslist" :key="index">
-          <!-- :cols="card.flex" -->
           <v-card @click="ContentDetail(data)">
             <v-img
               :src="`http://192.168.0.12:4000/${data.image_path}`"
@@ -47,23 +46,7 @@
 <script>
 export default {
   data: () => ({
-    // cards: [
-    //   {
-    //     title: "Pre-fab homes",
-    //     src: "https://cdn.vuetifyjs.com/images/cards/house.jpg",
-    //     flex: 12
-    //   },
-    //   {
-    //     title: "Favorite road trips",
-    //     src: "https://cdn.vuetifyjs.com/images/cards/road.jpg",
-    //     flex: 6
-    //   },
-    //   {
-    //     title: "Best airlines",
-    //     src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
-    //     flex: 6
-    //   }
-    // ]
+
   }),
   mounted() {
     this.$store.dispatch("imagestore/getallimages");

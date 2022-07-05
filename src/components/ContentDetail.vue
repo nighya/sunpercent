@@ -18,6 +18,23 @@
                 v-text="this.$store.state.imagestore.imagedetail[0].nickname"
               >
               </v-card-text>
+
+              <template>
+                <div >
+                  <v-menu offset-y>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-card-text v-bind="attrs" v-on="on" v-text="$store.state.imagestore.imagedetail[0].nickname">
+                      </v-card-text>
+                    </template>
+                    <v-list>
+                      <v-list-item v-for="(item, index) in items" :key="index">
+                        <v-list-item-title>{{ item.title }}</v-list-item-title>
+                      </v-list-item>
+                    </v-list>
+                  </v-menu>
+                </div>
+              </template>
+
             </div>
             <div class="ms-4">
               날짜
@@ -159,18 +176,18 @@
             해당 게시물을 신고하시겠습니까?
           </v-card-text>
           <v-form ref="report_form">
-          <v-row align="center" justify="center">
-            <v-col class="d-flex" cols="12" sm="10">
-              <v-select
-                :items="report_reason_list"
-                label="신고사유를 선택해 주세요."
-                outlined
-                required
-                :rules="reportRules"
-                v-model="report_reason"
-              ></v-select>
-            </v-col>
-          </v-row>
+            <v-row align="center" justify="center">
+              <v-col class="d-flex" cols="12" sm="10">
+                <v-select
+                  :items="report_reason_list"
+                  label="신고사유를 선택해 주세요."
+                  outlined
+                  required
+                  :rules="reportRules"
+                  v-model="report_reason"
+                ></v-select>
+              </v-col>
+            </v-row>
           </v-form>
           <v-card-actions class="justify-space-between">
             <v-btn text @click="report_cancel">
@@ -226,6 +243,13 @@ export default {
   },
   data() {
     return {
+      items: [
+        { title: "Click Me" },
+        { title: "Click Me" },
+        { title: "Click Me" },
+        { title: "Click Me 2" }
+      ],
+      nickname: this.$store.state.imagestore.imagedetail[0].nickname ,
       reportRules: [v => !!v || "신고사유가 선택되지 않았습니다."],
       report_reason: null,
       report_reason_list: [
@@ -408,7 +432,7 @@ export default {
             }
           });
       } else {
-        alert("신고사유가 선택되지 않았습니다.")
+        alert("신고사유가 선택되지 않았습니다.");
       }
     }
   },
