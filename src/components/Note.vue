@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-tabs color="deep-purple accent-4" right>
+    <v-tabs color="deep-purple accent-4" left>
       <v-tab>쪽지보내기</v-tab>
       <v-tab>받은쪽지</v-tab>
       <v-tab>보낸쪽지</v-tab>
@@ -21,5 +21,9 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {};
+  }
+};
 </script>
