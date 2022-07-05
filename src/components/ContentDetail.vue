@@ -31,7 +31,7 @@
                       </v-card-text>
                     </template>
                     <v-list>
-                      <v-list-item v-for="(item, index) in items" :key="index">
+                      <v-list-item v-for="(item, index) in items" :key="index" link :to="item.to">
                         <v-list-item-title>{{ item.title }}</v-list-item-title>
                       </v-list-item>
                     </v-list>
@@ -247,10 +247,9 @@ export default {
   data() {
     return {
       items: [
-        { title: "프로필" },
-        { title: "쪽지보내기" },
+        { title: "프로필", to: "/userpage/:user_uid" },
+        { title: "쪽지보내기", to: "/note/:user_uid" }
       ],
-      nickname: this.$store.state.imagestore.imagedetail[0].nickname,
       reportRules: [v => !!v || "신고사유가 선택되지 않았습니다."],
       report_reason: null,
       report_reason_list: [

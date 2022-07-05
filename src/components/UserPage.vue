@@ -1,5 +1,5 @@
 <template>
-<h1>Note</h1>
+<h1>Userpage</h1>
 </template>
 <script>
 export default {
