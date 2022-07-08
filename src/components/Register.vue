@@ -17,7 +17,7 @@
                   prepend-icon="mdi-account"
                   type="email"
                   v-model="fields.email"
-                  :rules="[rules.email.require, rules.email.duplicate]"
+                  :rules="[rules.email.require1,rules.email.require2, rules.email.duplicate]"
                   :error-messages="email_err_msg"
                 ></v-text-field>
                 <v-text-field
@@ -100,7 +100,8 @@ export default {
       genderRules: [v => !!v || "성별이 선택되지 않았습니다."],
       rules: {
         email: {
-          require: v =>
+          require1: v => !!v || "이메일을 입력해 주세요.",
+          require2: v =>
             !v ||
             /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
             "이메일 형식에 맞춰 입력하세요.",
