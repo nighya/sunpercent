@@ -107,7 +107,7 @@ export default new Router({
       component:() => import( "@/components/Search" )
     },
     {
-      path: '/note/:user_uid',
+      path: '/note/:nickname',
       name: 'Note',
       component:() => import( "@/components/Note" )
     },
