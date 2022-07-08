@@ -408,7 +408,7 @@ export default {
       this.$router.go(-1);
     },
     report_content() {
-      const validate = this.$refs.report_form.validate();
+      const validate = this.$refs.report_form[0].validate();
       if (validate) {
         let reportdataObj = {
           content_uid: this.$store.state.imagestore.imagedetail[0].content_uid,

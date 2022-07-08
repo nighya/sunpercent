@@ -78,7 +78,7 @@ export default {
   },
   methods: {
     async ChangePassword() {
-      const validate = this.$refs.form.validate();
+      const validate = this.$refs.form[0].validate();
       if (validate) {
         let passwordChangeObj = {
           email: this.fields.email,

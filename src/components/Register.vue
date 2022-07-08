@@ -166,7 +166,7 @@ export default {
       }
     },
     register() {
-      const validate = this.$refs.form.validate();
+      const validate = this.$refs.form[0].validate();
       if (validate) {
         let userregisterObj = {
           email: this.fields.email,

@@ -104,7 +104,8 @@ export default {
         title: this.note_title,
         textarea: this.note_textarea
       };
-      const validate = this.$refs.form.validate();
+      const validate = this.$refs.form[0].validate();
+      console.log(validate)
       if (validate) {
         console.log(test);
       }
