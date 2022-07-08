@@ -68,7 +68,7 @@ export default {
     async login() {
       this.loading = true;
       const proxy_cors_url = "http://192.168.0.25:8888/";
-      const validate = this.$refs.form[0].validate();
+      const validate = this.$refs.form.validate();
       const user_login_ip = await axios.get(
         proxy_cors_url + "https://api.ipify.org"
       );

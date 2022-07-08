@@ -60,7 +60,7 @@ export default {
   },
   methods: {
     async PasswordResetMailSend() {
-      const validate = this.$refs.form[0].validate();
+      const validate = this.$refs.form.validate();
       if (validate) {
         let passwordResetObj = {
           email: this.fields.email
