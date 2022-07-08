@@ -12,14 +12,17 @@
               <h1 v-if="n == 1">
                 쪽지보내기
                 {{ $route.params.nickname }}
-                <v-form>
+                <v-form ref="form">
                   <v-container>
                     <v-row>
                       <v-col cols="12" sm="4">
                         <v-text-field
                           outlined
                           v-model="note_to_nickname"
-                          :rules="rules_nickname"
+                          :rules="[
+                            rules.rules_nickname.require1,
+                            rules.rules_nickname.require2
+                          ]"
                           counter
                           maxlength="30"
                           hint=""
@@ -30,7 +33,10 @@
                         <v-text-field
                           outlined
                           v-model="note_title"
-                          :rules="rules_title"
+                          :rules="[
+                            rules.rules_title.require1,
+                            rules.rules_title.require2
+                          ]"
                           counter
                           maxlength="30"
                           hint=""
@@ -41,7 +47,10 @@
                         <v-textarea
                           outlined
                           v-model="note_textarea"
-                          :rules="rules_textarea"
+                          :rules="[
+                            rules.rules_textarea.require1,
+                            rules.rules_textarea.require2
+                          ]"
                           label="내용"
                           counter
                           maxlength="1000"
@@ -69,19 +78,36 @@ export default {
       note_to_nickname: this.$route.params.nickname,
       note_title: "",
       note_textarea: "",
-      rules_nickname: [v => v.length <= 30 || "Max 30 characters"],
-      rules_title: [v => v.length <= 30 || "Max 30 characters"],
-      rules_textarea: [v => v.length <= 1000 || "Max 1000 characters"]
+      rules: {
+        rules_nickname: {
+          require1: v => !!v || "닉네임을 입력해 주세요.",
+          require2: v =>
+            !(v && v.length >= 30) || "닉네임은 30자 이상 입력할 수 없습니다."
+        },
+        rules_title: {
+          require1: v => !!v || "제목을 입력해 주세요.",
+          require2: v =>
+            !(v && v.length >= 30) || "제목은 30자 이상 입력할 수 없습니다."
+        },
+        rules_textarea: {
+          require1: v => !!v || "내용을 입력해 주세요.",
+          require2: v =>
+            !(v && v.length >= 1000) || "내용은 1000자 이상 입력할 수 없습니다."
+        }
+      }
     };
   },
   methods: {
     SendNote() {
       const test = {
         nickname: this.note_to_nickname,
-        title:this.note_title,
+        title: this.note_title,
         textarea: this.note_textarea
       };
-      console.log(test);
+      const validate = this.$refs.form.validate();
+      if (validate) {
+        console.log(test);
+      }
     }
   }
 };
