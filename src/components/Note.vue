@@ -76,9 +76,13 @@
 export default {
   data() {
     return {
+      to_user_uid: this.$route.params.user_uid,
+      from_user_uid: this.$store.state.loginstore.userstate[0].user_uid,
       note_to_nickname: this.$route.params.nickname,
+      note_from_nickname:this.$store.state.loginstore.userstate[0].nickname,
       note_title: "",
       note_textarea: "",
+      note_from_gender:this.$store.state.loginstore.userstate[0].gender,
       rules: {
         rules_nickname: {
           require1: v => !!v || "닉네임을 입력해 주세요.",
@@ -100,15 +104,19 @@ export default {
   },
   methods: {
     SendNote() {
-      const test = {
-        nickname: this.note_to_nickname,
+      const noteObj = {
+        to_uid: this.to_user_uid,
+        from_uid:this.from_user_uid,
+        to_nickname: this.note_to_nickname,
+        from_nickname: this.note_from_nickname,
         title: this.note_title,
-        textarea: this.note_textarea
+        textarea: this.note_textarea,
+        from_gender:this.note_from_gender
       };
       const validate = this.$refs.form[0].validate();
       console.log(validate)
       if (validate) {
-        console.log(test);
+        console.log(noteObj);
       }
     }
   }

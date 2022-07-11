@@ -270,7 +270,7 @@ export default {
         "사진편집이 과해 보여요"
       ],
       reportdialog: false,
-      scoredialog: false,
+      scoredialog: false, 
       deletedialog: false,
       rating: 1,
       chartOptions: {
