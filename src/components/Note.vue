@@ -130,6 +130,8 @@
 </template>
 
 <script>
+import http from '../http/http'
+
 export default {
   data() {
     return {
@@ -168,23 +170,27 @@ export default {
         to_nickname: this.note_to_nickname,
         from_nickname: this.note_from_nickname,
         title: this.note_title,
-        textarea: this.note_textarea,
+        message: this.note_textarea,
         from_gender: this.note_from_gender
       };
       const validate = this.$refs.form.validate();
-      console.log(validate)
       if (validate) {
-        console.log(noteObj);
-        this.note_to_nickname = "";
-        this.note_title = "";
-        this.note_textarea = "";
-        this.changeTab();
+        try {
+          http.post(`/note/sendnote/${noteObj.to_uid}`, noteObj, {
+            withCredentials: true
+          });
+          this.note_to_nickname = "";
+          this.note_title = "";
+          this.note_textarea = "";
+          this.changeTab();
+        } catch (err) {
+          console.log(err);
+        }
       }
     },
     changeTab() {
-      this.tab = "tab-2";
-    },
-   
+      this.tab = "tab-3";
+    }
   }
 };
 </script>
