@@ -4,6 +4,7 @@ import loginstore from "./modules/loginstore"
 import createPersistedState from "vuex-persistedstate";
 import imagestore from "./modules/imagestore";
 import scorestore from "./modules/scorestore";
+import notestore from "./modules/notestore";
 
 
 Vue.use(Vuex);
@@ -18,6 +19,7 @@ export default new Vuex.Store({
     loginstore: loginstore,
     imagestore: imagestore,
     scorestore: scorestore,
+    notestore: notestore,
   },
   plugins: [createPersistedState({
     storage: window.sessionStorage,
