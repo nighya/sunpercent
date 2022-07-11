@@ -107,12 +107,12 @@ export default new Router({
       component:() => import( "@/components/Search" )
     },
     {
-      path: '/note/:nickname',
+      path: '/note/:nickname/:user_uid',
       name: 'Note',
       component:() => import( "@/components/Note" )
     },
     {
-      path: '/userpage/:user_uid',
+      path: '/userpage/:nickname/:user_uid',
       name: 'Userpage',
       component:() => import( "@/components/Userpage" )
     },

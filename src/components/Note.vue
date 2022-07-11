@@ -12,6 +12,7 @@
               <h1 v-if="n == 1">
                 쪽지보내기
                 {{ $route.params.nickname }}
+                {{ $route.params.user_uid}}
                 <v-form ref="form">
                   <v-container>
                     <v-row>

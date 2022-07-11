@@ -32,14 +32,20 @@
                     </template>
                     <v-list>
                       <v-list-item
-                        v-for="(item, index) in items"
-                        :key="index"
                         link
-                        :to="`/note/${$store.state.imagestore.imagedetail[0].nickname}`"
-                        :target="item.target"
-                        :href="item.href"
+                        :to="
+                          `/userpage/${$store.state.imagestore.imagedetail[0].nickname}/${$store.state.imagestore.imagedetail[0].user_uid}`
+                        "
                       >
-                        <v-list-item-title>{{ item.title }}</v-list-item-title>
+                        <v-list-item-title>프로필보기</v-list-item-title>
+                      </v-list-item>
+                      <v-list-item
+                        link
+                        :to="
+                          `/note/${$store.state.imagestore.imagedetail[0].nickname}/${$store.state.imagestore.imagedetail[0].user_uid}`
+                        "
+                      >
+                        <v-list-item-title>쪽지보내기</v-list-item-title>
                       </v-list-item>
                     </v-list>
                   </v-menu>
@@ -253,11 +259,6 @@ export default {
   },
   data() {
     return {
-      items: [
-        { title: "프로필", to: "/userpage/:user_uid" },
-        { title: "쪽지보내기"  },
-        { title: "새창테스트", target: "_blank", href: "/note/:user_uid" }
-      ],
       reportRules: [v => !!v || "신고사유가 선택되지 않았습니다."],
       report_reason: null,
       report_reason_list: [
@@ -265,7 +266,8 @@ export default {
         "사진을 알아볼 수가 없어요.",
         "중복된 게시물 입니다.",
         "게시판 성격과 맞지 않아요.",
-        "광고성 게시물 입니다."
+        "광고성 게시물 입니다.",
+        "사진편집이 과해 보여요"
       ],
       reportdialog: false,
       scoredialog: false,
