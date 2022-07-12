@@ -67,6 +67,8 @@
           :headers="sent_headers"
           :items="$store.state.notestore.sent_note_state"
           :single-select="singleSelect"
+          :loading="loading"
+          loading-text="Loading... Please wait"
           item-key="name"
           show-select
           class="elevation-1"
@@ -90,6 +92,7 @@ export default {
   data() {
     return {
       //테스트 데이터
+      loading: false,
       singleSelect: false,
       selected: [],
       sent_headers: [
@@ -172,6 +175,7 @@ export default {
           await http.post(`/note/sendnote/${noteObj.to_uid}`, noteObj, {
             withCredentials: true
           });
+          
           this.note_to_nickname = "";
           this.note_title = "";
           this.note_textarea = "";
@@ -193,11 +197,13 @@ export default {
       }
     },
     async getSentNote() {
+      this.loading = true;
       const payload = {
         from_uid: this.$store.state.loginstore.userstate[0].user_uid,
         from_nickname: this.$store.state.loginstore.userstate[0].nickname
       };
       await this.$store.dispatch("notestore/getsentnote", payload);
+      this.loading = false;
       console.log(this.SentNoteStateData);
     }
   }

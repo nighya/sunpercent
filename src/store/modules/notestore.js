@@ -6,10 +6,22 @@ export default {
   getters: {
     getters_getsentnote: state => {
       return state.sent_note_state;
-    },
+    }
   },
   mutations: {
-    SET_GET_SENT_NOTE: (state, datas) => {
+    SET_GET_SENT_NOTE: async (state, datas) => {
+      try {
+        const result = await datas.map(data => {
+          if (data.view_count > 0) {
+            data.view_count = "읽음";
+          } else {
+            data.view_count = "읽지않음";
+          }
+        });
+      } catch (e) {
+        throw e;
+      }
+      console.log("result  :  " + datas);
       state.sent_note_state = datas;
     }
   },
