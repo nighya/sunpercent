@@ -3,7 +3,7 @@
     <v-tabs color="deep-purple accent-4" left v-model="tab">
       <v-tab href="#tab-1">쪽지보내기</v-tab>
       <v-tab href="#tab-2">받은쪽지</v-tab>
-      <v-tab href="#tab-3">보낸쪽지</v-tab>
+      <v-tab href="#tab-3" @click="getSentNote">보낸쪽지</v-tab>
 
       <v-tab-item value="tab-1">
         <h1>
@@ -65,7 +65,7 @@
         <v-data-table
           v-model="selected"
           :headers="headers"
-          :items="sentnotes"
+          :items="$store.state.notestore.sent_note_state"
           :single-select="singleSelect"
           item-key="name"
           show-select
@@ -91,31 +91,30 @@ export default {
     return {
       //테스트 데이터
       singleSelect: false,
-        selected: [],
-        headers: [
-          {
-            text: '받는사람',
-            align: 'start',
-            sortable: false,
-            value: 'to_nickname',
-          },
-          { text: '제목', value: 'title' },
-          { text: '내용', value: 'message' },
-          { text: '날짜', value: 'date' },
-          { text: '읽음확인', value: 'view_count' },
-        ],
-        sentnotes: [
-          {
-            to_nickname: 'Frozen Yogurt',
-            title: 159,
-            message: 6.0,
-            date: 24,
-            view_count: 4.0,
-          },
-
-
-        ],
-//테스트데이터끝
+      selected: [],
+      headers: [
+        {
+          text: "받는사람",
+          align: "start",
+          sortable: false,
+          value: "to_nickname"
+        },
+        { text: "제목", value: "title" },
+        { text: "내용", value: "message" },
+        { text: "날짜", value: "date" },
+        { text: "읽음확인", value: "view_count" }
+      ],
+      // sentnotes: [
+      //   {
+      //     to_nickname: "Frozen Yogurt",
+      //     title: 159,
+      //     message: 6.0,
+      //     date: 24,
+      //     view_count: 4.0
+      //   }
+      // ],
+      SentNoteStateData: this.$store.state.notestore.sent_note_state,
+      //테스트데이터끝
 
       tab: "tab-1",
       to_user_uid: this.$route.params.user_uid,
@@ -144,8 +143,20 @@ export default {
       }
     };
   },
+  // mounted() {
+  //   const payload = {
+  //     from_uid: this.$store.state.loginstore.userstate[0].user_uid,
+  //     from_nickname: this.$store.state.loginstore.userstate[0].nickname
+  //   };
+  //   this.$store.dispatch("notestore/getsentnote", payload);
+  // },
+  // computed: {
+  //   GetterGetSentNoteList() {
+  //     return this.$store.getters["notestore/getters_getsentnote"];
+  //   }
+  // },
   methods: {
-    SendNote() {
+    async SendNote() {
       const noteObj = {
         to_uid: this.to_user_uid,
         from_uid: this.from_user_uid,
@@ -158,7 +169,7 @@ export default {
       const validate = this.$refs.form.validate();
       if (validate) {
         try {
-          http.post(`/note/sendnote/${noteObj.to_uid}`, noteObj, {
+          await http.post(`/note/sendnote/${noteObj.to_uid}`, noteObj, {
             withCredentials: true
           });
           this.note_to_nickname = "";
@@ -167,12 +178,27 @@ export default {
           // this.$forceUpdate();
           this.changeTab();
         } catch (err) {
-          console.log(err);
+          alert(
+            "탈퇴한 회원이거나 잘못된 닉네임입니다. 쪽지보내기를 실패하였습니다."
+          );
         }
       }
     },
-    changeTab() {
-      this.tab = "tab-3";
+    async changeTab() {
+      try {
+        await this.getSentNote();
+        this.tab = "tab-3";
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async getSentNote() {
+      const payload = {
+        from_uid: this.$store.state.loginstore.userstate[0].user_uid,
+        from_nickname: this.$store.state.loginstore.userstate[0].nickname
+      };
+      await this.$store.dispatch("notestore/getsentnote", payload);
+      console.log(this.SentNoteStateData);
     }
   }
 };
