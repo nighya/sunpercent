@@ -65,7 +65,7 @@
         <v-data-table
           v-model="selected"
           :headers="headers"
-          :items="desserts"
+          :items="sentnotes"
           :single-select="singleSelect"
           item-key="name"
           show-select
@@ -94,34 +94,25 @@ export default {
         selected: [],
         headers: [
           {
-            text: 'Dessert (100g serving)',
+            text: '받는사람',
             align: 'start',
             sortable: false,
-            value: 'name',
+            value: 'to_nickname',
           },
-          { text: '제목', value: 'calories' },
-          { text: 'Fat (g)', value: 'fat' },
-          { text: 'Carbs (g)', value: 'carbs' },
-          { text: 'Protein (g)', value: 'protein' },
-          { text: 'Iron (%)', value: 'iron' },
+          { text: '제목', value: 'title' },
+          { text: '내용', value: 'message' },
+          { text: '날짜', value: 'date' },
+          { text: '읽음확인', value: 'view_count' },
         ],
-        desserts: [
+        sentnotes: [
           {
-            name: 'Frozen Yogurt',
-            calories: 159,
-            fat: 6.0,
-            carbs: 24,
-            protein: 4.0,
-            iron: '1%',
+            to_nickname: 'Frozen Yogurt',
+            title: 159,
+            message: 6.0,
+            date: 24,
+            view_count: 4.0,
           },
-          {
-            name: 'Ice cream sandwich',
-            calories: 237,
-            fat: 9.0,
-            carbs: 37,
-            protein: 4.3,
-            iron: '1%',
-          },
+
 
         ],
 //테스트데이터끝
