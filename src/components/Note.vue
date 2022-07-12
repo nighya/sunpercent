@@ -64,7 +64,7 @@
       <v-tab-item value="tab-3">
         <v-data-table
           v-model="selected"
-          :headers="headers"
+          :headers="sent_headers"
           :items="$store.state.notestore.sent_note_state"
           :single-select="singleSelect"
           item-key="name"
@@ -92,7 +92,7 @@ export default {
       //테스트 데이터
       singleSelect: false,
       selected: [],
-      headers: [
+      sent_headers: [
         {
           text: "받는사람",
           align: "start",
