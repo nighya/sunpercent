@@ -5,69 +5,6 @@
       <v-tab href="#tab-2">받은쪽지</v-tab>
       <v-tab href="#tab-3">보낸쪽지</v-tab>
 
-      <!-- <v-tab-item v-for="n in 3" :key="n">
-        <v-container fluid>
-          <v-row>
-            <v-col>
-              <h1 v-if="n == 1" >
-                쪽지보내기
-                {{ $route.params.nickname }}
-                {{ $route.params.user_uid}}
-                <v-form ref="form">
-                  <v-container>
-                    <v-row>
-                      <v-col cols="12" sm="4">
-                        <v-text-field
-                          outlined
-                          v-model="note_to_nickname"
-                          :rules="[
-                            rules.rules_nickname.require1,
-                            rules.rules_nickname.require2
-                          ]"
-                          counter
-                          maxlength="30"
-                          hint=""
-                          label="받는사람(닉네임)"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col cols="12" md="12">
-                        <v-text-field
-                          outlined
-                          v-model="note_title"
-                          :rules="[
-                            rules.rules_title.require1,
-                            rules.rules_title.require2
-                          ]"
-                          counter
-                          maxlength="30"
-                          hint=""
-                          label="제목"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col cols="12" md="12">
-                        <v-textarea
-                          outlined
-                          v-model="note_textarea"
-                          :rules="[
-                            rules.rules_textarea.require1,
-                            rules.rules_textarea.require2
-                          ]"
-                          label="내용"
-                          counter
-                          maxlength="1000"
-                        ></v-textarea>
-                      </v-col>
-                    </v-row>
-                  </v-container>
-                </v-form>
-                <v-btn @click="SendNote">보내기</v-btn>
-              </h1>
-              <h1 v-if="n == 2">2번텝</h1>
-              <h1 v-if="n == 3">3번텝</h1>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-tab-item> -->
       <v-tab-item value="tab-1">
         <h1>
           쪽지보내기
@@ -162,7 +99,7 @@ export default {
             sortable: false,
             value: 'name',
           },
-          { text: 'Calories', value: 'calories' },
+          { text: '제목', value: 'calories' },
           { text: 'Fat (g)', value: 'fat' },
           { text: 'Carbs (g)', value: 'carbs' },
           { text: 'Protein (g)', value: 'protein' },
@@ -185,70 +122,7 @@ export default {
             protein: 4.3,
             iron: '1%',
           },
-          {
-            name: 'Eclair',
-            calories: 262,
-            fat: 16.0,
-            carbs: 23,
-            protein: 6.0,
-            iron: '7%',
-          },
-          {
-            name: 'Cupcake',
-            calories: 305,
-            fat: 3.7,
-            carbs: 67,
-            protein: 4.3,
-            iron: '8%',
-          },
-          {
-            name: 'Gingerbread',
-            calories: 356,
-            fat: 16.0,
-            carbs: 49,
-            protein: 3.9,
-            iron: '16%',
-          },
-          {
-            name: 'Jelly bean',
-            calories: 375,
-            fat: 0.0,
-            carbs: 94,
-            protein: 0.0,
-            iron: '0%',
-          },
-          {
-            name: 'Lollipop',
-            calories: 392,
-            fat: 0.2,
-            carbs: 98,
-            protein: 0,
-            iron: '2%',
-          },
-          {
-            name: 'Honeycomb',
-            calories: 408,
-            fat: 3.2,
-            carbs: 87,
-            protein: 6.5,
-            iron: '45%',
-          },
-          {
-            name: 'Donut',
-            calories: 452,
-            fat: 25.0,
-            carbs: 51,
-            protein: 4.9,
-            iron: '22%',
-          },
-          {
-            name: 'KitKat',
-            calories: 518,
-            fat: 26.0,
-            carbs: 65,
-            protein: 7,
-            iron: '6%',
-          },
+
         ],
 //테스트데이터끝
 
