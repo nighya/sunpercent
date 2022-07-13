@@ -82,25 +82,22 @@
           </template> </v-data-table
       ></v-tab-item>
       <v-tab-item value="tab-3">
+
+        <v-btn small><v-icon>mdi-trash-can-outline</v-icon></v-btn>
         <v-data-table
           v-model="sent_selected"
           :headers="sent_headers"
           :items="$store.state.notestore.sent_note_state"
           :single-select="singleSelect"
           :loading="loading"
+          mobile-breakpoint="0"
           loading-text="Loading... Please wait"
           item-key="date"
           show-select
           class="elevation-1"
         >
-          <template v-slot:top>
-            <v-switch
-              v-model="singleSelect"
-              label="Single select"
-              class="pa-3"
-            ></v-switch>
-          </template> </v-data-table
-      ></v-tab-item>
+        </v-data-table>
+      </v-tab-item>
       <v-tab-item value="tab-4"><h1>쪽지보기</h1></v-tab-item>
     </v-tabs>
   </v-card>
@@ -125,9 +122,7 @@ export default {
           value: "to_nickname"
         },
         { text: "제목", value: "title" },
-        { text: "내용", value: "message" },
-        { text: "날짜", value: "date" },
-        { text: "읽음확인", value: "view_count" }
+        { text: "날짜", value: "date" }
       ],
       received_headers: [
         {
