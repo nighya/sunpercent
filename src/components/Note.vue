@@ -2,8 +2,9 @@
   <v-card>
     <v-tabs color="deep-purple accent-4" left v-model="tab">
       <v-tab href="#tab-1">쪽지보내기</v-tab>
-      <v-tab href="#tab-2">받은쪽지</v-tab>
+      <v-tab href="#tab-2" @click="getReceivedNote">받은쪽지</v-tab>
       <v-tab href="#tab-3" @click="getSentNote">보낸쪽지</v-tab>
+      <v-tab href="#tab-4">쪽지보기</v-tab>
 
       <v-tab-item value="tab-1">
         <h1>
@@ -60,10 +61,29 @@
           <v-btn @click="SendNote">보내기</v-btn>
         </h1></v-tab-item
       >
-      <v-tab-item value="tab-2"><h1>텝2</h1></v-tab-item>
+      <v-tab-item value="tab-2">
+        <v-data-table
+          v-model="received_selected"
+          :headers="received_headers"
+          :items="$store.state.notestore.received_note_state"
+          :single-select="singleSelect"
+          :loading="loading"
+          loading-text="Loading... Please wait"
+          item-key="name"
+          show-select
+          class="elevation-1"
+        >
+          <template v-slot:top>
+            <v-switch
+              v-model="singleSelect"
+              label="Single select"
+              class="pa-3"
+            ></v-switch>
+          </template> </v-data-table
+      ></v-tab-item>
       <v-tab-item value="tab-3">
         <v-data-table
-          v-model="selected"
+          v-model="sent_selected"
           :headers="sent_headers"
           :items="$store.state.notestore.sent_note_state"
           :single-select="singleSelect"
@@ -81,6 +101,7 @@
             ></v-switch>
           </template> </v-data-table
       ></v-tab-item>
+      <v-tab-item value="tab-4"><h1>쪽지보기</h1></v-tab-item>
     </v-tabs>
   </v-card>
 </template>
@@ -94,13 +115,26 @@ export default {
       //테스트 데이터
       loading: false,
       singleSelect: false,
-      selected: [],
+      sent_selected: [],
+      received_selected: [],
       sent_headers: [
         {
           text: "받는사람",
           align: "start",
           sortable: false,
           value: "to_nickname"
+        },
+        { text: "제목", value: "title" },
+        { text: "내용", value: "message" },
+        { text: "날짜", value: "date" },
+        { text: "읽음확인", value: "view_count" }
+      ],
+      received_headers: [
+        {
+          text: "보낸사람",
+          align: "start",
+          sortable: false,
+          value: "from_nickname"
         },
         { text: "제목", value: "title" },
         { text: "내용", value: "message" },
@@ -183,9 +217,7 @@ export default {
           // this.$forceUpdate();
           this.changeTab();
         } catch (err) {
-          alert(
-            "탈퇴한 회원이거나 잘못된 닉네임입니다. 쪽지보내기를 실패하였습니다."
-          );
+          alert("쪽지보내기를 실패하였습니다.");
         }
       }
     },
@@ -205,7 +237,6 @@ export default {
       };
       this.$store.dispatch("notestore/getsentnote", payload);
       this.loading = false;
-      console.log(this.SentNoteStateData);
     },
     async getReceivedNote() {
       this.loading = true;
@@ -215,7 +246,6 @@ export default {
       };
       this.$store.dispatch("notestore/getreceivednote", payload);
       this.loading = false;
-      console.log(this.SentNoteStateData);
     }
   }
 };

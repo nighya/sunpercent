@@ -14,7 +14,6 @@ export default {
   mutations: {
     SET_GET_SENT_NOTE: async (state, datas) => {
       try {
-        console.log(datas);
         const filterData = await datas.filter(d => d.from_delete == 0);
         await filterData.map(data => {
           if (data.view_count > 0) {
@@ -30,7 +29,6 @@ export default {
     },
     SET_GET_RECEIVED_NOTE: async (state, datas) => {
       try {
-        console.log(datas);
         const filterData = await datas.filter(d => d.to_delete == 0);
         await filterData.map(data => {
           if (data.view_count > 0) {
@@ -52,7 +50,7 @@ export default {
       });
       commit("SET_GET_SENT_NOTE", response.data);
     },
-    
+
     async getreceivednote({ commit }, payload) {
       const response = await http.post(`/note/getreceivednote`, payload, {
         withCredentials: true
