@@ -2,7 +2,7 @@ import http from "../../http/http";
 
 export default {
   namespaced: true,
-  state: { sent_note_state: [] },
+  state: { sent_note_state:[] },
   getters: {
     getters_getsentnote: state => {
       return state.sent_note_state;
@@ -11,18 +11,20 @@ export default {
   mutations: {
     SET_GET_SENT_NOTE: async (state, datas) => {
       try {
-        const result = await datas.map(data => {
+        const filterData = await datas.filter(d=> d.from_delete == 0)
+        await filterData.map(data => {
           if (data.view_count > 0) {
             data.view_count = "읽음";
           } else {
             data.view_count = "읽지않음";
           }
         });
+        state.sent_note_state = filterData;
       } catch (e) {
         throw e;
       }
-      console.log("result  :  " + datas);
-      state.sent_note_state = datas;
+
+      
     }
   },
   actions: {
