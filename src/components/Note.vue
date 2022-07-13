@@ -69,7 +69,7 @@
           :single-select="singleSelect"
           :loading="loading"
           loading-text="Loading... Please wait"
-          item-key="name"
+          item-key="date"
           show-select
           class="elevation-1"
         >
@@ -89,7 +89,7 @@
           :single-select="singleSelect"
           :loading="loading"
           loading-text="Loading... Please wait"
-          item-key="name"
+          item-key="date"
           show-select
           class="elevation-1"
         >
