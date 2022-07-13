@@ -117,6 +117,7 @@ export default {
       //   }
       // ],
       SentNoteStateData: this.$store.state.notestore.sent_note_state,
+      ReceivedNoteStateData: this.$store.state.notestore.received_note_state,
       //테스트데이터끝
 
       tab: "tab-1",
@@ -175,7 +176,7 @@ export default {
           await http.post(`/note/sendnote/${noteObj.to_uid}`, noteObj, {
             withCredentials: true
           });
-          
+
           this.note_to_nickname = "";
           this.note_title = "";
           this.note_textarea = "";
@@ -202,7 +203,17 @@ export default {
         from_uid: this.$store.state.loginstore.userstate[0].user_uid,
         from_nickname: this.$store.state.loginstore.userstate[0].nickname
       };
-      await this.$store.dispatch("notestore/getsentnote", payload);
+      this.$store.dispatch("notestore/getsentnote", payload);
+      this.loading = false;
+      console.log(this.SentNoteStateData);
+    },
+    async getReceivedNote() {
+      this.loading = true;
+      const payload = {
+        to_uid: this.$store.state.loginstore.userstate[0].user_uid,
+        to_nickname: this.$store.state.loginstore.userstate[0].nickname
+      };
+      this.$store.dispatch("notestore/getreceivednote", payload);
       this.loading = false;
       console.log(this.SentNoteStateData);
     }
