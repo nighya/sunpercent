@@ -471,7 +471,7 @@ export default {
       const arrscoretotal = this.$store.state.scorestore.scorestate.map(
         item => item.content_score
       );
-      console.log("arrscoretotal      " + arrscoretotal);
+      // console.log("arrscoretotal      " + arrscoretotal);
       if (arrscoretotal.length > 0) {
         this.total_number = arrscoretotal.length;
         try {

@@ -83,7 +83,7 @@
       ></v-tab-item>
       <v-tab-item value="tab-3">
 
-        <v-btn small><v-icon>mdi-trash-can-outline</v-icon></v-btn>
+        <v-btn small @click="deleteSentNote"><v-icon>mdi-trash-can-outline</v-icon></v-btn>
         <v-data-table
           v-model="sent_selected"
           :headers="sent_headers"
@@ -95,6 +95,7 @@
           item-key="date"
           show-select
           class="elevation-1"
+          @click:row="showSentNote"
         >
         </v-data-table>
       </v-tab-item>
@@ -241,6 +242,12 @@ export default {
       };
       this.$store.dispatch("notestore/getreceivednote", payload);
       this.loading = false;
+    },
+    async deleteSentNote() {
+      console.log(this.sent_selected)
+    },
+    async showSentNote(item) {
+      console.log("showSentNote :  "+ JSON.stringify(item) )
     }
   }
 };
