@@ -57,9 +57,7 @@
         <v-btn @click="SendNote">보내기</v-btn>
       </v-tab-item>
       <v-tab-item value="tab-2">
-        <v-btn small @click="deleteReceivedNote"
-          ><v-icon>mdi-trash-can-outline</v-icon></v-btn
-        >
+        <v-icon @click="deleteReceivedNote">mdi-trash-can-outline</v-icon>
 
         <v-data-table
           v-model="received_selected"
@@ -77,9 +75,7 @@
         </v-data-table
       ></v-tab-item>
       <v-tab-item value="tab-3">
-        <v-btn small @click="deleteSentNote"
-          ><v-icon>mdi-trash-can-outline</v-icon></v-btn
-        >
+        <v-icon @click="deleteSentNote">mdi-trash-can-outline</v-icon>
         <v-data-table
           v-model="sent_selected"
           :headers="sent_headers"
@@ -98,26 +94,26 @@
       <v-tab-item value="tab-4">
         <div v-if="showNoteData.date !== null">
           <!--받은쪽지 리플 버튼-->
-          <v-btn
+          <v-icon
             v-if="
               $store.state.loginstore.userstate[0].nickname ==
                 showNoteData.to_nickname
             "
-            x-small
             @click="moveReceivedReplyNotetab"
-            ><v-icon>mdi-email-outline</v-icon></v-btn
+            >mdi-email-outline</v-icon
           >
           <!--내가 보낸사람에게 다시보내기 버튼-->
-          <v-btn
+
+          <v-icon
             v-if="
               $store.state.loginstore.userstate[0].nickname ==
                 showNoteData.from_nickname
             "
-            x-small
             @click="moveSentReplyNotetab"
-            ><v-icon>mdi-email-outline</v-icon></v-btn
+            >mdi-email-outline</v-icon
           >
-          <v-btn x-small><v-icon>mdi-trash-can-outline</v-icon></v-btn>
+
+          <v-icon>mdi-trash-can-outline</v-icon>
           <div
             v-if="
               $store.state.loginstore.userstate[0].nickname ==
@@ -132,7 +128,7 @@
                 showNoteData.from_nickname
             "
           >
-            쪽지받는사람 : {{ showNoteData.to_nickname }}
+            쪽지받은사람 : {{ showNoteData.to_nickname }}
           </div>
           <div>성별 : {{ showNoteData.from_gender }}</div>
           <div>제목 : {{ showNoteData.title }}</div>
@@ -206,18 +202,6 @@ export default {
       }
     };
   },
-  // mounted() {
-  //   const payload = {
-  //     from_uid: this.$store.state.loginstore.userstate[0].user_uid,
-  //     from_nickname: this.$store.state.loginstore.userstate[0].nickname
-  //   };
-  //   this.$store.dispatch("notestore/getsentnote", payload);
-  // },
-  // computed: {
-  //   GetterGetSentNoteList() {
-  //     return this.$store.getters["notestore/getters_getsentnote"];
-  //   }
-  // },
   methods: {
     async SendNote() {
       const noteObj = {
@@ -232,15 +216,19 @@ export default {
       const validate = this.$refs.form.validate();
       if (validate) {
         try {
-          await http.post(`/note/sendnote/${noteObj.to_uid}`, noteObj, {
-            withCredentials: true
-          });
+          if (noteObj.to_nickname == noteObj.from_nickname) {
+            alert("자기자신에게는 보낼 수 없습니다.");
+          } else {
+            await http.post(`/note/sendnote/${noteObj.to_uid}`, noteObj, {
+              withCredentials: true
+            });
 
-          this.note_to_nickname = "";
-          this.note_title = "";
-          this.note_textarea = "";
-          // this.$forceUpdate();
-          this.changeTab();
+            this.note_to_nickname = "";
+            this.note_title = "";
+            this.note_textarea = "";
+            // this.$forceUpdate();
+            this.changeTab();
+          }
         } catch (err) {
           alert("쪽지보내기를 실패하였습니다.");
         }
@@ -279,7 +267,6 @@ export default {
       console.log(this.received_selected);
     },
     async showNoteDetail(d) {
-      console.log("showSentNote :  " + JSON.stringify(d));
       this.showNoteData = Object.assign({}, d);
       this.tab = "tab-4";
     },
