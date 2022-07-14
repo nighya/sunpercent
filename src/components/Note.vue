@@ -7,10 +7,6 @@
       <v-tab href="#tab-4">쪽지보기</v-tab>
 
       <v-tab-item value="tab-1">
-        <h1>
-          쪽지보내기
-          {{ $route.params.nickname }}
-          {{ $route.params.user_uid }}
           <v-form ref="form">
             <v-container>
               <v-row>
@@ -59,31 +55,32 @@
             </v-container>
           </v-form>
           <v-btn @click="SendNote">보내기</v-btn>
-        </h1></v-tab-item
+        </v-tab-item
       >
       <v-tab-item value="tab-2">
+        <v-btn small @click="deleteReceivedNote"
+          ><v-icon>mdi-trash-can-outline</v-icon></v-btn
+        >
+
         <v-data-table
           v-model="received_selected"
           :headers="received_headers"
           :items="$store.state.notestore.received_note_state"
           :single-select="singleSelect"
           :loading="loading"
+          mobile-breakpoint="0"
           loading-text="Loading... Please wait"
           item-key="date"
           show-select
           class="elevation-1"
+          @click:row="showNoteDetail"
         >
-          <template v-slot:top>
-            <v-switch
-              v-model="singleSelect"
-              label="Single select"
-              class="pa-3"
-            ></v-switch>
-          </template> </v-data-table
+        </v-data-table
       ></v-tab-item>
       <v-tab-item value="tab-3">
-
-        <v-btn small @click="deleteSentNote"><v-icon>mdi-trash-can-outline</v-icon></v-btn>
+        <v-btn small @click="deleteSentNote"
+          ><v-icon>mdi-trash-can-outline</v-icon></v-btn
+        >
         <v-data-table
           v-model="sent_selected"
           :headers="sent_headers"
@@ -95,11 +92,56 @@
           item-key="date"
           show-select
           class="elevation-1"
-          @click:row="showSentNote"
+          @click:row="showNoteDetail"
         >
         </v-data-table>
       </v-tab-item>
-      <v-tab-item value="tab-4"><h1>쪽지보기</h1></v-tab-item>
+      <v-tab-item value="tab-4">
+        <div v-if="showNoteData.date !== null">
+        <v-btn
+          v-if="
+            $store.state.loginstore.userstate[0].nickname ==
+              showNoteData.to_nickname
+          "
+          link
+          x-small
+          :to="`/note/${showNoteData.from_nickname}/${showNoteData.from_uid}`"
+          ><v-icon>mdi-email-outline</v-icon></v-btn
+        >
+        <v-btn
+          v-if="
+            $store.state.loginstore.userstate[0].nickname ==
+              showNoteData.from_nickname
+          "
+          x-small
+          :to="`/note/${showNoteData.to_nickname}/${showNoteData.to_uid}`"
+          ><v-icon>mdi-email-outline</v-icon></v-btn
+        >
+        <v-btn x-small><v-icon>mdi-trash-can-outline</v-icon></v-btn>
+        <div
+          v-if="
+            $store.state.loginstore.userstate[0].nickname ==
+              showNoteData.to_nickname
+          "
+        >
+          쪽지보낸사람 : {{ showNoteData.from_nickname }}
+        </div>
+        <div
+          v-if="
+            $store.state.loginstore.userstate[0].nickname ==
+              showNoteData.from_nickname
+          "
+        >
+          쪽지받는사람 : {{ showNoteData.to_nickname }}
+        </div>
+        <div>성별 : {{ showNoteData.from_gender }}</div>
+        <div>제목 : {{ showNoteData.title }}</div>
+        <div>내용 : {{ showNoteData.message }}</div>
+        <div>날짜 : {{ showNoteData.date }}</div>
+        </div>
+        <div v-else>받은쪽지나 보낸쪽지를 클릭해 주세요.</div>
+      </v-tab-item>
+      
     </v-tabs>
   </v-card>
 </template>
@@ -111,6 +153,7 @@ export default {
   data() {
     return {
       //테스트 데이터
+      showNoteData: { date: null },
       loading: false,
       singleSelect: false,
       sent_selected: [],
@@ -133,9 +176,7 @@ export default {
           value: "from_nickname"
         },
         { text: "제목", value: "title" },
-        { text: "내용", value: "message" },
-        { text: "날짜", value: "date" },
-        { text: "읽음확인", value: "view_count" }
+        { text: "날짜", value: "date" }
       ],
       // sentnotes: [
       //   {
@@ -244,10 +285,15 @@ export default {
       this.loading = false;
     },
     async deleteSentNote() {
-      console.log(this.sent_selected)
+      console.log(this.sent_selected);
     },
-    async showSentNote(item) {
-      console.log("showSentNote :  "+ JSON.stringify(item) )
+    async deleteReceivedNote() {
+      console.log(this.received_selected);
+    },
+    async showNoteDetail(d) {
+      console.log("showSentNote :  " + JSON.stringify(d));
+      this.showNoteData = Object.assign({}, d);
+      this.tab = "tab-4";
     }
   }
 };
