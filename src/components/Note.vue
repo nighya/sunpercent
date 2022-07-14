@@ -7,56 +7,55 @@
       <v-tab href="#tab-4">쪽지보기</v-tab>
 
       <v-tab-item value="tab-1">
-          <v-form ref="form">
-            <v-container>
-              <v-row>
-                <v-col cols="12" sm="4">
-                  <v-text-field
-                    outlined
-                    v-model="note_to_nickname"
-                    :rules="[
-                      rules.rules_nickname.require1,
-                      rules.rules_nickname.require2
-                    ]"
-                    counter
-                    maxlength="30"
-                    hint=""
-                    label="받는사람(닉네임)"
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" md="12">
-                  <v-text-field
-                    outlined
-                    v-model="note_title"
-                    :rules="[
-                      rules.rules_title.require1,
-                      rules.rules_title.require2
-                    ]"
-                    counter
-                    maxlength="30"
-                    hint=""
-                    label="제목"
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" md="12">
-                  <v-textarea
-                    outlined
-                    v-model="note_textarea"
-                    :rules="[
-                      rules.rules_textarea.require1,
-                      rules.rules_textarea.require2
-                    ]"
-                    label="내용"
-                    counter
-                    maxlength="1000"
-                  ></v-textarea>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-form>
-          <v-btn @click="SendNote">보내기</v-btn>
-        </v-tab-item
-      >
+        <v-form ref="form">
+          <v-container>
+            <v-row>
+              <v-col cols="12" sm="4">
+                <v-text-field
+                  outlined
+                  v-model="note_to_nickname"
+                  :rules="[
+                    rules.rules_nickname.require1,
+                    rules.rules_nickname.require2
+                  ]"
+                  counter
+                  maxlength="30"
+                  hint=""
+                  label="받는사람(닉네임)"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" md="12">
+                <v-text-field
+                  outlined
+                  v-model="note_title"
+                  :rules="[
+                    rules.rules_title.require1,
+                    rules.rules_title.require2
+                  ]"
+                  counter
+                  maxlength="30"
+                  hint=""
+                  label="제목"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" md="12">
+                <v-textarea
+                  outlined
+                  v-model="note_textarea"
+                  :rules="[
+                    rules.rules_textarea.require1,
+                    rules.rules_textarea.require2
+                  ]"
+                  label="내용"
+                  counter
+                  maxlength="1000"
+                ></v-textarea>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-form>
+        <v-btn @click="SendNote">보내기</v-btn>
+      </v-tab-item>
       <v-tab-item value="tab-2">
         <v-btn small @click="deleteReceivedNote"
           ><v-icon>mdi-trash-can-outline</v-icon></v-btn
@@ -98,50 +97,50 @@
       </v-tab-item>
       <v-tab-item value="tab-4">
         <div v-if="showNoteData.date !== null">
-        <v-btn
-          v-if="
-            $store.state.loginstore.userstate[0].nickname ==
-              showNoteData.to_nickname
-          "
-          link
-          x-small
-          :to="`/note/${showNoteData.from_nickname}/${showNoteData.from_uid}`"
-          ><v-icon>mdi-email-outline</v-icon></v-btn
-        >
-        <v-btn
-          v-if="
-            $store.state.loginstore.userstate[0].nickname ==
-              showNoteData.from_nickname
-          "
-          x-small
-          :to="`/note/${showNoteData.to_nickname}/${showNoteData.to_uid}`"
-          ><v-icon>mdi-email-outline</v-icon></v-btn
-        >
-        <v-btn x-small><v-icon>mdi-trash-can-outline</v-icon></v-btn>
-        <div
-          v-if="
-            $store.state.loginstore.userstate[0].nickname ==
-              showNoteData.to_nickname
-          "
-        >
-          쪽지보낸사람 : {{ showNoteData.from_nickname }}
+          <!--받은쪽지 리플 버튼-->
+          <v-btn
+            v-if="
+              $store.state.loginstore.userstate[0].nickname ==
+                showNoteData.to_nickname
+            "
+            x-small
+            @click="moveReceivedReplyNotetab"
+            ><v-icon>mdi-email-outline</v-icon></v-btn
+          >
+          <!--내가 보낸사람에게 다시보내기 버튼-->
+          <v-btn
+            v-if="
+              $store.state.loginstore.userstate[0].nickname ==
+                showNoteData.from_nickname
+            "
+            x-small
+            @click="moveSentReplyNotetab"
+            ><v-icon>mdi-email-outline</v-icon></v-btn
+          >
+          <v-btn x-small><v-icon>mdi-trash-can-outline</v-icon></v-btn>
+          <div
+            v-if="
+              $store.state.loginstore.userstate[0].nickname ==
+                showNoteData.to_nickname
+            "
+          >
+            쪽지보낸사람 : {{ showNoteData.from_nickname }}
+          </div>
+          <div
+            v-if="
+              $store.state.loginstore.userstate[0].nickname ==
+                showNoteData.from_nickname
+            "
+          >
+            쪽지받는사람 : {{ showNoteData.to_nickname }}
+          </div>
+          <div>성별 : {{ showNoteData.from_gender }}</div>
+          <div>제목 : {{ showNoteData.title }}</div>
+          <div>내용 : {{ showNoteData.message }}</div>
+          <div>날짜 : {{ showNoteData.date }}</div>
         </div>
-        <div
-          v-if="
-            $store.state.loginstore.userstate[0].nickname ==
-              showNoteData.from_nickname
-          "
-        >
-          쪽지받는사람 : {{ showNoteData.to_nickname }}
-        </div>
-        <div>성별 : {{ showNoteData.from_gender }}</div>
-        <div>제목 : {{ showNoteData.title }}</div>
-        <div>내용 : {{ showNoteData.message }}</div>
-        <div>날짜 : {{ showNoteData.date }}</div>
-        </div>
-        <div v-else>받은쪽지나 보낸쪽지를 클릭해 주세요.</div>
+        <div v-else>쪽지가 선택되지 않았습니다.</div>
       </v-tab-item>
-      
     </v-tabs>
   </v-card>
 </template>
@@ -152,7 +151,6 @@ import http from "../http/http";
 export default {
   data() {
     return {
-      //테스트 데이터
       showNoteData: { date: null },
       loading: false,
       singleSelect: false,
@@ -178,18 +176,8 @@ export default {
         { text: "제목", value: "title" },
         { text: "날짜", value: "date" }
       ],
-      // sentnotes: [
-      //   {
-      //     to_nickname: "Frozen Yogurt",
-      //     title: 159,
-      //     message: 6.0,
-      //     date: 24,
-      //     view_count: 4.0
-      //   }
-      // ],
       SentNoteStateData: this.$store.state.notestore.sent_note_state,
       ReceivedNoteStateData: this.$store.state.notestore.received_note_state,
-      //테스트데이터끝
 
       tab: "tab-1",
       to_user_uid: this.$route.params.user_uid,
@@ -294,6 +282,34 @@ export default {
       console.log("showSentNote :  " + JSON.stringify(d));
       this.showNoteData = Object.assign({}, d);
       this.tab = "tab-4";
+    },
+    moveSentReplyNotetab() {
+      if (
+        this.$route.path !==
+        `/note/${this.showNoteData.to_nickname}/${this.showNoteData.to_uid}`
+      ) {
+        this.$router
+          .push(
+            `/note/${this.showNoteData.to_nickname}/${this.showNoteData.to_uid}`
+          )
+          .catch(() => true);
+      } else {
+        this.tab = "tab-1";
+      }
+    },
+    moveReceivedReplyNotetab() {
+      if (
+        this.$route.path !==
+        `/note/${this.showNoteData.from_nickname}/${this.showNoteData.from_uid}`
+      ) {
+        this.$router
+          .push(
+            `/note/${this.showNoteData.from_nickname}/${this.showNoteData.from_uid}`
+          )
+          .catch(() => true);
+      } else {
+        this.tab = "tab-1";
+      }
     }
   }
 };
