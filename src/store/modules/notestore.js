@@ -42,6 +42,11 @@ export default {
         throw e;
       }
     },
+    DELETE_SENT_NOTE_DETAIL: (state, datas) => {
+      state.sent_note_state = state.sent_note_state.filter(
+        t => datas.id_num !== t.id_num
+      );
+    }
   },
   actions: {
     async getsentnote({ commit }, payload) {
@@ -56,6 +61,18 @@ export default {
         withCredentials: true
       });
       commit("SET_GET_RECEIVED_NOTE", response.data);
+    },
+    async deletesentnotedetail({ commit }, payload) {
+      try {
+        const response = await http.post(
+          `/notedelete/deleteSentNoteDetail`,
+          payload,
+          {
+            withCredentials: true
+          }
+        );
+      } catch (err) {}
+      commit("DELETE_SENT_NOTE_DETAIL", payload);
     }
   }
 };

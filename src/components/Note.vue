@@ -57,7 +57,9 @@
         <v-btn @click="SendNote">보내기</v-btn>
       </v-tab-item>
       <v-tab-item value="tab-2">
-        <v-icon @click="deleteReceivedNote">mdi-trash-can-outline</v-icon>
+        <v-icon @click="deleteReceivedNoteSelected"
+          >mdi-trash-can-outline</v-icon
+        >
 
         <v-data-table
           v-model="received_selected"
@@ -75,7 +77,7 @@
         </v-data-table
       ></v-tab-item>
       <v-tab-item value="tab-3">
-        <v-icon @click="deleteSentNote">mdi-trash-can-outline</v-icon>
+        <v-icon @click="deleteSentNoteSelected">mdi-trash-can-outline</v-icon>
         <v-data-table
           v-model="sent_selected"
           :headers="sent_headers"
@@ -102,8 +104,16 @@
             @click="moveReceivedReplyNotetab"
             >mdi-email-outline</v-icon
           >
-          <!--내가 보낸사람에게 다시보내기 버튼-->
+          <v-icon
+            v-if="
+              $store.state.loginstore.userstate[0].nickname ==
+                showNoteData.to_nickname
+            "
+            @click="deleteReceivedNoteDetail"
+            >mdi-trash-can-outline</v-icon
+          >
 
+          <!--내가 보낸사람에게 다시보내기 버튼-->
           <v-icon
             v-if="
               $store.state.loginstore.userstate[0].nickname ==
@@ -112,8 +122,15 @@
             @click="moveSentReplyNotetab"
             >mdi-email-outline</v-icon
           >
+          <v-icon
+            v-if="
+              $store.state.loginstore.userstate[0].nickname ==
+                showNoteData.from_nickname
+            "
+            @click="deleteSentNoteDetail"
+            >mdi-trash-can-outline</v-icon
+          >
 
-          <v-icon>mdi-trash-can-outline</v-icon>
           <div
             v-if="
               $store.state.loginstore.userstate[0].nickname ==
@@ -260,12 +277,34 @@ export default {
       this.$store.dispatch("notestore/getreceivednote", payload);
       this.loading = false;
     },
-    async deleteSentNote() {
-      console.log(this.sent_selected);
+
+    async deleteSentNoteDetail() {
+      const delsentObj = {
+        from_uid: this.showNoteData.from_uid,
+        id_num: this.showNoteData.id_num
+      };
+      try {
+        // await http.post(`/notedelete/deleteSentNoteDetail`, delsentObj, {
+        //   withCredentials: true
+        // });
+        this.$store.dispatch("notestore/deletesentnotedetail", delsentObj);
+        this.tab = "tab-3"
+      } catch (err) {
+        if (err) {
+          alert("쪽지 삭제에 실패하였습니다")
+        }
+      }
     },
-    async deleteReceivedNote() {
-      console.log(this.received_selected);
+    async deleteSentNoteSelected() {
+      console.log("deleteSentNoteSelected  :" + this.sent_selected);
     },
+    async deleteReceivedNoteDetail() {
+      console.log("deleteReceivedNoteDetail  :" + this.received_selected);
+    },
+    async deleteReceivedNoteSelected() {
+      console.log("deleteReceivedNoteSelected  :" + this.received_selected);
+    },
+
     async showNoteDetail(d) {
       this.showNoteData = Object.assign({}, d);
       this.tab = "tab-4";
