@@ -294,6 +294,14 @@ export default {
       }
     },
 
+    async deleteSentNoteSelected() {
+      const delsentSelectedObj = []
+      this.sent_selected.map(d =>
+        delsentSelectedObj.push({id_num: d.id_num, from_uid: d.from_uid})
+      );
+      console.log("deleteSentNoteSelected  :" + JSON.stringify(delsentSelectedObj))
+    },
+
     async deleteReceivedNoteDetail() {
       const delreceivedObj = {
         to_uid: this.showNoteData.to_uid,
@@ -313,10 +321,6 @@ export default {
       }
     },
 
-
-    async deleteSentNoteSelected() {
-      console.log("deleteSentNoteSelected  :" + this.sent_selected);
-    },
     async deleteReceivedNoteSelected() {
       console.log("deleteReceivedNoteSelected  :" + this.received_selected);
     },
