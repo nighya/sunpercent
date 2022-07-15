@@ -46,7 +46,13 @@ export default {
       state.sent_note_state = state.sent_note_state.filter(
         t => datas.id_num !== t.id_num
       );
-    }
+    },
+
+    DELETE_RECEIVED_NOTE_DETAIL: (state, datas) => {
+      state.received_note_state = state.received_note_state.filter(
+        t => datas.id_num !== t.id_num
+      );
+    },
   },
   actions: {
     async getsentnote({ commit }, payload) {
@@ -62,6 +68,7 @@ export default {
       });
       commit("SET_GET_RECEIVED_NOTE", response.data);
     },
+
     async deletesentnotedetail({ commit }, payload) {
       try {
         const response = await http.post(
@@ -73,6 +80,19 @@ export default {
         );
       } catch (err) {}
       commit("DELETE_SENT_NOTE_DETAIL", payload);
-    }
+    },
+
+    async deletereceivednotedetail({ commit }, payload) {
+      try {
+        const response = await http.post(
+          `/notedelete/deleteReceivedNoteDetail`,
+          payload,
+          {
+            withCredentials: true
+          }
+        );
+      } catch (err) {}
+      commit("DELETE_RECEIVED_NOTE_DETAIL", payload);
+    },
   }
 };

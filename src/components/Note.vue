@@ -284,22 +284,38 @@ export default {
         id_num: this.showNoteData.id_num
       };
       try {
-        // await http.post(`/notedelete/deleteSentNoteDetail`, delsentObj, {
-        //   withCredentials: true
-        // });
         this.$store.dispatch("notestore/deletesentnotedetail", delsentObj);
-        this.tab = "tab-3"
+        this.showNoteData = { date: null };
+        this.tab = "tab-3";
       } catch (err) {
         if (err) {
-          alert("쪽지 삭제에 실패하였습니다")
+          alert("쪽지 삭제에 실패하였습니다");
         }
       }
     },
+
+    async deleteReceivedNoteDetail() {
+      const delreceivedObj = {
+        to_uid: this.showNoteData.to_uid,
+        id_num: this.showNoteData.id_num
+      };
+      try {
+        this.$store.dispatch(
+          "notestore/deletereceivednotedetail",
+          delreceivedObj
+        );
+        this.showNoteData = { date: null };
+        this.tab = "tab-2";
+      } catch (err) {
+        if (err) {
+          alert("쪽지 삭제에 실패하였습니다");
+        }
+      }
+    },
+
+
     async deleteSentNoteSelected() {
       console.log("deleteSentNoteSelected  :" + this.sent_selected);
-    },
-    async deleteReceivedNoteDetail() {
-      console.log("deleteReceivedNoteDetail  :" + this.received_selected);
     },
     async deleteReceivedNoteSelected() {
       console.log("deleteReceivedNoteSelected  :" + this.received_selected);
