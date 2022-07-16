@@ -123,7 +123,6 @@ export default {
           }
         );
       } catch (err) {}
-      console.log(payload);
       commit("DELETE_SENT_NOTE_SELECTED", payload);
     },
 
@@ -137,7 +136,6 @@ export default {
           }
         );
       } catch (err) {}
-      console.log(payload);
       commit("DELETE_RECEIVED_NOTE_SELECTED", payload);
     },
   }

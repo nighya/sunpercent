@@ -67,6 +67,8 @@
           :items="$store.state.notestore.received_note_state"
           :single-select="singleSelect"
           :loading="loading"
+          :sort-by.sync="columnName"
+          :sort-desc.sync="isDescending"
           mobile-breakpoint="0"
           loading-text="Loading... Please wait"
           item-key="date"
@@ -84,6 +86,8 @@
           :items="$store.state.notestore.sent_note_state"
           :single-select="singleSelect"
           :loading="loading"
+          :sort-by.sync="columnName"
+          :sort-desc.sync="isDescending"
           mobile-breakpoint="0"
           loading-text="Loading... Please wait"
           item-key="date"
@@ -164,6 +168,8 @@ import http from "../http/http";
 export default {
   data() {
     return {
+      columnName: "date",
+      isDescending: true,
       showNoteData: { date: null },
       loading: false,
       singleSelect: false,
