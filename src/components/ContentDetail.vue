@@ -11,6 +11,7 @@
             gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
             max-height="500px"
             max-width="1000px"
+            @click="newWindowImage"
           >
             <div class="ms-4">
               닉네임
@@ -350,6 +351,9 @@ export default {
     };
   },
   methods: {
+    newWindowImage() {
+      window.open(`http://192.168.0.12:4000${this.$store.state.imagestore.imagedetail[0].image_path}`,'_blank')
+    },
     report() {
       this.reportdialog = true;
     },
