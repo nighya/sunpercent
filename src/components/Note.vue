@@ -295,11 +295,23 @@ export default {
     },
 
     async deleteSentNoteSelected() {
-      const delsentSelectedObj = []
-      this.sent_selected.map(d =>
-        delsentSelectedObj.push({id_num: d.id_num, from_uid: d.from_uid})
+      const delsentSelectedObj = [];
+      this.sent_selected.map(item =>
+        delsentSelectedObj.push({
+          id_num: item.id_num,
+          from_uid: item.from_uid
+        })
       );
-      console.log("deleteSentNoteSelected  :" + JSON.stringify(delsentSelectedObj))
+
+      try {
+        this.$store.dispatch("notestore/deletesentnoteselected", delsentSelectedObj);
+        this.tab ="tab-3"
+      } catch (err) {
+        if (err) {
+          alert("쪽지 삭제에 실패하였습니다");
+        }
+      }
+      // console.log("deleteSentNoteSelected  :" + JSON.stringify(delsentSelectedObj))
     },
 
     async deleteReceivedNoteDetail() {

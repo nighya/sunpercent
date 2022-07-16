@@ -47,6 +47,11 @@ export default {
         t => datas.id_num !== t.id_num
       );
     },
+    DELETE_SENT_NOTE_SELECTED: (state, datas) => {
+      state.sent_note_state = state.sent_note_state.filter(
+        t => datas.id_num !== t.id_num
+      );
+    },
 
     DELETE_RECEIVED_NOTE_DETAIL: (state, datas) => {
       state.received_note_state = state.received_note_state.filter(
@@ -91,8 +96,22 @@ export default {
             withCredentials: true
           }
         );
-      } catch (err) {}
+      } catch (err) { }
+      console.log(payload)
       commit("DELETE_RECEIVED_NOTE_DETAIL", payload);
+    },
+
+    async deletesentnoteselected({ commit }, payload) {
+      try {
+        const response = http.post(
+          `/notedelete/deleteSentNoteSelected`,
+          payload,
+          {
+            withCredentials: true
+          }
+        );
+      } catch (err) {}
+      commit("DELETE_SENT_NOTE_SELECTED", payload);
     },
   }
 };
