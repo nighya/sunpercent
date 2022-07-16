@@ -6,20 +6,13 @@ import imagestore from "./modules/imagestore";
 import scorestore from "./modules/scorestore";
 import notestore from "./modules/notestore";
 
-
-import { EncryptStorage } from 'encrypt-storage';
-import VuexPersistence from 'vuex-persist';
-
-export const encryptStorage = new EncryptStorage('secret-key', {
-  storageType: 'sessionStorage',
+import SecureLS from "secure-ls";
+const ls = new SecureLS({
+  encodingType: "aes", // changeable
+  isCompression: false,
+  encryptionSecret: "s3cr3tPa$$w0rd@123", // change this
+  useSessionStorage: true
 });
-const vuexLocal = new VuexPersistence({
-  // storage: encryptStorage,
-  storage: encryptStorage,
-
-});
-
-
 
 Vue.use(Vuex);
 
@@ -35,16 +28,15 @@ export default new Vuex.Store({
     scorestore: scorestore,
     notestore: notestore
   },
-  plugins: [vuexLocal.plugin
-    // createPersistedState({
-    //   storage: window.sessionStorage,
-    //   // storage: {
-    //   //   getItem: key => ls.get(JSON.stringify(key)),
-    //   //   setItem: (key, value) => JSON.stringify(ls.set(key, value)),
-    //   //   removeItem: key => JSON.stringify(ls.remove(key))
-    //   // },
-    //   paths: ["loginstore"]
-    // })
-
+  plugins: [
+    createPersistedState({
+      // storage: window.sessionStorage,
+      storage: {
+        getItem: key => ls.get(JSON.stringify(key)),
+        setItem: (key, value) => JSON.stringify(ls.set(key, value)),
+        removeItem: key => JSON.stringify(ls.remove(key))
+      },
+      paths: ["imagestore","scorestore"]
+    })
   ]
 });
