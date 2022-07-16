@@ -304,8 +304,10 @@ export default {
       );
 
       try {
-        this.$store.dispatch("notestore/deletesentnoteselected", delsentSelectedObj);
-        this.tab ="tab-3"
+        this.$store.dispatch(
+          "notestore/deletesentnoteselected",
+          delsentSelectedObj
+        );
       } catch (err) {
         if (err) {
           alert("쪽지 삭제에 실패하였습니다");
@@ -334,7 +336,24 @@ export default {
     },
 
     async deleteReceivedNoteSelected() {
-      console.log("deleteReceivedNoteSelected  :" + this.received_selected);
+      const delreceivedSelectedObj = [];
+      this.received_selected.map(item =>
+        delreceivedSelectedObj.push({
+          id_num: item.id_num,
+          to_uid: item.to_uid
+        })
+      );
+
+      try {
+        this.$store.dispatch(
+          "notestore/deletreceivednoteselected",
+          delreceivedSelectedObj
+        );
+      } catch (err) {
+        if (err) {
+          alert("쪽지 삭제에 실패하였습니다");
+        }
+      }
     },
 
     async showNoteDetail(d) {

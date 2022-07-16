@@ -60,7 +60,15 @@ export default {
       state.received_note_state = state.received_note_state.filter(
         t => datas.id_num !== t.id_num
       );
-    }
+    },
+
+    DELETE_RECEIVED_NOTE_SELECTED: (state, datas) => {
+      datas.map(item => {
+        state.received_note_state = state.received_note_state.filter(
+          t => item.id_num !== t.id_num
+        )
+      });
+    },
   },
   actions: {
     async getsentnote({ commit }, payload) {
@@ -117,6 +125,20 @@ export default {
       } catch (err) {}
       console.log(payload);
       commit("DELETE_SENT_NOTE_SELECTED", payload);
-    }
+    },
+
+    async deletreceivednoteselected({ commit }, payload) {
+      try {
+        const response = http.post(
+          `/notedelete/deleteReceivedNoteSelected`,
+          payload,
+          {
+            withCredentials: true
+          }
+        );
+      } catch (err) {}
+      console.log(payload);
+      commit("DELETE_RECEIVED_NOTE_SELECTED", payload);
+    },
   }
 };
