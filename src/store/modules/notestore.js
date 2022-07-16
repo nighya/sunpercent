@@ -47,17 +47,20 @@ export default {
         t => datas.id_num !== t.id_num
       );
     },
+
     DELETE_SENT_NOTE_SELECTED: (state, datas) => {
-      state.sent_note_state = state.sent_note_state.filter(
-        t => datas.id_num !== t.id_num
-      );
+      datas.map(item => {
+        state.sent_note_state = state.sent_note_state.filter(
+          t => item.id_num !== t.id_num
+        )
+      });
     },
 
     DELETE_RECEIVED_NOTE_DETAIL: (state, datas) => {
       state.received_note_state = state.received_note_state.filter(
         t => datas.id_num !== t.id_num
       );
-    },
+    }
   },
   actions: {
     async getsentnote({ commit }, payload) {
@@ -84,6 +87,7 @@ export default {
           }
         );
       } catch (err) {}
+      console.log(payload);
       commit("DELETE_SENT_NOTE_DETAIL", payload);
     },
 
@@ -96,8 +100,8 @@ export default {
             withCredentials: true
           }
         );
-      } catch (err) { }
-      console.log(payload)
+      } catch (err) {}
+
       commit("DELETE_RECEIVED_NOTE_DETAIL", payload);
     },
 
@@ -111,7 +115,8 @@ export default {
           }
         );
       } catch (err) {}
+      console.log(payload);
       commit("DELETE_SENT_NOTE_SELECTED", payload);
-    },
+    }
   }
 };
