@@ -271,7 +271,7 @@ export default {
         "사진편집이 과해 보여요"
       ],
       reportdialog: false,
-      scoredialog: false, 
+      scoredialog: false,
       deletedialog: false,
       rating: 1,
       chartOptions: {
@@ -352,7 +352,10 @@ export default {
   },
   methods: {
     newWindowImage() {
-      window.open(`http://192.168.0.12:4000${this.$store.state.imagestore.imagedetail[0].image_path}`,'_blank')
+      window.open(
+        `http://192.168.0.12:4000${this.$store.state.imagestore.imagedetail[0].image_path}`,
+        "_blank"
+      );
     },
     report() {
       this.reportdialog = true;
@@ -457,14 +460,14 @@ export default {
       content_uid: this.$route.params.content_uid,
       user_uid: this.$store.state.loginstore.userstate[0].user_uid
     };
-    if (
-      this.$store.state.imagestore.imagedetail[0].user_uid ==
-      this.$store.state.loginstore.userstate[0].user_uid
-    ) {
-      this.$store.dispatch("scorestore/getscore", obj);
-    }
-
-    window.dispatchEvent(new Event("resize"));
+    // if (
+    //   this.$store.state.imagestore.imagedetail[0].user_uid ==
+    //   this.$store.state.loginstore.userstate[0].user_uid
+    // ) {
+    //   this.$store.dispatch("scorestore/getscore", obj);
+    // }
+    this.$store.dispatch("scorestore/getscore", obj);
+    // window.dispatchEvent(new Event("resize"));
   },
 
   computed: {
