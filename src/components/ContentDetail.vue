@@ -217,14 +217,17 @@
         </v-card>
       </v-dialog>
     </div>
-    <div >
+    <div>
       <v-dialog v-model="showimage_dialog" width="auto"
         ><v-img
           :src="
             `http://192.168.0.12:4000${this.$store.state.imagestore.imagedetail[0].image_path}`
           "
-        ><v-icon large right @click="showimage_dialog_close" dark>mdi-close</v-icon></v-img
-      ></v-dialog>
+          ><v-icon large right @click="showimage_dialog_close" dark
+            >mdi-close</v-icon
+          ></v-img
+        ></v-dialog
+      >
     </div>
     <div
       class="mt-10 mr-7"
@@ -285,9 +288,21 @@ export default {
       deletedialog: false,
       rating: 1,
       chartOptions: {
+        theme: {
+          mode: "dark",
+          palette: "palette1",
+          monochrome: {
+            enabled: false,
+            color: "#255aee",
+            shadeTo: "light",
+            shadeIntensity: 0.65
+          }
+        },
+
         chart: {
           type: "bar",
-          height: 350
+          height: 350,
+          background: "#121212"
         },
         plotOptions: {
           bar: {
@@ -346,7 +361,7 @@ export default {
             fontSize: "25px",
             fontWeight: "bold",
             fontFamily: undefined,
-            color: "#263238"
+            color: "#EEEEEE"
           }
         }
       },
@@ -463,11 +478,11 @@ export default {
       }
     },
     showimage_dialog_open() {
-      this.showimage_dialog = true
+      this.showimage_dialog = true;
     },
-        showimage_dialog_close() {
-      this.showimage_dialog = false
-    },
+    showimage_dialog_close() {
+      this.showimage_dialog = false;
+    }
   },
 
   mounted() {
