@@ -1,10 +1,11 @@
 <template>
   <v-app id="inspire">
     <v-navigation-drawer
-      width="200"
+      width="180"
       v-model="drawer"
       app
       dark
+      :permanent="$vuetify.breakpoint.smAndUp"
     >
       <v-list>
         <v-list-item class="ma-0.5" @click="moveMypage">
