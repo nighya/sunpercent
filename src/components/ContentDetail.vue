@@ -11,7 +11,7 @@
             gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
             max-height="500px"
             max-width="1000px"
-            @click="newWindowImage"
+            @click="showimage_dialog_open"
           >
             <div class="ms-4">
               닉네임
@@ -217,6 +217,15 @@
         </v-card>
       </v-dialog>
     </div>
+    <div >
+      <v-dialog v-model="showimage_dialog" width="auto"
+        ><v-img
+          :src="
+            `http://192.168.0.12:4000${this.$store.state.imagestore.imagedetail[0].image_path}`
+          "
+        ><v-icon large right @click="showimage_dialog_close" dark>mdi-close</v-icon></v-img
+      ></v-dialog>
+    </div>
     <div
       class="mt-10 mr-7"
       v-if="
@@ -260,6 +269,7 @@ export default {
   },
   data() {
     return {
+      showimage_dialog: false,
       reportRules: [v => !!v || "신고사유가 선택되지 않았습니다."],
       report_reason: null,
       report_reason_list: [
@@ -451,7 +461,13 @@ export default {
       } else {
         alert("신고사유가 선택되지 않았습니다.");
       }
-    }
+    },
+    showimage_dialog_open() {
+      this.showimage_dialog = true
+    },
+        showimage_dialog_close() {
+      this.showimage_dialog = false
+    },
   },
 
   mounted() {
