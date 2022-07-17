@@ -79,7 +79,7 @@ export default {
           withCredentials: true
         }
       );
-      console.log("contentscore payload:  ", payload);
+      // console.log("contentscore payload:  ", payload);
       commit("CONTENT_SCORE", response.data);
     }
   }

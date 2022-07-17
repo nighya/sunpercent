@@ -109,7 +109,17 @@ export default new Router({
     {
       path: '/note/:nickname/:user_uid',
       name: 'Note',
-      component:() => import( "@/components/Note" )
+      component: () => import("@/components/Note"),
+      beforeEnter: (to, from, next) => {
+        if (
+          store.state.loginstore.userstate[0].email === null ||
+          store.state.loginstore.userstate[0].email === undefined
+        ) {
+          next({ path: "/login" });
+        } else {
+          next();
+        }
+      },
     },
     {
       path: '/userpage/:nickname/:user_uid',
