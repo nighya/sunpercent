@@ -5,7 +5,6 @@
       v-model="drawer"
       app
       dark
-      :src="drawerImage_h"
     >
       <v-list>
         <v-list-item class="ma-0.5" @click="moveMypage">
@@ -52,7 +51,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar app color="primary" dark :src="drawerImage">
+    <v-app-bar app dark >
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
       <v-app-bar-title class="title"
@@ -97,8 +96,6 @@
 </template>
 
 <script>
-import drawerImage from "./assets/gra_rpy.jpg";
-import drawerImage_h from "./assets/gra_rpy_h.jpg";
 import baseimage from "./assets/bg.png";
 export default {
   data: () => ({
@@ -108,8 +105,6 @@ export default {
       { title: "Home", icon: "mdi-home-heart", to: "/" },
       { title: "Content", icon: "mdi-format-list-text", to: "/content" }
     ],
-    drawerImage: drawerImage,
-    drawerImage_h: drawerImage_h,
     menuitems: [
       { title: "로그인", icon: "mdi-login" },
       { title: "로그아웃", icon: "mdi-logout" },
