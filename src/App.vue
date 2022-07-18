@@ -1,43 +1,21 @@
 <template>
   <v-app id="inspire">
     <v-navigation-drawer
+      class="grey darken-4"
       width="180"
       v-model="drawer"
       app
       dark
       :permanent="$vuetify.breakpoint.smAndUp"
     >
-      <v-list>
-        <v-list-item class="ma-0.5" @click="moveMypage">
-          <v-list-item-avatar
-            v-if="
-              this.$store.state.loginstore.userstate[0].profile_image == null
-            "
-          >
-            <v-img :src="baseimage"></v-img>
-          </v-list-item-avatar>
-          <v-list-item-avatar v-else>
-            <v-img
-              :src="
-                `http://192.168.0.12:4000${this.$store.state.loginstore.userstate[0].profile_image}`
-              "
-            ></v-img>
-          </v-list-item-avatar>
-          <v-list-item-content>
-            <v-list-item-title class="text-h6">
-              {{ this.$store.state.loginstore.userstate[0].nickname }}
-            </v-list-item-title>
-            <v-list-item-subtitle>{{
-              this.$store.state.loginstore.userstate[0].email
-            }}</v-list-item-subtitle>
-            <v-list-item-subtitle>{{
-              this.$store.state.loginstore.userstate[0].point
-            }}</v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-
-      <v-divider></v-divider>
+      <v-list-item>
+        <v-list-item-content >
+          <v-list-item-title class="text-h6"  align="center"
+        justify="center" >
+            SunPercent
+          </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
 
       <v-list dense nav>
         <v-list-item v-for="item in items" :key="item.title" link :to="item.to">
@@ -52,10 +30,15 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar app dark >
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+    <v-app-bar app dark class="grey darken-4">
+      <v-app-bar-nav-icon
+        v-if="drawer == false"
+        @click="drawer = !drawer"
+      ></v-app-bar-nav-icon>
 
-      <v-app-bar-title class="title"
+
+        
+      <v-app-bar-title class="title" v-if="drawer == false"
         ><router-link class="toolbar__title" to="/"
           >SunPercent</router-link
         ></v-app-bar-title
@@ -117,12 +100,12 @@ export default {
     moveMypage() {
       const user_uid = this.$store.state.loginstore.userstate[0].user_uid;
       if (this.$route.path !== `/mypage/${user_uid}`)
-        this.$router.push(`/mypage/${user_uid}`).catch(()=>true);
+        this.$router.push(`/mypage/${user_uid}`).catch(() => true);
     },
     logout() {
       this.$store.dispatch("loginstore/logout");
       sessionStorage.clear();
-      this.$router.push({ name: "Login" }).catch(()=>true);
+      this.$router.push({ name: "Login" }).catch(() => true);
     },
     menuclick(menuclick) {
       switch (menuclick.title) {
@@ -138,7 +121,7 @@ export default {
           break;
         case "회원등록":
           this.logout();
-          this.$router.push("/register").catch(()=>true);
+          this.$router.push("/register").catch(() => true);
       }
     }
   },
