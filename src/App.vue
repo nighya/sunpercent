@@ -9,9 +9,12 @@
       :permanent="$vuetify.breakpoint.smAndUp"
     >
       <v-list-item>
-        <v-list-item-content >
-          <v-list-item-title class="text-h6"  align="center"
-        justify="center" >
+        <v-list-item-content>
+          <v-list-item-title
+            class="mt-2 text-h6 font-weight-black"
+            align="center"
+            justify="center"
+          >
             SunPercent
           </v-list-item-title>
         </v-list-item-content>
@@ -36,9 +39,7 @@
         @click="drawer = !drawer"
       ></v-app-bar-nav-icon>
 
-
-        
-      <v-app-bar-title class="title" v-if="drawer == false"
+      <v-app-bar-title class="title font-weight-black" v-if="drawer == false"
         ><router-link class="toolbar__title" to="/"
           >SunPercent</router-link
         ></v-app-bar-title
