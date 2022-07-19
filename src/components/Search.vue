@@ -15,33 +15,6 @@
       :error-messages="nickname_err_msg"
     ></v-text-field>
 
-    <!-- <v-row>
-      <v-col
-        v-for="(data, index) in content_data"
-        :key="index"
-        class="d-flex child-flex"
-        cols="4"
-      >
-        <v-img
-          :src="`http://192.168.0.12:4000/${data.image_path}`"
-          :lazy-src="`http://192.168.0.12:4000/${data.image_path}`"
-          aspect-ratio="1"
-          class="grey lighten-2"
-          @click="ContentDetail(data)"
-        >
-          <span class="white--text">{{ data.nickname }}</span>
-          <span class="white--text">({{ data.date }})</span>
-          <template v-slot:placeholder>
-            <v-row class="fill-height ma-0" align="center" justify="center">
-              <v-progress-circular
-                indeterminate
-                color="grey lighten-5"
-              ></v-progress-circular>
-            </v-row>
-          </template>
-        </v-img>
-      </v-col>
-    </v-row> -->
     <div>
       <v-data-table
         :headers="headers"
@@ -58,7 +31,7 @@
         </template>
       </v-data-table>
     </div>
-    <v-alert v-model="content_no_data_msg" dense outlined type="error">
+    <v-alert class="ml-5 mr-5" v-model="content_no_data_msg" dense outlined>
       검색한 <strong>닉네임</strong>으로 검색된 게시물이
       <strong>없습니다.</strong>
     </v-alert>

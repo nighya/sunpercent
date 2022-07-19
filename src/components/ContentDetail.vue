@@ -240,7 +240,7 @@
       "
     >
       <apexcharts
-        max-width="700"
+      class="d-flex justify-center"
         height="350"
         type="bar"
         :options="chartOptions"
@@ -257,8 +257,8 @@
         </v-row>
       </div>
     </div>
-    <div v-else class="pt-10">
-      <v-alert border="left" color="indigo" dark>
+    <div v-else class="pt-10" align="center">
+      <v-alert align="start"  border="left" color="indigo" dark width="100%" max-width="780px">
         총합계 평균점수 및 차트는 해당 게시물의 작성자에게만 표시 됩니다.
       </v-alert>
     </div>
