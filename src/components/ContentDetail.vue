@@ -221,14 +221,16 @@
     <div>
       <v-dialog v-model="showimage_dialog" width="auto"
         ><v-img
-        max-width="100%" 
-        max-height="100%"
+          max-width="100%"
+          max-height="100%"
           :src="
             `http://192.168.0.12:4000${this.$store.state.imagestore.imagedetail[0].image_path}`
           "
-          ><v-col class="text-right"><v-icon large right @click="showimage_dialog_close" dark
-            >mdi-close</v-icon
-          ></v-col></v-img
+          ><v-col class="text-right"
+            ><v-icon large right @click="showimage_dialog_close" dark
+              >mdi-close</v-icon
+            ></v-col
+          ></v-img
         ></v-dialog
       >
     </div>
@@ -240,7 +242,7 @@
       "
     >
       <apexcharts
-      class="d-flex justify-center"
+        class="d-flex justify-center"
         height="350"
         type="bar"
         :options="chartOptions"
@@ -258,7 +260,14 @@
       </div>
     </div>
     <div v-else class="pt-10" align="center">
-      <v-alert align="start"  border="left" color="indigo" dark width="100%" max-width="780px">
+      <v-alert
+        align="start"
+        border="left"
+        color="indigo"
+        dark
+        width="100%"
+        max-width="780px"
+      >
         총합계 평균점수 및 차트는 해당 게시물의 작성자에게만 표시 됩니다.
       </v-alert>
     </div>
@@ -366,7 +375,8 @@ export default {
             fontFamily: undefined,
             color: "#EEEEEE"
           }
-        }
+        },
+
       },
       series: [
         { name: "전체평균", data: [] },
