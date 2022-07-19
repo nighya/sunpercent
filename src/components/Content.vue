@@ -1,14 +1,22 @@
 <template>
-  <v-card class="mx-auto" max-width="500">
-    <v-container fluid>
-      <v-row dense>
-        <v-col v-for="(data, index) in AllGetterslist" :key="index">
+<div>
+  <h1>사진</h1>
+  <v-card >
+    <v-container >
+      <v-row >
+        <v-col
+          v-for="(data, index) in AllGetterslist"
+          :key="index"
+          class="d-flex child-flex"
+          cols="4"
+        >
           <v-card @click="ContentDetail(data)">
             <v-img
               :src="`http://192.168.0.12:4000/${data.image_path}`"
               class="white--text align-end"
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-              height="200px"
+              aspect-ratio="1"
+
             >
               <!-- <v-card-title v-text="data.user_uid"></v-card-title> -->
 
@@ -30,13 +38,14 @@
               <v-icon color="pink" v-else>mdi-alpha-w-circle-outline</v-icon>
               <v-card-text v-text="data.nickname"></v-card-text>
 
-              <v-card-text  align="right" v-text="data.date"></v-card-text>
+              <v-card-text align="right" v-text="data.date"></v-card-text>
             </v-card-actions>
           </v-card>
         </v-col>
       </v-row>
     </v-container>
   </v-card>
+  </div>
 </template>
 <script>
 export default {

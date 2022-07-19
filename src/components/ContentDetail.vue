@@ -220,6 +220,8 @@
     <div>
       <v-dialog v-model="showimage_dialog" width="auto"
         ><v-img
+        max-width="100%" 
+        max-height="100%"
           :src="
             `http://192.168.0.12:4000${this.$store.state.imagestore.imagedetail[0].image_path}`
           "
