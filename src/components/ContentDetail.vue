@@ -251,7 +251,7 @@
       <div>
         <v-row justify="center">
           총합계 평균점수 : {{ average_total }}&nbsp;({{ total_number }}명)
-          &nbsp;&nbsp;&nbsp; 남자 : {{ average_male }}&nbsp;({{
+          <v-col  cols="2"></v-col> 남자 : {{ average_male }}&nbsp;({{
             male_number
           }}명) &nbsp;&nbsp;&nbsp; 여자 : {{ average_female }}&nbsp;({{
             female_number
@@ -375,8 +375,7 @@ export default {
             fontFamily: undefined,
             color: "#EEEEEE"
           }
-        },
-
+        }
       },
       series: [
         { name: "전체평균", data: [] },
