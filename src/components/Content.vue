@@ -11,7 +11,7 @@
               height="200px"
             >
               <!-- <v-card-title v-text="data.user_uid"></v-card-title> -->
-              <v-card-text v-text="data.nickname"></v-card-text>
+
               <template v-slot:placeholder>
                 <v-row class="fill-height ma-0" align="center" justify="center">
                   <v-progress-circular
@@ -24,18 +24,13 @@
 
             <v-card-actions>
               <v-spacer></v-spacer>
+              <v-icon color="blue darken-3" v-if="data.gender == `male`"
+                >mdi-alpha-m-circle-outline</v-icon
+              >
+              <v-icon color="pink" v-else>mdi-alpha-w-circle-outline</v-icon>
+              <v-card-text v-text="data.nickname"></v-card-text>
 
-              <v-btn icon>
-                <v-icon>mdi-heart</v-icon>
-              </v-btn>
-
-              <v-btn icon>
-                <v-icon>mdi-bookmark</v-icon>
-              </v-btn>
-
-              <v-btn icon>
-                <v-icon>mdi-share-variant</v-icon>
-              </v-btn>
+              <v-card-text  align="right" v-text="data.date"></v-card-text>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -45,9 +40,7 @@
 </template>
 <script>
 export default {
-  data: () => ({
-
-  }),
+  data: () => ({}),
   mounted() {
     this.$store.dispatch("imagestore/getallimages");
   },
@@ -60,7 +53,9 @@ export default {
   methods: {
     contentupload() {
       if (this.$store.state.loginstore.userstate[0].point < 2) {
-        alert("게시물을 업로드 하시려면 포인트 2점이 필요합니다. 다른 게시물에 점수를 주면 포인트를 얻을 수 있습니다.");
+        alert(
+          "게시물을 업로드 하시려면 포인트 2점이 필요합니다. 다른 게시물에 점수를 주면 포인트를 얻을 수 있습니다."
+        );
       } else {
         this.$router.push("/contentupload");
       }

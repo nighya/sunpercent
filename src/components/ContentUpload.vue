@@ -125,7 +125,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import http from "../http/http";
 export default {
   name: "ContentUpload",
