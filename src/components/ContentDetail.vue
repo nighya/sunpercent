@@ -223,9 +223,9 @@
           :src="
             `http://192.168.0.12:4000${this.$store.state.imagestore.imagedetail[0].image_path}`
           "
-          ><v-icon large right @click="showimage_dialog_close" dark
+          ><v-col class="text-right"><v-icon large right @click="showimage_dialog_close" dark
             >mdi-close</v-icon
-          ></v-img
+          ></v-col></v-img
         ></v-dialog
       >
     </div>
