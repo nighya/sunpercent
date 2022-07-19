@@ -12,6 +12,7 @@
             max-height="500px"
             max-width="1000px"
             @click="newWindowImage"
+            contain
           >
             <div class="ms-4">
               닉네임
