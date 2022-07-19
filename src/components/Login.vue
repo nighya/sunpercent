@@ -2,7 +2,7 @@
   <div class="login pa-6">
     <v-container class="fill-height" fluid>
       <v-row align="center" justify="center">
-        <v-col cols="12" sm="8" md="4">
+        <v-col cols="12" sm="8" md="6">
           <v-card class="elevation-12">
             <v-toolbar dark flat>
               <v-toolbar-title class="ml-2">Login</v-toolbar-title>
@@ -30,13 +30,19 @@
                 ></v-text-field>
               </v-form>
             </v-card-text>
-            <v-card-text align="center" @click="FindPassword">비밀번호 찾기</v-card-text>
+            <div class="ma-5 subtitle-2" align="center"><a align="center" @click="FindPassword">비밀번호 찾기</a></div>
             <v-card-actions class="justify-center">
               <v-btn color="grey darken-3" dark @click="moveRegisterpage"
                 >회원가입</v-btn
               >
               <v-spacer></v-spacer>
-              <v-btn color="grey darken-3" dark @click="login" :loading="loading">로그인</v-btn>
+              <v-btn
+                color="grey darken-3"
+                dark
+                @click="login"
+                :loading="loading"
+                >로그인</v-btn
+              >
             </v-card-actions>
           </v-card>
         </v-col>
@@ -49,7 +55,7 @@ import axios from "axios";
 export default {
   data() {
     return {
-      loading:false,
+      loading: false,
       passwordRules: [value => !!value || "비밀번호를 입력해 주세요."],
       emailRules: [
         v => !!v || "이메일을 입력해 주세요",
@@ -80,11 +86,11 @@ export default {
         };
         this.$store.dispatch("loginstore/login", userloginObj);
         this.clearForm();
-        this.loading = false
+        this.loading = false;
         this.$router.go(-1);
       } else {
         alert("로그인되지 않았습니다.");
-        this.loading = false
+        this.loading = false;
       }
       // let userloginObj = {
       //   email: this.email,
@@ -106,7 +112,7 @@ export default {
       sessionStorage.clear();
     },
     FindPassword() {
-      this.$router.push("/findpassword")
+      this.$router.push("/findpassword");
     }
   }
 };
