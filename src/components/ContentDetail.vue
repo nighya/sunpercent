@@ -108,7 +108,6 @@
                   this.$store.state.imagestore.imagedetail[0].user_uid !=
                     this.$store.state.loginstore.userstate[0].user_uid
               "
-              color="purple lighten-3"
               dark
               @click.prevent="score"
               >점수주기</v-btn
@@ -118,7 +117,6 @@
                 this.$store.state.imagestore.imagedetail[0].user_uid ==
                   this.$store.state.loginstore.userstate[0].user_uid
               "
-              color="purple lighten-3"
               dark
               @click.prevent="delete_dialog"
               >삭제하기</v-btn

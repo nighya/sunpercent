@@ -1,12 +1,12 @@
 <template>
   <v-card>
-    <v-tabs color="deep-purple accent-4" left v-model="tab">
-      <v-tab href="#tab-1">쪽지보내기</v-tab>
+    <v-tabs  color="deep-purple accent-1" left v-model="tab">
+      <v-tab class="ml-5" href="#tab-1">쪽지보내기</v-tab>
       <v-tab href="#tab-2" @click="getReceivedNote">받은쪽지</v-tab>
       <v-tab href="#tab-3" @click="getSentNote">보낸쪽지</v-tab>
       <v-tab href="#tab-4">쪽지보기</v-tab>
 
-      <v-tab-item value="tab-1">
+      <v-tab-item value="tab-1" class="ma-2">
         <v-form ref="form">
           <v-container>
             <v-row>
@@ -54,10 +54,10 @@
             </v-row>
           </v-container>
         </v-form>
-        <v-btn @click="SendNote">보내기</v-btn>
+        <v-btn color="grey darken-3" @click="SendNote">보내기</v-btn>
       </v-tab-item>
-      <v-tab-item value="tab-2">
-        <v-icon @click="deleteReceivedNoteSelected"
+      <v-tab-item class="ma-2" value="tab-2">
+        <v-icon class="ma-4" @click="deleteReceivedNoteSelected"
           >mdi-trash-can-outline</v-icon
         >
 
@@ -79,8 +79,8 @@
         >
         </v-data-table
       ></v-tab-item>
-      <v-tab-item value="tab-3">
-        <v-icon @click="deleteSentNoteSelected">mdi-trash-can-outline</v-icon>
+      <v-tab-item class="ma-2" value="tab-3">
+        <v-icon class="ma-4" @click="deleteSentNoteSelected">mdi-trash-can-outline</v-icon>
         <v-data-table
           v-model="sent_selected"
           :headers="sent_headers"
@@ -99,7 +99,7 @@
         >
         </v-data-table>
       </v-tab-item>
-      <v-tab-item value="tab-4">
+      <v-tab-item class="ma-5" value="tab-4">
         <div v-if="showNoteData.date !== null">
           <!--받은쪽지 리플 버튼-->
           <v-icon

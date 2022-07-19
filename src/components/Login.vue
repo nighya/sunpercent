@@ -4,8 +4,8 @@
       <v-row align="center" justify="center">
         <v-col cols="12" sm="8" md="4">
           <v-card class="elevation-12">
-            <v-toolbar color="purple lighten-3" dark flat>
-              <v-toolbar-title></v-toolbar-title>
+            <v-toolbar dark flat>
+              <v-toolbar-title class="ml-2">Login</v-toolbar-title>
               <v-spacer></v-spacer>
             </v-toolbar>
             <v-card-text>
@@ -30,13 +30,13 @@
                 ></v-text-field>
               </v-form>
             </v-card-text>
-            <v-card-text @click="FindPassword">비밀번호 찾기</v-card-text>
+            <v-card-text align="center" @click="FindPassword">비밀번호 찾기</v-card-text>
             <v-card-actions class="justify-center">
-              <v-btn color="purple lighten-3" dark @click="moveRegisterpage"
+              <v-btn color="grey darken-3" dark @click="moveRegisterpage"
                 >회원가입</v-btn
               >
               <v-spacer></v-spacer>
-              <v-btn color="purple lighten-3" dark @click="login" :loading="loading">로그인</v-btn>
+              <v-btn color="grey darken-3" dark @click="login" :loading="loading">로그인</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -84,6 +84,7 @@ export default {
         this.$router.go(-1);
       } else {
         alert("로그인되지 않았습니다.");
+        this.loading = false
       }
       // let userloginObj = {
       //   email: this.email,

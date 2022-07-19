@@ -4,15 +4,15 @@
       <v-row align="center" justify="center">
         <v-col cols="12" sm="8" md="4">
           <v-card class="elevation-12">
-            <v-toolbar color="purple lighten-3" dark flat>
-              <v-toolbar-title></v-toolbar-title>
+            <v-toolbar dark flat>
+              <v-toolbar-title class="ml-2">비밀번호 찾기</v-toolbar-title>
               <v-spacer></v-spacer>
             </v-toolbar>
             <v-card-text>
               <v-form ref="form">
                 <v-text-field
                   id="email"
-                  label="email"
+                  label="email을 입력해주세요."
                   name="email"
                   prepend-icon="mdi-account"
                   type="email"
@@ -22,12 +22,12 @@
               </v-form>
             </v-card-text>
             <v-card-actions class="justify-center">
-              <v-btn color="purple lighten-3" dark @click="moveRegisterpage"
+              <v-btn color="grey darken-3" dark @click="moveRegisterpage"
                 >회원가입</v-btn
               >
               <v-spacer></v-spacer>
               <v-btn
-                color="purple lighten-3"
+                color="grey darken-3"
                 dark
                 @click="PasswordResetMailSend"
                 >비밀번호 찾기</v-btn

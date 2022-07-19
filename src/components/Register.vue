@@ -4,8 +4,8 @@
       <v-row align="center" justify="center">
         <v-col cols="12" sm="8" md="4">
           <v-card class="elevation-12">
-            <v-toolbar color="purple lighten-3" dark flat>
-              <v-toolbar-title></v-toolbar-title>
+            <v-toolbar class="ml-2" dark flat>
+              <v-toolbar-title>Register</v-toolbar-title>
               <v-spacer></v-spacer>
             </v-toolbar>
             <v-card-text>
@@ -65,7 +65,7 @@
               </v-form>
             </v-card-text>
             <v-card-actions class="justify-center">
-              <v-btn color="purple lighten-3" dark @click="register"
+              <v-btn color="grey darken-3" dark @click="register"
                 >회원등록</v-btn
               >
             </v-card-actions>

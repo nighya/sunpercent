@@ -4,13 +4,13 @@
       <v-row align="center" justify="center">
         <v-col cols="12" sm="8" md="4">
           <v-card class="elevation-12">
-            <v-toolbar color="purple lighten-3" dark flat>
-              <v-toolbar-title>비밀번호를 변경해주세요.</v-toolbar-title>
+            <v-toolbar dark flat>
+              <v-toolbar-title class="ml-2">비밀번호를 변경해주세요.</v-toolbar-title>
               <v-spacer></v-spacer>
             </v-toolbar>
             <v-card-text>
               <v-form ref="form">
-                <p>아이디  : {{this.fields.email}}</p>
+                <p class="ml-2">아이디  : {{this.fields.email}}</p>
                 <v-text-field
                   id="old_password"
                   label="현재 비밀번호"
@@ -41,8 +41,8 @@
               </v-form>
             </v-card-text>
             <v-card-actions class="justify-center">
-              <v-btn color="purple lighten-3" dark @click="ChangePassword"
-                >비밀번호 변경</v-btn
+              <v-btn color="grey darken-3" dark @click="ChangePassword"
+                >비밀번호 변경하기</v-btn
               >
             </v-card-actions>
           </v-card>
