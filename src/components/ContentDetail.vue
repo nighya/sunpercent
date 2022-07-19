@@ -67,7 +67,7 @@
               ></v-card-text>
             </div>
             <div class="ms-4">
-              <v-btn @click="report">신고하기</v-btn>
+              
               <v-card-text
                 v-text="
                   this.$store.state.imagestore.imagedetail[0].report_count
@@ -123,6 +123,7 @@
               @click.prevent="delete_dialog"
               >삭제하기</v-btn
             >
+            <v-btn @click="report">신고하기</v-btn>
           </v-card-actions>
         </v-card>
       </v-row>
@@ -183,7 +184,7 @@
         </v-card>
       </v-dialog>
     </div>
-    <div class="text-center" ref="report_form">
+    <div class="text-center" ref="report_form" align="center" justify="center">
       <v-dialog v-model="reportdialog" width="400" persistent>
         <v-card class="elevation-16 mx-auto " width="400">
           <v-card-title class="text-h10 justify-center">
@@ -251,7 +252,7 @@
       <div>
         <v-row justify="center">
           총합계 평균점수 : {{ average_total }}&nbsp;({{ total_number }}명)
-          <v-col  cols="2"></v-col> 남자 : {{ average_male }}&nbsp;({{
+          <v-col  cols="1"></v-col> 남자 : {{ average_male }}&nbsp;({{
             male_number
           }}명) &nbsp;&nbsp;&nbsp; 여자 : {{ average_female }}&nbsp;({{
             female_number

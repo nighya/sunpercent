@@ -1,25 +1,6 @@
 <template>
   <v-app id="inspire">
-    <v-bottom-navigation
-      class="d-flex d-sm-none"
-      :value="bottom_nav_bar"
-      color="primary"
-      horizontal
-      app
-    >
-      <v-btn>
-        <span>Recents</span>
-        <v-icon>mdi-history</v-icon>
-      </v-btn>
-      <v-btn>
-        <span>Favorites</span>
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
-      <v-btn>
-        <span>Nearby</span>
-        <v-icon>mdi-map-marker</v-icon>
-      </v-btn>
-    </v-bottom-navigation>
+
 
     <v-navigation-drawer
       class="grey darken-4"
@@ -53,7 +34,27 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-
+    <v-bottom-navigation
+      class="d-flex d-sm-none"
+      :value="bottom_nav_bar"
+      color="primary"
+      horizontal
+      app
+      fixed
+    >
+      <v-btn>
+        <span>Recents</span>
+        <v-icon>mdi-history</v-icon>
+      </v-btn>
+      <v-btn>
+        <span>Favorites</span>
+        <v-icon>mdi-heart</v-icon>
+      </v-btn>
+      <v-btn>
+        <span>Nearby</span>
+        <v-icon>mdi-map-marker</v-icon>
+      </v-btn>
+    </v-bottom-navigation>
     <v-app-bar app dark class="grey darken-4">
       <v-app-bar-nav-icon
         v-if="drawer == false"
