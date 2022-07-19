@@ -11,7 +11,7 @@
             gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
             max-height="500px"
             max-width="1000px"
-            @click="showimage_dialog_open"
+            @click="newWindowImage"
           >
             <div class="ms-4">
               닉네임

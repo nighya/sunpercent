@@ -35,6 +35,7 @@
 
               <v-card-actions>
                 <v-spacer></v-spacer>
+
                 <v-icon color="blue darken-3" v-if="data.gender == `male`"
                   >mdi-alpha-m-circle-outline</v-icon
                 >
