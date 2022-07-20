@@ -1,7 +1,5 @@
 <template>
   <v-app id="inspire">
-
-
     <v-navigation-drawer
       class="grey darken-4"
       width="180"
@@ -34,27 +32,33 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
+
     <v-bottom-navigation
       class="d-flex d-sm-none"
       :value="bottom_nav_bar"
       color="primary"
       horizontal
       app
-      fixed
+      grow
     >
       <v-btn>
-        <span>Recents</span>
-        <v-icon>mdi-history</v-icon>
+        <span>Refresh</span>
+        <v-icon>mdi-refresh</v-icon>
       </v-btn>
       <v-btn>
-        <span>Favorites</span>
-        <v-icon>mdi-heart</v-icon>
+        <span>Home</span>
+        <v-icon>mdi-home-heart</v-icon>
       </v-btn>
       <v-btn>
-        <span>Nearby</span>
-        <v-icon>mdi-map-marker</v-icon>
+        <span>Content</span>
+        <v-icon>mdi-format-list-text</v-icon>
+      </v-btn>
+      <v-btn>
+        <span>Profile </span>
+        <v-icon>mdi-account</v-icon>
       </v-btn>
     </v-bottom-navigation>
+
     <v-app-bar app dark class="grey darken-4">
       <v-app-bar-nav-icon
         v-if="drawer == false"
