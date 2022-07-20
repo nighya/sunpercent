@@ -39,7 +39,7 @@
                 >{{ data.nickname }}</v-card-text
               >
               </v-row>
-              <v-card-text class="grey--text" align="right" v-text="data.date"></v-card-text>
+              <v-card-text class="grey--text" align="right" v-text="moment_now(data.date)"></v-card-text>
           </div>
         </v-col>
       </v-row>
@@ -47,6 +47,8 @@
   </div>
 </template>
 <script>
+import moment from "moment"
+import 'moment/locale/ko'
 export default {
   data: () => ({}),
   mounted() {
@@ -76,6 +78,12 @@ export default {
           datas: data
         }
       });
+    },
+    moment_now(data) {
+      moment.locale("ko");
+     const result =  moment(data).fromNow()
+      return result
+     
     }
   }
 };
