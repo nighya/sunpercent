@@ -36,10 +36,10 @@
                 >
                 <v-icon class="mr-1" color="pink" v-else
                   >mdi-alpha-w-circle-outline</v-icon
-                >{{ data.nickname }}</v-card-text
+                >{{ data.nickname }}<div class="grey--text" align="right">{{moment_now(data.date)}}</div></v-card-text
               >
               </v-row>
-              <v-card-text class="grey--text" align="right" v-text="moment_now(data.date)"></v-card-text>
+              
           </div>
         </v-col>
       </v-row>
