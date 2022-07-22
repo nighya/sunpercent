@@ -21,6 +21,9 @@ export default {
     SET_PROFILE_IMAGE: (state, datas) => {
       state.userstate[0].profile_image = datas.profile_image;
     },
+    DELETE_PROFILE_IMAGE: (state, datas) => {
+      state.userstate[0].profile_image = datas.profile_image;
+    },
 
     SET_USER_POINT: (state, payload) => {
       // console.log("payload.point1   :   " + JSON.stringify(payload[0].point))
@@ -38,7 +41,6 @@ export default {
       state.userstate[0].email = payload.email;
       state.userstate[0].nickname = payload.nickname;
       state.userstate[0].gender = payload.gender;
-      state.userstate[0].max_score = payload.max_score;
       state.userstate[0].profile_image = payload.profile_image;
       state.userstate[0].point = payload.point;
       state.userstate[0].needchpw = payload.needchpw;
@@ -139,6 +141,21 @@ export default {
         commit("SET_PROFILE_IMAGE", response.data);
       } catch (err) {
         alert("프로필 사진 수정이 실패하였습니다. 올바른 이미지를 선택하여 다시 시도해 주세요.")
+      }
+    },
+    async profile_image_delete({ commit }, payload) {
+      try {
+        const response = await http.post(
+          `/Mypage/deleteProfileImage/${payload.user_uid}`,
+          payload,
+          {
+            withCredentials: true
+          }
+        );
+        commit("DELETE_PROFILE_IMAGE", response.data);
+      } catch (err) {
+        console.log("프로필 삭제 에러   :  " + err )
+        alert("프로필 사진 초기화가 실패하였습니다.")
       }
     },
   }

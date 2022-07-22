@@ -17,6 +17,9 @@
     </v-avatar>
 
     <p @click="show_dialog">프로필사진 수정</p>
+    <v-btn color="primary" text @click="deleteProfile">
+      기본이미지로변경
+    </v-btn>
     <p @click="ChangePassword">비밀번호 변경</p>
 
     <p>포인트 :{{ this.$store.state.loginstore.userstate[0].point }}</p>
@@ -34,6 +37,7 @@
           <v-card-title class="grey darken-3">
             프로필사진 수정하기
           </v-card-title>
+
           <v-row no-gutters justify="center" align="center">
             <v-col cols="8">
               <v-file-input
@@ -67,6 +71,7 @@
             <v-btn color="primary" text @click="cancel">
               취소
             </v-btn>
+
             <v-spacer></v-spacer>
             <v-btn
               color="primary"
@@ -83,14 +88,18 @@
     </div>
     <v-divider></v-divider>
     <v-row class="mt-2">
-      <span class="ml-3" v-if="this.$store.state.imagestore.imagemycontentstate[0] == undefined">게시물이 없습니다.</span> 
+      <span
+        class="ml-3"
+        v-if="this.$store.state.imagestore.imagemycontentstate[0] == undefined"
+        >게시물이 없습니다.</span
+      >
       <v-col
         v-for="(data, index) in mycontentGetterslist"
         :key="index"
         class="d-flex child-flex"
         cols="4"
       >
-      <!-- <span class="ml-3" >게시물이 없습니다.{{data}}</span> -->
+        <!-- <span class="ml-3" >게시물이 없습니다.{{data}}</span> -->
         <v-img
           :src="`http://192.168.0.12:4000/${data.image_path}`"
           :lazy-src="`http://192.168.0.12:4000/${data.image_path}`"
@@ -177,11 +186,30 @@ export default {
         this.dialog_profile_image_update = false;
       } catch (err) {
         alert(
-          "프로필사진 업로드가 실패하였습니다. 다시 로그인하여 시도해주세요."
+          "프로필사진 업로드가 실패하였습니다."
         );
         this.$refs.imageRef.reset();
         this.loading = false;
         this.message = "이미지 업로드 실패" + err;
+        this.dialog_profile_image_update = false;
+        // console.log(err.response.status);
+      }
+    },
+    async deleteProfile() {
+      const obj = {
+        profile_image: this.$store.state.loginstore.userstate[0].profile_image,
+        user_uid: this.$store.state.loginstore.userstate[0].user_uid
+      };
+      try {
+        this.$store.dispatch("loginstore/profile_image_delete", obj);
+        this.dialog_profile_image_update = false;
+      } catch (err) {
+        alert(
+          "기본이미지로 변경하지 못했습니다."
+        );
+        this.$refs.imageRef.reset();
+        this.loading = false;
+        this.message = "기본이미지로 변경실패" + err;
         this.dialog_profile_image_update = false;
         // console.log(err.response.status);
       }
