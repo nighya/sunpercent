@@ -21,7 +21,12 @@
       </v-list-item>
 
       <v-list dense nav>
-        <v-list-item v-for="item in items" :key="item.title" link :to="item.to">
+        <v-list-item
+          v-for="item in items"
+          :key="item.title"
+          link
+          @click="menuclick(item)"
+        >
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-icon>
@@ -114,8 +119,10 @@ export default {
     baseimage: baseimage,
     drawer: false,
     items: [
-      { title: "Home", icon: "mdi-home-heart", to: "/" },
-      { title: "Content", icon: "mdi-format-list-text", to: "/content" }
+      { title: "Home", icon: "mdi-home-heart" },
+      { title: "Content", icon: "mdi-format-list-text" },
+      { title: "Profile", icon: "mdi-card-account-details-outline" },
+      { title: "Note", icon: "mdi-email-outline" }
     ],
     menuitems: [
       { title: "로그인", icon: "mdi-login" },
@@ -137,6 +144,22 @@ export default {
     },
     menuclick(menuclick) {
       switch (menuclick.title) {
+        case "Home":
+          this.$router.push("/").catch(() => true);
+          break;
+        case "Content":
+          this.$router.push("/content").catch(() => true);
+          break;
+        case "Profile":
+          this.moveMypage();
+          break;
+        case "Note":
+          this.$router
+            .push(
+              `/note/${this.$store.state.loginstore.userstate[0].nickname}/${this.$store.state.loginstore.userstate[0].user_uid}`
+            )
+            .catch(() => true);
+          break;
         case "로그인":
           this.logout();
           this.$router.push("/login").catch(() => true);

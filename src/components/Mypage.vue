@@ -17,12 +17,8 @@
 
     <p @click="show_dialog">프로필사진 수정</p>
     <p @click="ChangePassword">비밀번호 변경</p>
-    <p>
-      내최고 점수 :{{ this.$store.state.loginstore.userstate[0].max_score }}
-    </p>
-        <p>
-      포인트 :{{ this.$store.state.loginstore.userstate[0].point }}
-    </p>
+
+    <p>포인트 :{{ this.$store.state.loginstore.userstate[0].point }}</p>
     <v-list-item-content>
       <v-list-item-title class="text-h6">
         {{ this.$store.state.loginstore.userstate[0].nickname }}
@@ -97,8 +93,7 @@
           class="grey lighten-2"
           @click="ContentDetail(data)"
         >
-          <span class="white--text">{{ data.content_average_score }}점</span>
-          <span class="white--text">({{ data.score_count }}명)</span>
+          <span class="white--text">{{ data.score_count }}명</span>
 
           <template v-slot:placeholder>
             <v-row class="fill-height ma-0" align="center" justify="center">
@@ -143,8 +138,8 @@ export default {
     //     user_uid: this.$store.state.loginstore.userstate[0].user_uid
     //   };
     // },
-        ChangePassword() {
-      this.$router.push("/changepassword")
+    ChangePassword() {
+      this.$router.push("/changepassword");
     },
     cancel() {
       this.dialog_profile_image_update = false;
