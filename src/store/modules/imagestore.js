@@ -21,7 +21,6 @@ export default {
   },
   mutations: {
     CONTENT_SCORE: (state, datas) => {
-      state.imagedetail[0].content_average_score = datas.content_average_score;
       state.imagedetail[0].score_count = datas.score_count;
     },
     SET_MYCONTENT_IMAGE: (state, datas) => {

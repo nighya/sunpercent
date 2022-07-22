@@ -1,16 +1,15 @@
 <template>
   <div class="mypage pa-6">
     <v-avatar
-    
+      tile
       v-if="this.$store.state.loginstore.userstate[0].profile_image == null"
-      color="warning lighten-2"
       size="128"
     >
-      <v-img :src="baseimage"></v-img>
+      <v-img contain :src="baseimage"></v-img>
     </v-avatar>
-    <v-avatar v-else  size="128" tile>
+    <v-avatar v-else size="128" tile>
       <v-img
-      contain
+        contain
         :src="
           `http://192.168.0.12:4000${this.$store.state.loginstore.userstate[0].profile_image}`
         "
@@ -52,7 +51,7 @@
             <div v-if="previewImage">
               <div>
                 <v-img
-                contain
+                  contain
                   max-height="310"
                   max-width="360"
                   class="preview pa-3"
@@ -82,13 +81,16 @@
         </v-card>
       </v-dialog>
     </div>
-    <v-row>
+    <v-divider></v-divider>
+    <v-row class="mt-2">
+      <span class="ml-3" v-if="this.$store.state.imagestore.imagemycontentstate[0] == undefined">게시물이 없습니다.</span> 
       <v-col
         v-for="(data, index) in mycontentGetterslist"
         :key="index"
         class="d-flex child-flex"
         cols="4"
       >
+      <!-- <span class="ml-3" >게시물이 없습니다.{{data}}</span> -->
         <v-img
           :src="`http://192.168.0.12:4000/${data.image_path}`"
           :lazy-src="`http://192.168.0.12:4000/${data.image_path}`"

@@ -2,7 +2,7 @@
   <div class="register pa-6">
     <v-container class="fill-height" fluid>
       <v-row align="center" justify="center">
-        <v-col cols="12" sm="8" md="4">
+        <v-col cols="12" sm="8" md="6">
           <v-card class="elevation-12">
             <v-toolbar dark flat>
               <v-toolbar-title class="ml-2">비밀번호를 변경해주세요.</v-toolbar-title>
