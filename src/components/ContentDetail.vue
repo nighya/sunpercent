@@ -292,7 +292,8 @@ export default {
         "중복된 게시물 입니다.",
         "게시판 성격과 맞지 않아요.",
         "광고성 게시물 입니다.",
-        "사진편집이 과해 보여요"
+        "사진편집이 과해 보여요",
+        "외모 사진이 아닙니다."
       ],
       reportdialog: false,
       scoredialog: false,
