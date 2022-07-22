@@ -97,7 +97,7 @@ export default new Router({
       },
     },
     {
-      path: '/:content_uid',
+      path: '/content/:content_uid',
       name: 'ContentDetail',
       component: () => import("@/components/ContentDetail"),
     },
@@ -139,5 +139,14 @@ export default new Router({
       name: 'Userpage',
       component:() => import( "@/components/Userpage" )
     },
+    {
+      path: '*',
+      redirect: "/404",
+    },
+    {
+      path: '/404',
+      name: "NotFound",
+      component:() => import( "@/components/NotFound" )
+  },
   ]
 })

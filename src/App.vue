@@ -112,11 +112,9 @@
 </template>
 
 <script>
-import baseimage from "./assets/bg.png";
 export default {
   data: () => ({
     bottom_nav_bar: 1,
-    baseimage: baseimage,
     drawer: false,
     items: [
       { title: "Home", icon: "mdi-home-heart" },
