@@ -67,9 +67,7 @@ export default {
       password: null
     };
   },
-  mounted: function mounted() {
-    this.logout();
-  },
+
   methods: {
     async login() {
       this.loading = true;

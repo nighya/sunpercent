@@ -138,7 +138,7 @@ export default {
     logout() {
       this.$store.dispatch("loginstore/logout");
       sessionStorage.clear();
-      this.$router.push({ name: "Login" }).catch(() => true);
+      // this.$router.push({ name: "Login" }).catch(() => true);
     },
     menuclick(menuclick) {
       switch (menuclick.title) {
@@ -156,7 +156,7 @@ export default {
           break;
         case "로그인":
           this.logout();
-          this.$router.push("/login").catch(() => true);
+          this.$router.replace("/login").catch(() => true);
           break;
         case "로그아웃":
           this.logout();
