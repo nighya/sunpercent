@@ -120,6 +120,19 @@ export default new Router({
           next();
         }
       },
+      path: '/MyNote/:user_uid',
+      name: 'MyNote',
+      component: () => import("@/components/MyNote"),
+      beforeEnter: (to, from, next) => {
+        if (
+          store.state.loginstore.userstate[0].email === null ||
+          store.state.loginstore.userstate[0].email === undefined
+        ) {
+          next({ path: "/login" });
+        } else {
+          next();
+        }
+      },
     },
     {
       path: '/userpage/:nickname/:user_uid',

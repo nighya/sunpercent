@@ -203,9 +203,9 @@ export default {
       ReceivedNoteStateData: this.$store.state.notestore.received_note_state,
 
       tab: "tab-1",
-      to_user_uid: this.$route.params.user_uid,
+      to_user_uid: "",
       from_user_uid: this.$store.state.loginstore.userstate[0].user_uid,
-      note_to_nickname: this.$route.params.nickname,
+      note_to_nickname: "",
       note_from_nickname: this.$store.state.loginstore.userstate[0].nickname,
       note_title: "",
       note_textarea: "",

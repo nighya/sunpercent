@@ -122,7 +122,7 @@ export default {
       { title: "Home", icon: "mdi-home-heart" },
       { title: "Content", icon: "mdi-format-list-text" },
       { title: "Profile", icon: "mdi-card-account-details-outline" },
-      { title: "Note", icon: "mdi-email-outline" }
+      { title: "MyNote", icon: "mdi-email-outline" }
     ],
     menuitems: [
       { title: "로그인", icon: "mdi-login" },
@@ -153,12 +153,8 @@ export default {
         case "Profile":
           this.moveMypage();
           break;
-        case "Note":
-          this.$router
-            .push(
-              `/note/${this.$store.state.loginstore.userstate[0].nickname}/${this.$store.state.loginstore.userstate[0].user_uid}`
-            )
-            .catch(() => true);
+        case "MyNote":
+          this.$router.push(`/MyNote/${this.$store.state.loginstore.userstate[0].user_uid}`).catch(() => true);
           break;
         case "로그인":
           this.logout();
