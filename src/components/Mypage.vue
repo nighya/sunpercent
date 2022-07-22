@@ -1,14 +1,16 @@
 <template>
   <div class="mypage pa-6">
     <v-avatar
+    
       v-if="this.$store.state.loginstore.userstate[0].profile_image == null"
       color="warning lighten-2"
       size="128"
     >
       <v-img :src="baseimage"></v-img>
     </v-avatar>
-    <v-avatar v-else color="warning lighten-2" size="128">
+    <v-avatar v-else  size="128" tile>
       <v-img
+      contain
         :src="
           `http://192.168.0.12:4000${this.$store.state.loginstore.userstate[0].profile_image}`
         "
@@ -28,9 +30,9 @@
       }}</v-list-item-subtitle>
     </v-list-item-content>
     <div class="text-center">
-      <v-dialog v-model="dialog_profile_image_update" width="500" persistent>
+      <v-dialog v-model="dialog_profile_image_update" width="600" persistent>
         <v-card>
-          <v-card-title class="text-h7 grey lighten-2">
+          <v-card-title class="grey darken-3">
             프로필사진 수정하기
           </v-card-title>
           <v-row no-gutters justify="center" align="center">
@@ -50,7 +52,8 @@
             <div v-if="previewImage">
               <div>
                 <v-img
-                  max-height="210"
+                contain
+                  max-height="310"
                   max-width="360"
                   class="preview pa-3"
                   :src="previewImage"
@@ -109,7 +112,7 @@
   </div>
 </template>
 <script>
-import baseimage from "../assets/bg.png";
+import baseimage from "../assets/base_user.png";
 export default {
   data() {
     return {
