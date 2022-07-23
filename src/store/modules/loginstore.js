@@ -62,7 +62,6 @@ export default {
       state.userstate[0].email = null;
       state.userstate[0].nickname = null;
       state.userstate[0].gender = null;
-      state.userstate[0].max_score = null;
       state.userstate[0].profile_image = null;
       state.userstate[0].point = null;
       state.userstate[0].needchpw = null;

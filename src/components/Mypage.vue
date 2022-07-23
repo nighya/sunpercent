@@ -3,11 +3,11 @@
     <v-avatar
       tile
       v-if="this.$store.state.loginstore.userstate[0].profile_image == null"
-      size="128"
+      size="200"
     >
       <v-img contain :src="baseimage"></v-img>
     </v-avatar>
-    <v-avatar v-else size="128" tile>
+    <v-avatar v-else size="200" tile>
       <v-img
         contain
         :src="

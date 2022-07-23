@@ -56,11 +56,11 @@
         </v-form>
         <v-btn color="grey darken-3" @click="SendNote">보내기</v-btn>
       </v-tab-item>
+
       <v-tab-item class="ma-2" value="tab-2">
         <v-icon class="ma-4" @click="deleteReceivedNoteSelected"
           >mdi-trash-can-outline</v-icon
         >
-
         <v-data-table
           v-model="received_selected"
           :headers="received_headers"

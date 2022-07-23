@@ -6,7 +6,9 @@ export default {
   state: {
     imagestate: [],
     imagedetail: [{ image_path: {} }],
-    imagemycontentstate: []
+    imagemycontentstate: [],
+    userprofile: [],
+    userprofile_image:[],
   },
   getters: {
     mycontentimagegetters: state => {
@@ -17,9 +19,21 @@ export default {
     },
     imageDetail: state => {
       return state.imagedetail;
-    }
+    },
+    userProfile_getters: state => {
+      return state.userprofile;
+    },
+    userProfile_image_getters: state => {
+      return state.userprofile_image;
+    },
   },
   mutations: {
+    USER_PROFILE: (state, datas) => {
+      state.userprofile = datas;
+    },
+    USER_PROFILE_IMAGE: (state, datas) => {
+      state.userprofile_image = datas;
+    },
     CONTENT_SCORE: (state, datas) => {
       state.imagedetail[0].score_count = datas.score_count;
     },
@@ -80,6 +94,26 @@ export default {
       );
       // console.log("contentscore payload:  ", payload);
       commit("CONTENT_SCORE", response.data);
-    }
+    },
+    async userProfile({ commit }, payload) {
+      const response = await http.post(
+        `/userpageProfile/${payload.nickname}/${payload.user_uid}`,
+        payload,
+        {
+          withCredentials: true
+        }
+      );
+      commit("USER_PROFILE", response.data);
+    },
+    async userProfile_image({ commit }, payload) {
+      const response = await http.post(
+        `/userpageProfileImage/${payload.nickname}/${payload.user_uid}`,
+        payload,
+        {
+          withCredentials: true
+        }
+      );
+      commit("USER_PROFILE_IMAGE", response.data);
+    },
   }
 };
