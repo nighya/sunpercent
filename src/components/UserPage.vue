@@ -30,7 +30,7 @@
         <span
           class="ml-3"
           v-if="
-            this.$store.state.imagestore.userprofile[0].profile_image ==
+            this.$store.state.imagestore.userprofile_image[0].image_path ==
               undefined
           "
           >게시물이 없습니다.</span
