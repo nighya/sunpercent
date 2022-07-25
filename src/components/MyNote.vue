@@ -112,7 +112,7 @@
             @click="moveReceivedReplyNotetab"
             >mdi-email-outline</v-icon
           >
-          <v-icon
+          <v-icon class="ml-2"
             v-if="
               $store.state.loginstore.userstate[0].nickname ==
                 showNoteData.to_nickname
@@ -130,7 +130,7 @@
             @click="moveSentReplyNotetab"
             >mdi-email-outline</v-icon
           >
-          <v-icon
+          <v-icon class="ml-2"
             v-if="
               $store.state.loginstore.userstate[0].nickname ==
                 showNoteData.from_nickname

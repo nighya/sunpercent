@@ -7,8 +7,8 @@ export default {
     imagestate: [],
     imagedetail: [{ image_path: {} }],
     imagemycontentstate: [],
-    userprofile: [],
-    userprofile_image:[],
+    userprofile: [{profile_image:null}],
+    userprofile_image:[{image_path:null}],
   },
   getters: {
     mycontentimagegetters: state => {

@@ -145,5 +145,6 @@ export default new Router({
       name: "NotFound",
       component: () => import("@/components/NotFound")
     }
+
   ]
 });

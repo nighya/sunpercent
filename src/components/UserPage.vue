@@ -4,7 +4,11 @@
     <div class=" pa-6" align="center">
       <v-avatar
         tile
-        v-if="this.$store.state.imagestore.userprofile[0].profile_image == null"
+        v-if="
+          this.$store.state.imagestore.userprofile[0].profile_image == null ||
+            this.$store.state.imagestore.userprofile[0].profile_image ==
+              undefined
+        "
         size="200"
       >
         <v-img contain :src="baseimage"></v-img>
@@ -37,10 +41,21 @@
               >mdi-alpha-w-circle-outline</v-icon
             >{{ this.$store.state.imagestore.userprofile[0].nickname }}
           </v-card-text>
-          <p>쪽지보내기</p>
         </v-row>
       </p>
     </div>
+    <div class="mr-2" align="end">
+      <v-btn
+        class="mb-2 mr-2"
+        text
+        color="primary"
+        :to="
+          `/note/${$store.state.imagestore.imagedetail[0].nickname}/${$store.state.imagestore.imagedetail[0].user_uid}`
+        "
+        >쪽지보내기</v-btn
+      >
+    </div>
+
     <v-divider class="ml-6 mr-6"></v-divider>
     <div>
       <v-row class="pa-6 mt-2">
@@ -48,7 +63,9 @@
           class="ml-3"
           v-if="
             this.$store.state.imagestore.userprofile_image[0].image_path ==
-              undefined
+              undefined ||
+              this.$store.state.imagestore.userprofile_image[0].image_path ==
+                null
           "
           >게시물이 없습니다.</span
         >
