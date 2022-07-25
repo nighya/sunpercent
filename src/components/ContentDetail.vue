@@ -113,6 +113,8 @@
                   this.$store.state.imagestore.imagedetail[0].user_uid !=
                     this.$store.state.loginstore.userstate[0].user_uid
               "
+              text
+              color="primary"
               dark
               @click.prevent="score"
               >점수주기</v-btn

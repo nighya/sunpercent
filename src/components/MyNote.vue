@@ -397,7 +397,6 @@ export default {
         to_uid: data.to_uid
       };
       try {
-        this.$store.state.notestore.confirm_received_state -= 1
         this.$store.dispatch("notestore/confirmreceivednote", confirmNoteObj);
       } catch (err) {
         if (err) {
