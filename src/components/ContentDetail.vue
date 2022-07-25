@@ -128,16 +128,7 @@
               @click.prevent="delete_dialog"
               >삭제하기</v-btn
             >
-            <v-btn
-              v-if="
-                this.$store.state.imagestore.imagedetail[0].user_uid !=
-                  this.$store.state.loginstore.userstate[0].user_uid
-              "
-              text
-              color="primary"
-              @click="report"
-              >신고하기</v-btn
-            >
+
             <v-btn
               v-if="
                 this.$store.state.imagestore.imagedetail[0].user_uid !=
@@ -161,6 +152,16 @@
                 `/note/${$store.state.imagestore.imagedetail[0].nickname}/${$store.state.imagestore.imagedetail[0].user_uid}`
               "
               >쪽지보내기</v-btn
+            >
+            <v-btn
+              v-if="
+                this.$store.state.imagestore.imagedetail[0].user_uid !=
+                  this.$store.state.loginstore.userstate[0].user_uid
+              "
+              text
+              color="grey"
+              @click="report"
+              >신고하기</v-btn
             >
           </v-card-actions>
         </v-card>
