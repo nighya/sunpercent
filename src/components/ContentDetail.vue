@@ -14,68 +14,6 @@
             @click="newWindowImage"
             contain
           >
-            <div class="ms-4">
-              닉네임
-              <v-card-text
-                v-text="this.$store.state.imagestore.imagedetail[0].nickname"
-              >
-              </v-card-text>
-              <!-- 메뉴띄우기 -->
-              <template>
-                <div>
-                  <v-menu offset-y max-width="120px">
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-card-text
-                        v-bind="attrs"
-                        v-on="on"
-                        v-text="$store.state.imagestore.imagedetail[0].nickname"
-                      >
-                      </v-card-text>
-                    </template>
-                    <v-list>
-                      <v-list-item
-                        link
-                        :to="
-                          `/userpage/${$store.state.imagestore.imagedetail[0].nickname}/${$store.state.imagestore.imagedetail[0].user_uid}`
-                        "
-                      >
-                        <v-list-item-title>프로필보기</v-list-item-title>
-                      </v-list-item>
-                      <v-list-item
-                        link
-                        :to="
-                          `/note/${$store.state.imagestore.imagedetail[0].nickname}/${$store.state.imagestore.imagedetail[0].user_uid}`
-                        "
-                      >
-                        <v-list-item-title>쪽지보내기</v-list-item-title>
-                      </v-list-item>
-                    </v-list>
-                  </v-menu>
-                </div>
-              </template>
-            </div>
-            <div class="ms-4">
-              날짜
-              <v-card-text
-                v-text="this.$store.state.imagestore.imagedetail[0].date"
-              ></v-card-text>
-            </div>
-            <div class="ms-4">
-              조회수
-              <v-card-text
-                v-text="this.$store.state.imagestore.imagedetail[0].view_count"
-              ></v-card-text>
-            </div>
-            <div class="ms-4">
-              
-              <v-card-text
-                v-text="
-                  this.$store.state.imagestore.imagedetail[0].report_count
-                "
-              >
-              </v-card-text>
-            </div>
-
             <template v-slot:placeholder>
               <v-row class="fill-height ma-0" align="center" justify="center">
                 <v-progress-circular
@@ -85,6 +23,52 @@
               </v-row>
             </template>
           </v-img>
+          <!-- 메뉴띄우기 -->
+          <template>
+            <div>
+              <v-menu offset-y max-width="120px">
+                <template v-slot:activator="{ on, attrs }">
+                  <v-card-text
+                    v-bind="attrs"
+                    v-on="on"
+                    v-text="$store.state.imagestore.imagedetail[0].nickname"
+                  >
+                  </v-card-text>
+                </template>
+                <v-list>
+                  <v-list-item
+                    link
+                    :to="
+                      `/userpage/${$store.state.imagestore.imagedetail[0].nickname}/${$store.state.imagestore.imagedetail[0].user_uid}`
+                    "
+                  >
+                    <v-list-item-title>프로필보기</v-list-item-title>
+                  </v-list-item>
+                  <v-list-item
+                    link
+                    :to="
+                      `/note/${$store.state.imagestore.imagedetail[0].nickname}/${$store.state.imagestore.imagedetail[0].user_uid}`
+                    "
+                  >
+                    <v-list-item-title>쪽지보내기</v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+              <v-card-text
+                v-text="this.$store.state.imagestore.imagedetail[0].date"
+              ></v-card-text>
+              <v-card-text
+                v-text="this.$store.state.imagestore.imagedetail[0].view_count"
+              ></v-card-text>
+              <v-card-text
+                v-text="
+                  this.$store.state.imagestore.imagedetail[0].report_count
+                "
+              >
+              </v-card-text>
+            </div>
+          </template>
+
           <v-alert
             v-if="
               this.$store.state.scorestore.scorestate.filter(
@@ -113,6 +97,8 @@
               >점수주기</v-btn
             >
             <v-btn
+              text
+              color="primary"
               v-if="
                 this.$store.state.imagestore.imagedetail[0].user_uid ==
                   this.$store.state.loginstore.userstate[0].user_uid
@@ -121,7 +107,36 @@
               @click.prevent="delete_dialog"
               >삭제하기</v-btn
             >
-            <v-btn @click="report">신고하기</v-btn>
+            <v-btn
+              v-if="
+                  this.$store.state.imagestore.imagedetail[0].user_uid !=
+                    this.$store.state.loginstore.userstate[0].user_uid
+              "
+              text
+              color="primary"
+              @click="report"
+              >신고하기</v-btn
+            >
+            <v-btn
+              v-if="
+                this.$store.state.imagestore.imagedetail[0].user_uid !=
+                  this.$store.state.loginstore.userstate[0].user_uid
+              "
+              text
+              color="primary"
+              @click="report"
+              >프로필보기</v-btn
+            >
+            <v-btn
+              text
+              color="primary"
+              v-if="
+                this.$store.state.imagestore.imagedetail[0].user_uid !=
+                  this.$store.state.loginstore.userstate[0].user_uid
+              "
+              @click="report"
+              >쪽지보내기</v-btn
+            >
           </v-card-actions>
         </v-card>
       </v-row>
@@ -250,7 +265,7 @@
       <div>
         <v-row justify="center">
           총합계 평균점수 : {{ average_total }}&nbsp;({{ total_number }}명)
-          <v-col  cols="1"></v-col> 남자 : {{ average_male }}&nbsp;({{
+          <v-col cols="1"></v-col> 남자 : {{ average_male }}&nbsp;({{
             male_number
           }}명) &nbsp;&nbsp;&nbsp; 여자 : {{ average_female }}&nbsp;({{
             female_number
