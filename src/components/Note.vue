@@ -1,8 +1,17 @@
 <template>
   <v-card>
+    {{ confirm_received_note }}
     <v-tabs color="deep-purple accent-1" left v-model="tab">
       <v-tab class="ml-5" href="#tab-1">쪽지보내기</v-tab>
-      <v-tab href="#tab-2" @click="getReceivedNote">받은쪽지</v-tab>
+      <v-tab href="#tab-2" @click="getReceivedNote"
+        >받은쪽지
+        <v-badge
+          v-if="$store.state.notestore.confirm_received_state > 0"
+          color="pink"
+          :content="$store.state.notestore.confirm_received_state"
+        >
+        </v-badge
+      ></v-tab>
       <v-tab href="#tab-3" @click="getSentNote">보낸쪽지</v-tab>
       <v-tab href="#tab-4">쪽지보기</v-tab>
 
@@ -54,7 +63,9 @@
             </v-row>
           </v-container>
         </v-form>
-        <v-btn color="grey darken-3" @click="SendNote">보내기</v-btn>
+        <v-col class="text-right"
+          ><v-btn text color="primary" @click="SendNote">보내기</v-btn></v-col
+        >
       </v-tab-item>
       <v-tab-item class="ma-2" value="tab-2">
         <v-icon class="ma-4" @click="deleteReceivedNoteSelected"
@@ -112,7 +123,8 @@
             @click="moveReceivedReplyNotetab"
             >mdi-email-outline</v-icon
           >
-          <v-icon class="ml-2"
+          <v-icon
+            class="ml-2"
             v-if="
               $store.state.loginstore.userstate[0].nickname ==
                 showNoteData.to_nickname
@@ -130,7 +142,8 @@
             @click="moveSentReplyNotetab"
             >mdi-email-outline</v-icon
           >
-          <v-icon class="ml-2"
+          <v-icon
+            class="ml-2"
             v-if="
               $store.state.loginstore.userstate[0].nickname ==
                 showNoteData.from_nickname
@@ -197,7 +210,8 @@ export default {
           value: "from_nickname"
         },
         { text: "제목", value: "title" },
-        { text: "날짜", value: "date" }
+        { text: "날짜", value: "date" },
+        { text: "조회수", value: "view_count" }
       ],
       SentNoteStateData: this.$store.state.notestore.sent_note_state,
       ReceivedNoteStateData: this.$store.state.notestore.received_note_state,
@@ -228,6 +242,17 @@ export default {
         }
       }
     };
+  },
+  computed: {
+    confirm_received_note() {
+      this.loading = true;
+      const payload = {
+        to_uid: this.$store.state.loginstore.userstate[0].user_uid,
+        to_nickname: this.$store.state.loginstore.userstate[0].nickname
+      };
+      this.$store.dispatch("notestore/getreceivednote", payload);
+      this.loading = false;
+    }
   },
 
   methods: {
@@ -367,8 +392,19 @@ export default {
       }
     },
 
-    async showNoteDetail(d) {
-      this.showNoteData = Object.assign({}, d);
+    showNoteDetail(data) {
+      this.showNoteData = Object.assign({}, data);
+      const confirmNoteObj = {
+        id_num: data.id_num,
+        to_uid: data.to_uid
+      };
+      try {
+        this.$store.state.notestore.confirm_received_state -= 1
+        this.$store.dispatch("notestore/confirmreceivednote", confirmNoteObj);
+      } catch (err) {
+        if (err) {
+        }
+      }
       this.tab = "tab-4";
     },
     moveSentReplyNotetab() {

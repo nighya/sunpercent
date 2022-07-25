@@ -4,7 +4,8 @@ export default {
   namespaced: true,
   state: {
     sent_note_state: [],
-    received_note_state: []
+    received_note_state: [],
+    confirm_received_state:0
   },
   getters: {
     getters_getsentnote: state => {
@@ -15,13 +16,14 @@ export default {
     SET_GET_SENT_NOTE: async (state, datas) => {
       try {
         const filterData = await datas.filter(d => d.from_delete == 0);
-        await filterData.map(data => {
-          if (data.view_count > 0) {
-            data.view_count = "읽음";
-          } else {
-            data.view_count = "읽지않음";
-          }
-        });
+        // await filterData.map(data => {
+        //   if (data.view_count > 0) {
+        //     data.view_count = "읽음";
+        //   } else {
+        //     data.view_count = "읽지않음";
+        //   }
+        // });
+
         state.sent_note_state = filterData;
       } catch (e) {
         throw e;
@@ -30,13 +32,18 @@ export default {
     SET_GET_RECEIVED_NOTE: async (state, datas) => {
       try {
         const filterData = await datas.filter(d => d.to_delete == 0);
-        await filterData.map(data => {
-          if (data.view_count > 0) {
-            data.view_count = "읽음";
-          } else {
-            data.view_count = "읽지않음";
-          }
-        });
+        // await filterData.map(data => {
+        //   if (data.view_count > 0) {
+        //     data.view_count = "읽음";
+        //   } else {
+        //     data.view_count = "읽지않음";
+        //   }
+        // });
+        state.confirm_received_state = 0
+        await datas.map(data => {
+          if (data.view_count == 0) {
+            state.confirm_received_state += 1
+        }})
         state.received_note_state = filterData;
       } catch (e) {
         throw e;
@@ -52,7 +59,7 @@ export default {
       datas.map(item => {
         state.sent_note_state = state.sent_note_state.filter(
           t => item.id_num !== t.id_num
-        )
+        );
       });
     },
 
@@ -66,9 +73,9 @@ export default {
       datas.map(item => {
         state.received_note_state = state.received_note_state.filter(
           t => item.id_num !== t.id_num
-        )
+        );
       });
-    },
+    }
   },
   actions: {
     async getsentnote({ commit }, payload) {
@@ -138,5 +145,15 @@ export default {
       } catch (err) {}
       commit("DELETE_RECEIVED_NOTE_SELECTED", payload);
     },
+
+    async confirmreceivednote({ commit }, payload) {
+      try {
+        const response = await http.post(
+          `/confirm_received_NoteDetail`,
+          payload,
+          { withCredentials: true }
+        );
+      } catch (err) {}
+    }
   }
 };
