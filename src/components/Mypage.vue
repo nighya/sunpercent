@@ -1,5 +1,5 @@
 <template>
-  <div class="mypage pa-6">
+  <div class="mypage pa-6" align="center">
     <v-avatar
       tile
       v-if="this.$store.state.loginstore.userstate[0].profile_image == null"
@@ -15,22 +15,36 @@
         "
       ></v-img>
     </v-avatar>
+    <p class="pa-1 mt-2">
+      <v-row>
+        <v-card-text class="mt-2">
+          <p>
+            {{ this.$store.state.loginstore.userstate[0].email }}
+          </p>
+          <v-icon
+            class="mr-1"
+            color="blue darken-3"
+            v-if="this.$store.state.loginstore.userstate[0].gender == `male`"
+            >mdi-alpha-m-circle-outline</v-icon
+          >
+          <v-icon class="mr-1" color="pink" v-if="this.$store.state.loginstore.userstate[0].gender == `female`"
+            >mdi-alpha-w-circle-outline</v-icon
+          >{{ this.$store.state.loginstore.userstate[0].nickname }}
 
-    <p @click="show_dialog">프로필사진 수정</p>
+          <v-icon class="mr-1" color="amber lighten-1"
+            >mdi-alpha-p-circle</v-icon
+          >{{ this.$store.state.loginstore.userstate[0].point }}
+        </v-card-text>
+      </v-row>
+    </p>
+
+    <v-btn color="primary" text @click="show_dialog">프로필사진 수정</v-btn>
     <v-btn color="primary" text @click="deleteProfile">
-      기본이미지로변경
+      기본이미지
     </v-btn>
-    <p @click="ChangePassword">비밀번호 변경</p>
+    <v-btn  color="primary" text @click="ChangePassword">비밀번호 변경</v-btn>
+    <v-btn  color="primary" text @click="moveMynote">쪽지함</v-btn>
 
-    <p>포인트 :{{ this.$store.state.loginstore.userstate[0].point }}</p>
-    <v-list-item-content>
-      <v-list-item-title class="text-h6">
-        {{ this.$store.state.loginstore.userstate[0].nickname }}
-      </v-list-item-title>
-      <v-list-item-subtitle>{{
-        this.$store.state.loginstore.userstate[0].email
-      }}</v-list-item-subtitle>
-    </v-list-item-content>
     <div class="text-center">
       <v-dialog v-model="dialog_profile_image_update" width="600" persistent>
         <v-card>
@@ -185,9 +199,7 @@ export default {
         this.$store.dispatch("loginstore/profile_image_update", obj);
         this.dialog_profile_image_update = false;
       } catch (err) {
-        alert(
-          "프로필사진 업로드가 실패하였습니다."
-        );
+        alert("프로필사진 업로드가 실패하였습니다.");
         this.$refs.imageRef.reset();
         this.loading = false;
         this.message = "이미지 업로드 실패" + err;
@@ -204,9 +216,7 @@ export default {
         this.$store.dispatch("loginstore/profile_image_delete", obj);
         this.dialog_profile_image_update = false;
       } catch (err) {
-        alert(
-          "기본이미지로 변경하지 못했습니다."
-        );
+        alert("기본이미지로 변경하지 못했습니다.");
         this.$refs.imageRef.reset();
         this.loading = false;
         this.message = "기본이미지로 변경실패" + err;
@@ -222,6 +232,9 @@ export default {
           datas: data
         }
       });
+    },
+    moveMynote() {
+      this.$router.push(`/MyNote/${this.$store.state.loginstore.userstate[0].user_uid}`).catch(() => true)
     }
   }
 };

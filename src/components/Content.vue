@@ -34,7 +34,7 @@
                 <v-icon class="mr-1" color="blue darken-3" v-if="data.gender == `male`"
                   >mdi-alpha-m-circle-outline</v-icon
                 >
-                <v-icon class="mr-1" color="pink" v-else
+                <v-icon class="mr-1" color="pink" v-if="data.gender == `female`"
                   >mdi-alpha-w-circle-outline</v-icon
                 >{{ data.nickname }}<div class="grey--text" align="right">{{moment_now(data.date)}}</div></v-card-text
               >

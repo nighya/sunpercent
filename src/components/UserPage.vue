@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class=" pa-6">Userpage</h1>
-    <div class=" pa-6">
+    <div class=" pa-6" align="center">
       <v-avatar
         tile
         v-if="this.$store.state.imagestore.userprofile[0].profile_image == null"
@@ -18,10 +18,27 @@
         ></v-img>
       </v-avatar>
       <p class="pa-1 mt-2">
-        {{ this.$store.state.imagestore.userprofile[0].nickname }} 님의 프로필
-      </p>
-      <p class="pa-1">
-        {{ this.$store.state.imagestore.userprofile[0].gender }}
+        <v-row>
+          <v-card-text class="mt-2">
+            <v-icon
+              class="mr-1"
+              color="blue darken-3"
+              v-if="
+                this.$store.state.imagestore.userprofile[0].gender == `male`
+              "
+              >mdi-alpha-m-circle-outline</v-icon
+            >
+            <v-icon
+              class="mr-1"
+              color="pink"
+              v-if="
+                this.$store.state.imagestore.userprofile[0].gender == `female`
+              "
+              >mdi-alpha-w-circle-outline</v-icon
+            >{{ this.$store.state.imagestore.userprofile[0].nickname }}
+          </v-card-text>
+          <p>쪽지보내기</p>
+        </v-row>
       </p>
     </div>
     <v-divider class="ml-6 mr-6"></v-divider>
