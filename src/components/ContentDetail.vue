@@ -26,7 +26,7 @@
           <!-- 메뉴띄우기 -->
           <template>
             <div>
-              <v-menu offset-y max-width="120px">
+              <!-- <v-menu offset-y max-width="120px">
                 <template v-slot:activator="{ on, attrs }">
                   <v-card-text
                     v-bind="attrs"
@@ -53,19 +53,40 @@
                     <v-list-item-title>쪽지보내기</v-list-item-title>
                   </v-list-item>
                 </v-list>
-              </v-menu>
-              <v-card-text
+              </v-menu> -->
+
+              <v-row class="mt-6 ml-3">
+                <v-icon
+                  class="mr-1"
+                  color="blue darken-3"
+                  v-if="
+                    this.$store.state.imagestore.imagedetail[0].gender == `male`
+                  "
+                  >mdi-alpha-m-circle-outline</v-icon
+                >
+                <v-icon
+                  class="mr-1"
+                  color="pink"
+                  v-if="
+                    this.$store.state.imagestore.imagedetail[0].gender ==
+                      `female`
+                  "
+                  >mdi-alpha-w-circle-outline</v-icon
+                ><span class="ml-1">{{
+                  this.$store.state.imagestore.imagedetail[0].nickname
+                }}</span>
+                <v-icon  class="ml-6">mdi-eye-outline</v-icon>
+                <span class="ml-2">
+                  {{ this.$store.state.imagestore.imagedetail[0].view_count }}
+                </span>
+                <v-icon  class="ml-6">mdi-bullhorn-outline</v-icon>
+                <span class="ml-2">{{
+                  this.$store.state.imagestore.imagedetail[0].report_count
+                }}</span>
+              </v-row>
+              <v-card-text 
                 v-text="this.$store.state.imagestore.imagedetail[0].date"
               ></v-card-text>
-              <v-card-text
-                v-text="this.$store.state.imagestore.imagedetail[0].view_count"
-              ></v-card-text>
-              <v-card-text
-                v-text="
-                  this.$store.state.imagestore.imagedetail[0].report_count
-                "
-              >
-              </v-card-text>
             </div>
           </template>
 
@@ -109,8 +130,8 @@
             >
             <v-btn
               v-if="
-                  this.$store.state.imagestore.imagedetail[0].user_uid !=
-                    this.$store.state.loginstore.userstate[0].user_uid
+                this.$store.state.imagestore.imagedetail[0].user_uid !=
+                  this.$store.state.loginstore.userstate[0].user_uid
               "
               text
               color="primary"
