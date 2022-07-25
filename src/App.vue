@@ -81,7 +81,7 @@
         <v-btn class="search" icon to="/contentupload">
           <v-icon>mdi-plus</v-icon>
         </v-btn>
-        <v-btn class="search" icon to="/content/search">
+        <v-btn class="search" icon to="/search">
           <v-icon>mdi-magnify</v-icon>
         </v-btn>
         <v-menu bottom left>

@@ -27,7 +27,10 @@
             v-if="this.$store.state.loginstore.userstate[0].gender == `male`"
             >mdi-alpha-m-circle-outline</v-icon
           >
-          <v-icon class="mr-1" color="pink" v-if="this.$store.state.loginstore.userstate[0].gender == `female`"
+          <v-icon
+            class="mr-1"
+            color="pink"
+            v-if="this.$store.state.loginstore.userstate[0].gender == `female`"
             >mdi-alpha-w-circle-outline</v-icon
           >{{ this.$store.state.loginstore.userstate[0].nickname }}
 
@@ -42,8 +45,8 @@
     <v-btn color="primary" text @click="deleteProfile">
       기본이미지
     </v-btn>
-    <v-btn  color="primary" text @click="ChangePassword">비밀번호 변경</v-btn>
-    <v-btn  color="primary" text @click="moveMynote">쪽지함</v-btn>
+    <v-btn color="primary" text @click="ChangePassword">비밀번호 변경</v-btn>
+    <v-btn color="primary" text @click="moveMynote">쪽지함</v-btn>
 
     <div class="text-center">
       <v-dialog v-model="dialog_profile_image_update" width="600" persistent>
@@ -234,7 +237,9 @@ export default {
       });
     },
     moveMynote() {
-      this.$router.push(`/MyNote/${this.$store.state.loginstore.userstate[0].user_uid}`).catch(() => true)
+      this.$router
+        .push(`/MyNote/${this.$store.state.loginstore.userstate[0].user_uid}`)
+        .catch(() => true);
     }
   }
 };

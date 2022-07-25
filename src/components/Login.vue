@@ -85,7 +85,8 @@ export default {
         this.$store.dispatch("loginstore/login", userloginObj);
         this.clearForm();
         this.loading = false;
-        this.$router.go(-1);
+        // this.$router.go(-1);
+        this.$router.push('/content')
       } else {
         alert("로그인되지 않았습니다.");
         this.loading = false;

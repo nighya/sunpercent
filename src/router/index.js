@@ -102,7 +102,7 @@ export default new Router({
       component: () => import("@/components/ContentDetail"),
     },
     {
-      path: '/content/search',
+      path: '/search',
       name: 'Search',
       component:() => import( "@/components/Search" )
     },
