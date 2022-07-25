@@ -135,15 +135,15 @@ export default new Router({
       path: "/userpage/:nickname/:user_uid",
       name: "Userpage",
       component: () => import("@/components/Userpage")
+    },
+    {
+      path: "*",
+      redirect: "/404"
+    },
+    {
+      path: "/404",
+      name: "NotFound",
+      component: () => import("@/components/NotFound")
     }
-    // {
-    //   path: "*",
-    //   redirect: "/404"
-    // },
-    // {
-    //   path: "/404",
-    //   name: "NotFound",
-    //   component: () => import("@/components/NotFound")
-    // }
   ]
 });
