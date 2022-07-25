@@ -75,16 +75,16 @@
                 ><span class="ml-1">{{
                   this.$store.state.imagestore.imagedetail[0].nickname
                 }}</span>
-                <v-icon  class="ml-6">mdi-eye-outline</v-icon>
+                <v-icon class="ml-6">mdi-eye-outline</v-icon>
                 <span class="ml-2">
                   {{ this.$store.state.imagestore.imagedetail[0].view_count }}
                 </span>
-                <v-icon  class="ml-6">mdi-bullhorn-outline</v-icon>
+                <v-icon class="ml-6">mdi-bullhorn-outline</v-icon>
                 <span class="ml-2">{{
                   this.$store.state.imagestore.imagedetail[0].report_count
                 }}</span>
               </v-row>
-              <v-card-text 
+              <v-card-text
                 v-text="this.$store.state.imagestore.imagedetail[0].date"
               ></v-card-text>
             </div>
@@ -145,7 +145,9 @@
               "
               text
               color="primary"
-              @click="report"
+              :to="
+                `/userpage/${$store.state.imagestore.imagedetail[0].nickname}/${$store.state.imagestore.imagedetail[0].user_uid}`
+              "
               >프로필보기</v-btn
             >
             <v-btn
@@ -155,7 +157,9 @@
                 this.$store.state.imagestore.imagedetail[0].user_uid !=
                   this.$store.state.loginstore.userstate[0].user_uid
               "
-              @click="report"
+              :to="
+                `/note/${$store.state.imagestore.imagedetail[0].nickname}/${$store.state.imagestore.imagedetail[0].user_uid}`
+              "
               >쪽지보내기</v-btn
             >
           </v-card-actions>
@@ -424,6 +428,11 @@ export default {
     };
   },
   methods: {
+    sendNote() {
+      this.$router.push(
+        `/note/${this.$store.state.imagestore.imagedetail[0].nickname}/${this.$store.state.imagestore.imagedetail[0].user_uid}`
+      );
+    },
     newWindowImage() {
       window.open(
         `http://192.168.0.12:4000${this.$store.state.imagestore.imagedetail[0].image_path}`,
