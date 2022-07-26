@@ -116,8 +116,19 @@
         class="d-flex child-flex"
         cols="4"
       >
-        <!-- <span class="ml-3" >게시물이 없습니다.{{data}}</span> -->
         <v-img
+          v-if="data.report_count > 2"
+          :src="black_image"
+          class="grey--text align-center"
+          gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+          aspect-ratio="1"
+          @click="ContentDetail(data)"
+          ><v-card-text class="font-weight-thin" align="center"
+            >신고누적으로<br />이미지차단</v-card-text
+          ></v-img
+        >
+        <v-img
+          v-else
           :src="`http://192.168.0.12:4000/${data.image_path}`"
           :lazy-src="`http://192.168.0.12:4000/${data.image_path}`"
           aspect-ratio="1"
@@ -141,9 +152,12 @@
 </template>
 <script>
 import baseimage from "../assets/base_user.png";
+import black_image from "../assets/black.jpg";
+
 export default {
   data() {
     return {
+      black_image: black_image,
       user_uid: this.$store.state.loginstore.userstate[0].user_uid,
       dialog_profile_image_update: false,
       currentImage: null,
