@@ -10,7 +10,7 @@ import SecureLS from "secure-ls";
 const ls = new SecureLS({
   encodingType: "aes", // changeable
   isCompression: false,
-  encryptionSecret: "s3cr3tPa$$w0rd@123", // change this
+  encryptionSecret: process.env.COOKIE_SECRET, // change this
   useSessionStorage: true
 });
 
