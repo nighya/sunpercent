@@ -33,7 +33,13 @@
         </template>
       </v-data-table>
     </div>
-    <v-alert color="grey" class="ml-5 mr-5" v-model="content_no_data_msg" dense outlined>
+    <v-alert
+      color="grey"
+      class="ml-5 mr-5"
+      v-model="content_no_data_msg"
+      dense
+      outlined
+    >
       검색한 <strong>닉네임</strong>으로 검색된 게시물이
       <strong>없습니다.</strong>
     </v-alert>
@@ -42,6 +48,7 @@
 
 <script>
 import http from "../http/http";
+import ls from "localstorage-slim";
 
 export default {
   data() {
@@ -81,11 +88,15 @@ export default {
     };
   },
   mounted() {
-    this.content_data = JSON.parse(localStorage.getItem("search_data"));
+    ls.config.encrypt = true;
+    // this.content_data = JSON.parse(localStorage.getItem("search_data"));
+    this.content_data = JSON.parse(ls.get("search_data"));
   },
   methods: {
     async search_result() {
       const validate = this.$refs.form.validate();
+      ls.config.encrypt = true;
+
       if (validate) {
         try {
           const nicknameObj = { nickname: this.search_keyword };
@@ -95,13 +106,17 @@ export default {
           });
           if (response.data.msg == "No Data") {
             this.content_no_data_msg = true;
-            localStorage.setItem("search_data",JSON.stringify([]))
+            // localStorage.setItem("search_data", JSON.stringify([]));
+            ls.set("search_data", JSON.stringify([]));
             this.content_data = [];
           } else {
-            const filterData = response.data.filter(d => d.report_count <= 2);
-            this.content_data = filterData;
-            localStorage.setItem("search_data",JSON.stringify(filterData))
-            this.content_no_data_msg = false;
+            if (response.data) {
+              const filterData = response.data.filter(d => d.report_count <= 2);
+              this.content_data = filterData;
+              // localStorage.setItem("search_data", JSON.stringify(filterData));
+              ls.set("search_data", JSON.stringify(filterData));
+              this.content_no_data_msg = false;
+            }
           }
         } catch (e) {
           throw e;

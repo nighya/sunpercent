@@ -14,6 +14,7 @@
     "axios": "^0.25.0",
     "encrypt-storage": "^2.2.10",
     "fs": "^0.0.1-security",
+    "localstorage-slim": "^2.3.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "peerjs": "^1.3.2",

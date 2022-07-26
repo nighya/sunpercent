@@ -17,7 +17,7 @@ const ls = new SecureLS({
 import { EncryptStorage } from "encrypt-storage";
 import VuexPersistence from "vuex-persist";
 
-export const encryptStorage = new EncryptStorage("secret-key", {
+export const encryptStorage = new EncryptStorage(`"${ process.env.COOKIE_SECRET }"`, {
   storageType: "sessionStorage"
 });
 const vuexLocal = new VuexPersistence({
