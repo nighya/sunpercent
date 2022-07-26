@@ -80,6 +80,9 @@ export default {
       ]
     };
   },
+  mounted() {
+    this.content_data = JSON.parse(localStorage.getItem("search_data"));
+  },
   methods: {
     async search_result() {
       const validate = this.$refs.form.validate();
@@ -92,10 +95,12 @@ export default {
           });
           if (response.data.msg == "No Data") {
             this.content_no_data_msg = true;
+            localStorage.setItem("search_data",JSON.stringify([]))
             this.content_data = [];
           } else {
             const filterData = response.data.filter(d => d.report_count <= 2);
             this.content_data = filterData;
+            localStorage.setItem("search_data",JSON.stringify(filterData))
             this.content_no_data_msg = false;
           }
         } catch (e) {
