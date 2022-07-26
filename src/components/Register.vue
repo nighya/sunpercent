@@ -17,7 +17,11 @@
                   prepend-icon="mdi-account"
                   type="email"
                   v-model="fields.email"
-                  :rules="[rules.email.require1,rules.email.require2, rules.email.duplicate]"
+                  :rules="[
+                    rules.email.require1,
+                    rules.email.require2,
+                    rules.email.duplicate
+                  ]"
                   :error-messages="email_err_msg"
                 ></v-text-field>
                 <v-text-field
@@ -31,6 +35,7 @@
                     rules.nickname.require1,
                     rules.nickname.require2,
                     rules.nickname.require3,
+                    rules.nickname.require4,
                     rules.nickname.duplicate
                   ]"
                   :error-messages="nickname_err_msg"
@@ -83,8 +88,8 @@ export default {
       passwordRules: [
         value => !!value || "비밀번호를 입력해 주세요.",
         value =>
-          (value && value.length >= 4) ||
-          "최소 문자의 길이가 4 이상이어야 합니다."
+          (value && value.length >= 8) ||
+          "최소 문자의 길이가 8 이상이어야 합니다."
       ],
       confirmPasswordRules: [
         value => !!value || "비밀번호를 다시 입력해 주세요.",
@@ -110,10 +115,12 @@ export default {
         nickname: {
           require1: v => !!v || "닉네임을 입력해 주세요.",
           require2: v =>
-            !(v && v.length >= 30) || "닉네임은 30자 이상 입력할 수 없습니다.",
+            !(v && v.length >= 15) || "닉네임은 15자 이상 입력할 수 없습니다.",
           require3: v =>
             !/[~!@#$%^&*()_+|<>?:{} ]/.test(v) ||
             "닉네임에는 특수문자를 사용할 수 없습니다.",
+          require4: v =>
+            !(v && v.length <= 1) || "닉네임은 2자 이상 입력해야 합니다.",
           duplicate: v => this.duplicateNickname(v)
         }
       },
@@ -160,7 +167,6 @@ export default {
           this.nickname_err_msg = [];
         } else if (response.data.msg == "Nickname Exists") {
           this.nickname_err_msg = ["중복된 닉네임 입니다."];
-          
         }
       } catch (err) {
         throw err;
