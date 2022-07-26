@@ -17,6 +17,9 @@
         :error-messages="nickname_err_msg"
       ></v-text-field>
     </v-form>
+    <v-btn class="ml-10 mt-1" color="primary" small text @click="delete_search_result">
+      검색결과삭제하기</v-btn
+    >
     <div>
       <v-data-table
         :headers="headers"
@@ -123,6 +126,11 @@ export default {
         }
       }
     },
+    delete_search_result() {
+      ls.set("search_data", JSON.stringify([]));
+      this.content_data = [];
+    },
+
     ContentDetail(data) {
       this.$router.push({
         name: "ContentDetail",
