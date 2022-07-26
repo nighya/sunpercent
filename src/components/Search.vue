@@ -1,17 +1,22 @@
 <template>
   <div>
-    <v-text-field
-      class="ml-5 mr-5"
-      prepend-icon="mdi-magnify"
-      label="search"
-      hint="닉네임으로 게시물을 검색 합니다."
-      persistent-hint
-      @keydown.prevent.enter="search_result"
-      v-model="search_keyword"
-      :rules="[rules.nickname.require2, rules.nickname.require3]"
-      :error-messages="nickname_err_msg"
-    ></v-text-field>
-
+    <v-form ref="form">
+      <v-text-field
+        class="ml-5 mr-5"
+        prepend-icon="mdi-magnify"
+        label="search"
+        hint="닉네임으로 게시물을 검색 합니다."
+        persistent-hint
+        @keydown.prevent.enter="search_result"
+        v-model="search_keyword"
+        :rules="[
+          rules.nickname.require2,
+          rules.nickname.require3,
+          rules.nickname.require4
+        ]"
+        :error-messages="nickname_err_msg"
+      ></v-text-field>
+    </v-form>
     <div>
       <v-data-table
         :headers="headers"
@@ -28,7 +33,7 @@
         </template>
       </v-data-table>
     </div>
-    <v-alert class="ml-5 mr-5" v-model="content_no_data_msg" dense outlined>
+    <v-alert color="grey" class="ml-5 mr-5" v-model="content_no_data_msg" dense outlined>
       검색한 <strong>닉네임</strong>으로 검색된 게시물이
       <strong>없습니다.</strong>
     </v-alert>
@@ -49,7 +54,9 @@ export default {
             !(v && v.length >= 15) || "15자 이상 입력할 수 없습니다.",
           require3: v =>
             !/[~!@#$%^&*()_+|<>?:{} ]/.test(v) ||
-            "빈칸 및 특수문자를 사용할 수 없습니다."
+            "빈칸 및 특수문자를 사용할 수 없습니다.",
+          require4: v =>
+            !(v && v.length <= 1) || "닉네임은 2자 이상 입력해야 합니다."
           // duplicate: v => this.duplicateNickname(v)
         }
       },
@@ -75,24 +82,25 @@ export default {
   },
   methods: {
     async search_result() {
-      try {
-        const nicknameObj = { nickname: this.search_keyword };
-        // console.log("nicknameObj :  " + JSON.stringify(nicknameObj));
-        const response = await http.post(`/content/search`, nicknameObj, {
-          withCredentials: true
-        });
-        console.log(response.data)
-        const filterData = response.data.filter(d => d.report_count <= 2);
-        this.content_data = filterData;
-        this.content_no_data_msg = false;
-        if (response.data.msg == "No Data") {
-          this.content_no_data_msg = true;
-          this.content_data = [];
+      const validate = this.$refs.form.validate();
+      if (validate) {
+        try {
+          const nicknameObj = { nickname: this.search_keyword };
+          // console.log("nicknameObj :  " + JSON.stringify(nicknameObj));
+          const response = await http.post(`/content/search`, nicknameObj, {
+            withCredentials: true
+          });
+          if (response.data.msg == "No Data") {
+            this.content_no_data_msg = true;
+            this.content_data = [];
+          } else {
+            const filterData = response.data.filter(d => d.report_count <= 2);
+            this.content_data = filterData;
+            this.content_no_data_msg = false;
+          }
+        } catch (e) {
+          throw e;
         }
-        
-
-      } catch (e) {
-        throw e;
       }
     },
     ContentDetail(data) {
