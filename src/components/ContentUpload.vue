@@ -67,10 +67,10 @@
     <div class="text-center">
       <v-dialog v-model="dialog_success" width="500" persistent>
         <v-card>
-          <v-card-title class="text-h7 grey lighten-2">
+          <v-card-title >
             이미지가 업로드 되었습니다.
           </v-card-title>
-          <v-card-text>
+          <v-card-text class="mt-3">
             게시물 확인은 닉네임으로 검색해 보세요. 이전페이지로 이동합니다.
           </v-card-text>
           <v-divider></v-divider>

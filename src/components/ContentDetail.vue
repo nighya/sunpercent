@@ -508,7 +508,8 @@ export default {
     deleteimage() {
       let imagedataObj = {
         content_uid: this.$store.state.imagestore.imagedetail[0].content_uid,
-        image_path: this.$store.state.imagestore.imagedetail[0].image_path
+        image_path: this.$store.state.imagestore.imagedetail[0].image_path,
+        user_uid: this.$store.state.loginstore.userstate[0].user_uid,
       };
       this.$store.dispatch("imagestore/deleteImage", imagedataObj);
       this.$router.go(-1);
