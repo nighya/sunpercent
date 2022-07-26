@@ -8,10 +8,7 @@
       persistent-hint
       @keydown.prevent.enter="search_result"
       v-model="search_keyword"
-            :rules="[
-        rules.nickname.require2,
-        rules.nickname.require3,
-      ]"
+      :rules="[rules.nickname.require2, rules.nickname.require3]"
       :error-messages="nickname_err_msg"
     ></v-text-field>
 
@@ -49,10 +46,10 @@ export default {
         nickname: {
           // require1: v => !!v || "닉네임을 입력해 주세요.",
           require2: v =>
-            !(v && v.length >= 30) || "30자 이상 입력할 수 없습니다.",
+            !(v && v.length >= 15) || "15자 이상 입력할 수 없습니다.",
           require3: v =>
             !/[~!@#$%^&*()_+|<>?:{} ]/.test(v) ||
-            "빈칸 및 특수문자를 사용할 수 없습니다.",
+            "빈칸 및 특수문자를 사용할 수 없습니다."
           // duplicate: v => this.duplicateNickname(v)
         }
       },
@@ -60,24 +57,42 @@ export default {
       content_no_data_msg: false,
       search_keyword: null,
       headers: [
-        { text: "content", value: "image_path",align: 'center', sortable: false, },
-        { text: "nickname", value: "nickname", align: 'center',sortable: false,},
-        { text: "date", value: "date",align: 'center', sortable: true,}
+        {
+          text: "content",
+          value: "image_path",
+          align: "center",
+          sortable: false
+        },
+        {
+          text: "nickname",
+          value: "nickname",
+          align: "center",
+          sortable: false
+        },
+        { text: "date", value: "date", align: "center", sortable: true }
       ]
     };
   },
   methods: {
     async search_result() {
-      const nicknameObj = { nickname: this.search_keyword };
-      console.log("nicknameObj :  " + JSON.stringify(nicknameObj));
-      const response = await http.post(`/content/search`, nicknameObj, {
-        withCredentials: true
-      });
-      this.content_data = response.data;
-      this.content_no_data_msg = false;
-      if (response.data.msg == "No Data") {
-        this.content_no_data_msg = true;
-        this.content_data = [];
+      try {
+        const nicknameObj = { nickname: this.search_keyword };
+        // console.log("nicknameObj :  " + JSON.stringify(nicknameObj));
+        const response = await http.post(`/content/search`, nicknameObj, {
+          withCredentials: true
+        });
+        console.log(response.data)
+        const filterData = response.data.filter(d => d.report_count <= 2);
+        this.content_data = filterData;
+        this.content_no_data_msg = false;
+        if (response.data.msg == "No Data") {
+          this.content_no_data_msg = true;
+          this.content_data = [];
+        }
+        
+
+      } catch (e) {
+        throw e;
       }
     },
     ContentDetail(data) {
