@@ -183,7 +183,7 @@
             </v-col></v-row
           >
           <v-divider></v-divider>
-          <div class="mt-2 mb-1">제목</div>
+          <div  class="mt-2 mb-1">제목</div>
           <div class="mb-2"> {{ showNoteData.title }}</div>
           <v-divider></v-divider>
           <div class="mt-2 mb-1">내용</div>

@@ -3,7 +3,17 @@
     <v-col cols="12">
       <v-row justify="center">
         <v-card width="100%" max-width="780px" class="justify-center">
-          <v-img
+                      <v-img
+              v-if="this.$store.state.imagestore.imagedetail[0].report_count > 2"
+              :src="black_image"
+              class="grey--text align-center"
+              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+              aspect-ratio="1"
+              ><v-card-text class="font-weight-thin" align="center"
+                >신고누적으로<br>이미지차단</v-card-text
+              ></v-img
+            >
+          <v-img v-else
             :src="
               `http://192.168.0.12:4000${this.$store.state.imagestore.imagedetail[0].image_path}`
             "
@@ -320,12 +330,14 @@ import axios from "axios";
 import VueApexCharts from "vue-apexcharts";
 import lodash from "lodash";
 import http from "../http/http";
+import black_image from "../assets/black.jpg";
 export default {
   components: {
     apexcharts: VueApexCharts
   },
   data() {
     return {
+      black_image:black_image,
       showimage_dialog: false,
       reportRules: [v => !!v || "신고사유가 선택되지 않았습니다."],
       report_reason: null,

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="mt-2 ml-3"><h2>Content</h2></div>
-    
+
     <v-container>
       <v-row>
         <v-col
@@ -12,8 +12,19 @@
         >
           <div @click="ContentDetail(data)">
             <v-img
+              v-if="data.report_count > 2"
+              :src="black_image"
+              class="grey--text align-center"
+              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+              aspect-ratio="1"
+              ><v-card-text class="font-weight-thin" align="center"
+                >신고누적으로<br>이미지차단</v-card-text
+              ></v-img
+            >
+            <v-img
+              v-else
               :src="`http://192.168.0.12:4000/${data.image_path}`"
-              class="white--text align-end"
+              class="grey--text align-end"
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
               aspect-ratio="1"
             >
@@ -31,15 +42,20 @@
 
             <v-row>
               <v-card-text class="mt-2">
-                <v-icon class="mr-1" color="blue darken-3" v-if="data.gender == `male`"
+                <v-icon
+                  class="mr-1"
+                  color="blue darken-3"
+                  v-if="data.gender == `male`"
                   >mdi-alpha-m-circle-outline</v-icon
                 >
                 <v-icon class="mr-1" color="pink" v-if="data.gender == `female`"
                   >mdi-alpha-w-circle-outline</v-icon
-                >{{ data.nickname }}<div class="grey--text" align="right">{{moment_now(data.date)}}</div></v-card-text
+                >{{ data.nickname }}
+                <div class="grey--text" align="right">
+                  {{ moment_now(data.date) }}
+                </div></v-card-text
               >
-              </v-row>
-              
+            </v-row>
           </div>
         </v-col>
       </v-row>
@@ -47,10 +63,13 @@
   </div>
 </template>
 <script>
-import moment from "moment"
-import 'moment/locale/ko'
+import moment from "moment";
+import "moment/locale/ko";
+import black_image from "../assets/black.jpg";
 export default {
-  data: () => ({}),
+  data: () => ({
+    black_image: black_image
+  }),
   mounted() {
     this.$store.dispatch("imagestore/getallimages");
   },
@@ -81,9 +100,8 @@ export default {
     },
     moment_now(data) {
       moment.locale("ko");
-     const result =  moment(data).fromNow()
-      return result
-     
+      const result = moment(data).fromNow();
+      return result;
     }
   }
 };
