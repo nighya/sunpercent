@@ -1,14 +1,13 @@
 import http from "../../http/http";
 
-
 export default {
   namespaced: true,
   state: {
     imagestate: [],
     imagedetail: [{ image_path: {} }],
     imagemycontentstate: [],
-    userprofile: [{profile_image:null}],
-    userprofile_image:[{image_path:null}],
+    userprofile: [{ profile_image: null }],
+    userprofile_image: [{ image_path: null }]
   },
   getters: {
     mycontentimagegetters: state => {
@@ -25,7 +24,7 @@ export default {
     },
     userProfile_image_getters: state => {
       return state.userprofile_image;
-    },
+    }
   },
   mutations: {
     USER_PROFILE: (state, datas) => {
@@ -113,7 +112,8 @@ export default {
           withCredentials: true
         }
       );
+
       commit("USER_PROFILE_IMAGE", response.data);
-    },
+    }
   }
 };
