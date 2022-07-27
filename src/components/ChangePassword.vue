@@ -68,8 +68,8 @@ export default {
       passwordRules: [
         value => !!value || "비밀번호를 입력해 주세요.",
         value =>
-          (value && value.length >= 4) ||
-          "최소 문자의 길이가 4 이상이어야 합니다."
+          (value && value.length >= 8) ||
+          "최소 문자의 길이가 8 이상이어야 합니다."
       ],
       confirmPasswordRules: [
         value => !!value || "비밀번호를 다시 입력해 주세요.",

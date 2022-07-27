@@ -1,4 +1,5 @@
 import http from "../../http/http";
+import router from "../../router/index";
 
 export default {
   namespaced: true,
@@ -79,6 +80,7 @@ export default {
           withCredentials: true
         });
         commit("loginToken", response.data);
+        router.push('/content');
       } catch (err) {
         alert("로그인 되지 않았습니다.");
         console.log("에러  :" + err);
