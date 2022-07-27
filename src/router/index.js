@@ -10,14 +10,14 @@ export default new Router({
     {
       path: "/",
       name: "Home",
-      component: () => import("@/components/Home"),
-      beforeEnter: (to, from, next) => {
-        if (store.state.loginstore.userstate[0].needchpw > 0) {
-          next({ path: "/changepassword" });
-        } else {
-          next();
-        }
-      }
+      component: () => import("@/components/Home")
+      // beforeEnter: (to, from, next) => {
+      //   if (store.state.loginstore.userstate[0].needchpw > 0) {
+      //     next({ path: "/changepassword" });
+      //   } else {
+      //     next();
+      //   }
+      // }
     },
     {
       path: "/content",
@@ -70,7 +70,13 @@ export default new Router({
           store.state.loginstore.userstate[0].user_uid === null ||
           store.state.loginstore.userstate[0].user_uid === undefined
         ) {
+          alert("로그인이 필요 합니다.");
           next({ path: "/login" });
+        } else {
+          next();
+        }
+        if (store.state.loginstore.userstate[0].needchpw > 0) {
+          next({ path: "/changepassword" });
         } else {
           next();
         }
@@ -85,6 +91,7 @@ export default new Router({
           store.state.loginstore.userstate[0].user_uid === null ||
           store.state.loginstore.userstate[0].user_uid === undefined
         ) {
+          alert("로그인이 필요 합니다.");
           next({ path: "/login" });
         } else {
           next();
@@ -110,6 +117,7 @@ export default new Router({
           store.state.loginstore.userstate[0].email === null ||
           store.state.loginstore.userstate[0].email === undefined
         ) {
+          alert("로그인이 필요 합니다.");
           next({ path: "/login" });
         } else {
           next();
@@ -125,6 +133,7 @@ export default new Router({
           store.state.loginstore.userstate[0].email === null ||
           store.state.loginstore.userstate[0].email === undefined
         ) {
+          alert("로그인이 필요 합니다.");
           next({ path: "/login" });
         } else {
           next();
@@ -145,6 +154,5 @@ export default new Router({
       name: "NotFound",
       component: () => import("@/components/NotFound")
     }
-
   ]
 });

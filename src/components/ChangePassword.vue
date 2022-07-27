@@ -5,12 +5,14 @@
         <v-col cols="12" sm="8" md="6">
           <v-card class="elevation-12">
             <v-toolbar dark flat>
-              <v-toolbar-title class="ml-2">비밀번호를 변경해주세요.</v-toolbar-title>
+              <v-toolbar-title class="ml-2"
+                >비밀번호를 변경해주세요.</v-toolbar-title
+              >
               <v-spacer></v-spacer>
             </v-toolbar>
             <v-card-text>
               <v-form ref="form">
-                <p class="ml-2">아이디  : {{this.fields.email}}</p>
+                <p class="ml-2">아이디 : {{ this.fields.email }}</p>
                 <v-text-field
                   id="old_password"
                   label="현재 비밀번호"
@@ -97,9 +99,13 @@ export default {
             }
           );
           if (response.status === 200) {
-            this.$alert(
-              "비밀번호가 변경되었습니다."
-            ).then(() => this.$router.push("/"));
+            try {
+              this.$alert("비밀번호가 변경되었습니다.");
+              this.$store.state.loginstore.userstate[0].needchpw = 0;
+              this.$router.push("/");
+            } catch (err) {
+              throw err;
+            }
           } else if (response.status === 400) {
             this.$alert("비밀번호를 변경하지 못했습니다.");
           } else {
