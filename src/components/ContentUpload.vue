@@ -154,6 +154,7 @@ export default {
         alert(
           "게시물을 업로드 하시려면 포인트 2점이 필요합니다. 다른 게시물에 점수를 주면 포인트를 얻을 수 있습니다."
         );
+        this.$router.go();
       } else {
         if (!this.currentImage) {
           if (this.buttonKey == 0 || this.buttonKey > 1) {

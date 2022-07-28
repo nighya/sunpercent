@@ -17,7 +17,7 @@
                   prepend-icon="mdi-account"
                   type="email"
                   v-model="fields.email"
-                  :rules="[rules.email.require]"
+                  :rules="[rules.email.require1,rules.email.require2,]"
                 ></v-text-field>
               </v-form>
             </v-card-text>
@@ -27,9 +27,10 @@
               >
               <v-spacer></v-spacer>
               <v-btn
+                :loading="loading"
                 color="grey darken-3"
                 dark
-                @click="PasswordResetMailSend"
+                @click.prevent="PasswordResetMailSend"
                 >비밀번호 찾기</v-btn
               >
             </v-card-actions>
@@ -45,15 +46,17 @@ import http from "../http/http";
 export default {
   data() {
     return {
+      loading: false,
       fields: {
         email: null
       },
       rules: {
         email: {
-          require: v =>
+          require1: v =>
             !v ||
             /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
-            "이메일 형식에 맞춰 입력하세요."
+            "이메일 형식에 맞춰 입력하세요.",
+          require2: v => !!v || "이메일을 입력해 주세요"
         }
       }
     };
@@ -69,6 +72,7 @@ export default {
         //     .dispatch("loginstore/password_reset_mail_send", passwordResetObj)
 
         try {
+          this.loading = true;
           const response = await http.post(
             "/login/forgotpassword",
             passwordResetObj,
@@ -80,21 +84,28 @@ export default {
             this.$alert(
               "해당 메일 주소로 임시 비밀번호를 보냈습니다.메일을 확인해 주세요."
             ).then(() => this.$router.push("/login"));
+            this.loading = false;
           } else if (response.status === 400) {
             this.$alert("비밀번호 초기화를 실패하였습니다.");
+            this.loading = false;
           } else {
             this.$alert("메일 발송에 실패하였습니다.");
+            this.loading = false;
           }
-        //   console.log("response :  " + JSON.stringify(response));
+          //   console.log("response :  " + JSON.stringify(response));
         } catch (err) {
-          alert("비밀번호 초기화에 실패하였습니다.");
-          console.log("에러  :" + err);
+          alert(
+            "비밀번호 초기화에 실패하였습니다. 정확한 이메일 주소를 넣어주세요."
+          );
+          this.loading = false;
+          console.log("catch에러  :" + err);
           throw err;
         }
 
         // this.clearForm();
       } else {
-        alert("빠진 항목을 확인해 주세요.");
+        alert("빠진 항목이나 메일주소를 확인해 주세요.");
+        this.loading = false;
       }
     },
     moveRegisterpage() {
