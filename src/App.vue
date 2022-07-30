@@ -46,21 +46,13 @@
       app
       grow
     >
-      <v-btn>
-        <span>Refresh</span>
-        <v-icon>mdi-refresh</v-icon>
-      </v-btn>
-      <v-btn>
-        <span>Home</span>
-        <v-icon>mdi-home-heart</v-icon>
-      </v-btn>
-      <v-btn>
-        <span>Content</span>
-        <v-icon>mdi-format-list-text</v-icon>
-      </v-btn>
-      <v-btn>
-        <span>Profile </span>
-        <v-icon>mdi-account</v-icon>
+      <v-btn
+        v-for="item in bottom_items"
+        :key="item.title"
+        @click="menuclick(item)"
+      >
+        <span>{{ item.title }}</span>
+        <v-icon>{{ item.icon }}</v-icon>
       </v-btn>
     </v-bottom-navigation>
 
@@ -127,6 +119,12 @@ export default {
       { title: "로그아웃", icon: "mdi-logout" },
       { title: "내정보", icon: "mdi-card-account-details-outline" },
       { title: "회원등록", icon: "mdi-account-plus-outline" }
+    ],
+    bottom_items: [
+      { title: "Refresh", icon: "mdi-refresh" },
+      { title: "Home", icon: "mdi-home-heart" },
+      { title: "Content", icon: "mdi-format-list-text" },
+      { title: "Profile", icon: "mdi-account" }
     ]
   }),
   methods: {
@@ -142,6 +140,9 @@ export default {
     },
     menuclick(menuclick) {
       switch (menuclick.title) {
+        case "Refresh":
+          this.$router.go();
+          break;
         case "Home":
           this.$router.push("/").catch(() => true);
           break;
@@ -152,7 +153,11 @@ export default {
           this.moveMypage();
           break;
         case "MyNote":
-          this.$router.push(`/MyNote/${this.$store.state.loginstore.userstate[0].user_uid}`).catch(() => true);
+          this.$router
+            .push(
+              `/MyNote/${this.$store.state.loginstore.userstate[0].user_uid}`
+            )
+            .catch(() => true);
           break;
         case "로그인":
           this.logout();

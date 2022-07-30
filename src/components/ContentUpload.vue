@@ -49,7 +49,7 @@
       </div>
     </div>
 
-    <v-alert v-if="message" border="left" color="blue-grey" dark>
+    <v-alert v-if="message" border="left" color="grey" outlined dense>
       {{ message }}
     </v-alert>
 
@@ -86,7 +86,7 @@
     <div class="text-center">
       <v-dialog v-model="dialog_fail" width="500" persistent>
         <v-card>
-          <v-card-title class="text-h7 grey lighten-2">
+          <v-card-title>
             이미지 업로드를 실패하였습니다.
           </v-card-title>
           <v-card-text>
