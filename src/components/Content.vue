@@ -18,7 +18,7 @@
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
               aspect-ratio="1"
               ><v-card-text class="font-weight-thin" align="center"
-                >신고누적으로<br>이미지차단</v-card-text
+                >신고누적으로<br />이미지차단</v-card-text
               ></v-img
             >
             <v-img
@@ -52,7 +52,7 @@
                   >mdi-alpha-w-circle-outline</v-icon
                 >{{ data.nickname }}
                 <div class="grey--text" align="right">
-                  {{ moment_now(data.date) }}
+                  {{ dayjs_now(data.date) }}
                 </div></v-card-text
               >
             </v-row>
@@ -65,6 +65,14 @@
 <script>
 import moment from "moment";
 import "moment/locale/ko";
+moment.locale("ko");
+
+import dayjs from "dayjs";
+import "dayjs/locale/ko";
+dayjs.locale("ko");
+import relativeTime from 'dayjs/plugin/relativeTime'
+dayjs.extend(relativeTime)
+
 import black_image from "../assets/black.jpg";
 export default {
   data: () => ({
@@ -98,9 +106,8 @@ export default {
         }
       });
     },
-    moment_now(data) {
-      moment.locale("ko");
-      const result = moment(data).fromNow();
+    dayjs_now(data) {
+      const result = dayjs(data).fromNow();
       return result;
     }
   }

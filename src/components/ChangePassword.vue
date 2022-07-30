@@ -6,7 +6,7 @@
           <v-card class="elevation-12">
             <v-toolbar dark flat>
               <v-toolbar-title class="ml-2"
-                >비밀번호를 변경해주세요.</v-toolbar-title
+                >비밀번호 변경</v-toolbar-title
               >
               <v-spacer></v-spacer>
             </v-toolbar>

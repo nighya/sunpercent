@@ -100,13 +100,14 @@
             <v-btn icon x-large v-on="on">
               <v-avatar size="36">
                 <v-img
-                contain
+                  contain
                   v-if="
                     $store.state.loginstore.userstate[0].profile_image == null
                   "
                   :src="baseimage"
                 />
-                <v-img v-else
+                <v-img
+                  v-else
                   contain
                   :src="
                     `http://192.168.0.12:4000${$store.state.loginstore.userstate[0].profile_image}`
@@ -120,14 +121,15 @@
               <div class="mx-auto text-center">
                 <v-avatar>
                   <v-img
-                  contain
+                    contain
                     v-if="
                       $store.state.loginstore.userstate[0].profile_image == null
                     "
                     :src="baseimage"
                   />
-                  <v-img v-else
-                  contain
+                  <v-img
+                    v-else
+                    contain
                     :src="
                       `http://192.168.0.12:4000${this.$store.state.loginstore.userstate[0].profile_image}`
                     "
