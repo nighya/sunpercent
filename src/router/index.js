@@ -146,6 +146,11 @@ export default new Router({
       component: () => import("@/components/Userpage")
     },
     {
+      path: "/withdrawal",
+      name: "Withdrawal",
+      component: () => import("@/components/Withdrawal")
+    },
+    {
       path: "*",
       redirect: "/404"
     },
