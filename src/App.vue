@@ -76,7 +76,7 @@
         <v-btn class="search" icon to="/search">
           <v-icon>mdi-magnify</v-icon>
         </v-btn>
-        <v-menu bottom left>
+        <!-- <v-menu bottom left>
           <template v-slot:activator="{ on, attrs }">
             <v-btn dark icon v-bind="attrs" v-on="on">
               <v-icon>mdi-dots-vertical</v-icon>
@@ -93,6 +93,65 @@
               <v-list-item-title>{{ menuitem.title }}</v-list-item-title>
             </v-list-item>
           </v-list>
+        </v-menu> -->
+
+        <v-menu bottom min-width="200px" rounded offset-y>
+          <template v-slot:activator="{ on }">
+            <v-btn icon x-large v-on="on">
+              <v-avatar size="36">
+                <v-img
+                contain
+                  v-if="
+                    $store.state.loginstore.userstate[0].profile_image == null
+                  "
+                  :src="baseimage"
+                />
+                <v-img v-else
+                  contain
+                  :src="
+                    `http://192.168.0.12:4000${$store.state.loginstore.userstate[0].profile_image}`
+                  "
+                />
+              </v-avatar>
+            </v-btn>
+          </template>
+          <v-card>
+            <v-list-item-content class="justify-center">
+              <div class="mx-auto text-center">
+                <v-avatar>
+                  <v-img
+                  contain
+                    v-if="
+                      $store.state.loginstore.userstate[0].profile_image == null
+                    "
+                    :src="baseimage"
+                  />
+                  <v-img v-else
+                  contain
+                    :src="
+                      `http://192.168.0.12:4000${this.$store.state.loginstore.userstate[0].profile_image}`
+                    "
+                  />
+                </v-avatar>
+                <h3>
+                  {{ this.$store.state.loginstore.userstate[0].nickname }}
+                </h3>
+                <p class="text-caption mt-1">
+                  {{ this.$store.state.loginstore.userstate[0].email }}
+                </p>
+                <v-list>
+                  <v-list-item
+                    v-for="(menuitem, i) in menuitems"
+                    :key="i"
+                    @click="menuclick(menuitem)"
+                  >
+                    <v-icon small>{{ menuitem.icon }}</v-icon>
+                    <v-list-item-title>{{ menuitem.title }}</v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </div>
+            </v-list-item-content>
+          </v-card>
         </v-menu>
       </div>
     </v-app-bar>
@@ -104,8 +163,10 @@
 </template>
 
 <script>
+import baseimage from "../src/assets/base_user.png";
 export default {
   data: () => ({
+    baseimage: baseimage,
     bottom_nav_bar: 1,
     drawer: false,
     items: [
