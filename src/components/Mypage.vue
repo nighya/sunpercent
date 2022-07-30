@@ -47,6 +47,7 @@
     </v-btn>
     <v-btn color="primary" text @click="ChangePassword">비밀번호 변경</v-btn>
     <v-btn color="primary" text @click="moveMynote">쪽지함</v-btn>
+    <v-btn color="primary" text @click="moveWithdrawal">회원탈퇴</v-btn>
 
     <div class="text-center">
       <v-dialog v-model="dialog_profile_image_update" width="600" persistent>
@@ -254,7 +255,12 @@ export default {
       this.$router
         .push(`/MyNote/${this.$store.state.loginstore.userstate[0].user_uid}`)
         .catch(() => true);
-    }
+    },
+      moveWithdrawal() {
+      this.$router
+        .push(`/Withdrawal`)
+        .catch(() => true);
+    },
   }
 };
 </script>
