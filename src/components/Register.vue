@@ -67,10 +67,31 @@
                   <v-radio label="남" value="male"></v-radio>
                   <v-radio label="여" value="female"></v-radio>
                 </v-radio-group>
+                <v-checkbox v-model="checkbox" :rules="checkboxRules" >
+                  <template v-slot:label>
+                    <div  >
+                      
+                      <v-tooltip bottom>
+                        <template v-slot:activator="{ on }">
+                          <a
+                            target="_blank"
+                            href="http://192.168.0.12:8080/TermsOfUse"
+                            @click.stop
+                            v-on="on"
+                          >
+                          이용약관
+                          </a>
+                        </template>
+                        이용약관 보기
+                      </v-tooltip>
+                    에 동의 합니다.
+                    </div>
+                  </template>
+                </v-checkbox>
               </v-form>
             </v-card-text>
             <v-card-actions class="justify-center">
-              <v-btn color="grey darken-3" dark @click="register"
+              <v-btn color="primary" dark @click="register"
                 >회원등록</v-btn
               >
             </v-card-actions>
@@ -85,6 +106,7 @@ import http from "../http/http";
 export default {
   data() {
     return {
+      checkbox: false,
       passwordRules: [
         value => !!value || "비밀번호를 입력해 주세요.",
         value =>
@@ -103,6 +125,7 @@ export default {
           "이메일 형식에 맞춰 입력하세요."
       ],
       genderRules: [v => !!v || "성별이 선택되지 않았습니다."],
+      checkboxRules: [v => !!v || "이용약관 동의를 하지 않았습니다."],
       rules: {
         email: {
           require1: v => !!v || "이메일을 입력해 주세요.",

@@ -151,6 +151,16 @@ export default new Router({
       component: () => import("@/components/Withdrawal")
     },
     {
+      path: "/TermsOfUse",
+      name: "TermsOfUse",
+      component: () => import("@/components/TermsOfUse")
+    },
+    {
+      path: "/PolicyPrivacy",
+      name: "PolicyPrivacy",
+      component: () => import("@/components/PolicyPrivacy")
+    },
+    {
       path: "*",
       redirect: "/404"
     },
