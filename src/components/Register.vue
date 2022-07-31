@@ -67,10 +67,9 @@
                   <v-radio label="남" value="male"></v-radio>
                   <v-radio label="여" value="female"></v-radio>
                 </v-radio-group>
-                <v-checkbox v-model="checkbox" :rules="checkboxRules" >
+                <v-checkbox v-model="checkbox" :rules="checkboxRules">
                   <template v-slot:label>
-                    <div  >
-                      
+                    <div>
                       <v-tooltip bottom>
                         <template v-slot:activator="{ on }">
                           <a
@@ -79,21 +78,21 @@
                             @click.stop
                             v-on="on"
                           >
-                          이용약관
+                            이용약관
                           </a>
                         </template>
                         이용약관 보기
                       </v-tooltip>
-                    에 동의 합니다.
+                      에 동의 합니다.
                     </div>
                   </template>
                 </v-checkbox>
               </v-form>
             </v-card-text>
             <v-card-actions class="justify-center">
-              <v-btn color="primary" dark @click="register"
-                >회원등록</v-btn
-              >
+              <v-btn color="grey darken-3" dark @click="moveLoginpage">로그인</v-btn>
+              <v-spacer></v-spacer>
+              <v-btn color="grey darken-3" dark @click="register">회원등록</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -225,6 +224,9 @@ export default {
       this.fields.email = "";
       this.fields.nickname = "";
       this.fields.password = "";
+    },
+    moveLoginpage() {
+      this.$router.push("/login");
     }
   }
 };
