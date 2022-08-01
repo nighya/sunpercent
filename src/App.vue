@@ -14,12 +14,12 @@
             class="mt-2 text-h6 font-weight-black"
             align="center"
             justify="center"
+            @click="moveHome"
           >
             SunPercent
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-
       <v-list dense nav>
         <v-list-item
           v-for="item in items"
@@ -135,12 +135,31 @@
                     "
                   />
                 </v-avatar>
-                <h3>
-                  {{ this.$store.state.loginstore.userstate[0].nickname }}
-                </h3>
+                <v-icon
+                  class="mr-1"
+                  color="blue darken-3"
+                  v-if="
+                    this.$store.state.loginstore.userstate[0].gender == `male`
+                  "
+                  >mdi-alpha-m-circle-outline</v-icon
+                >
+                <v-icon
+                  class="mr-1"
+                  color="pink"
+                  v-if="
+                    this.$store.state.loginstore.userstate[0].gender == `female`
+                  "
+                  >mdi-alpha-w-circle-outline</v-icon
+                >{{ this.$store.state.loginstore.userstate[0].nickname }}
+
+                <v-icon class="mr-1" color="amber lighten-1"
+                  >mdi-alpha-p-circle</v-icon
+                >{{ this.$store.state.loginstore.userstate[0].point }}
+
                 <p class="text-caption mt-1">
                   {{ this.$store.state.loginstore.userstate[0].email }}
                 </p>
+                <v-divider></v-divider>
                 <v-list>
                   <v-list-item
                     v-for="(menuitem, i) in menuitems"
@@ -161,7 +180,6 @@
     <v-main>
       <router-view :key="$route.fullPath"></router-view>
     </v-main>
-
   </v-app>
 </template>
 
@@ -179,9 +197,9 @@ export default {
       { title: "MyNote", icon: "mdi-email-outline" }
     ],
     menuitems: [
+      { title: "내정보", icon: "mdi-card-account-details-outline" },
       { title: "로그인", icon: "mdi-login" },
       { title: "로그아웃", icon: "mdi-logout" },
-      { title: "내정보", icon: "mdi-card-account-details-outline" },
       { title: "회원등록", icon: "mdi-account-plus-outline" }
     ],
     bottom_items: [
@@ -196,6 +214,9 @@ export default {
       const user_uid = this.$store.state.loginstore.userstate[0].user_uid;
       if (this.$route.path !== `/mypage/${user_uid}`)
         this.$router.push(`/mypage/${user_uid}`).catch(() => true);
+    },
+    moveHome() {
+      this.$router.push("/").catch(() => true);
     },
     logout() {
       this.$store.dispatch("loginstore/logout");
@@ -249,6 +270,7 @@ export default {
       "loginstore/getUserPoint",
       this.$store.state.loginstore.userstate[0].user_uid
     );
+
   },
   computed: {
     IsLoginedgeters() {

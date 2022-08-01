@@ -33,38 +33,8 @@
               </v-row>
             </template>
           </v-img>
-          <!-- 메뉴띄우기 -->
           <template>
             <div>
-              <!-- <v-menu offset-y max-width="120px">
-                <template v-slot:activator="{ on, attrs }">
-                  <v-card-text
-                    v-bind="attrs"
-                    v-on="on"
-                    v-text="$store.state.imagestore.imagedetail[0].nickname"
-                  >
-                  </v-card-text>
-                </template>
-                <v-list>
-                  <v-list-item
-                    link
-                    :to="
-                      `/userpage/${$store.state.imagestore.imagedetail[0].nickname}/${$store.state.imagestore.imagedetail[0].user_uid}`
-                    "
-                  >
-                    <v-list-item-title>프로필보기</v-list-item-title>
-                  </v-list-item>
-                  <v-list-item
-                    link
-                    :to="
-                      `/note/${$store.state.imagestore.imagedetail[0].nickname}/${$store.state.imagestore.imagedetail[0].user_uid}`
-                    "
-                  >
-                    <v-list-item-title>쪽지보내기</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu> -->
-
               <v-row class="mt-6 ml-3">
                 <v-icon
                   class="mr-1"

@@ -7,7 +7,7 @@
         label="search"
         hint="닉네임으로 게시물을 검색 합니다."
         persistent-hint
-        @keydown.prevent.enter="search_result"
+        @keydown.enter="search_result"
         v-model="search_keyword"
         :rules="[
           rules.nickname.require2,
@@ -92,7 +92,6 @@ export default {
   },
   mounted() {
     ls.config.encrypt = true;
-    // this.content_data = JSON.parse(localStorage.getItem("search_data"));
     this.content_data = JSON.parse(ls.get("search_data"));
   },
   methods: {
