@@ -13,6 +13,7 @@
           accept="image/*"
           truncate-length="12"
           @change="selectImage"
+          :rules="rules"
         ></v-file-input>
       </v-col>
 
@@ -68,7 +69,7 @@
     <div class="text-center">
       <v-dialog v-model="dialog_success" width="500" persistent>
         <v-card>
-          <v-card-title >
+          <v-card-title>
             이미지가 업로드 되었습니다.
           </v-card-title>
           <v-card-text class="mt-3">
@@ -131,6 +132,10 @@ export default {
   name: "ContentUpload",
   data() {
     return {
+      rules: [
+        files =>
+          !files || files.size < 5242880 || "사진 크기는 5MB 초과 할 수 없습니다."
+      ],
       currentImage: null,
       previewImage: null,
       progress: 0,
@@ -145,10 +150,15 @@ export default {
   },
   methods: {
     selectImage(image) {
-      this.currentImage = image;
-      this.previewImage = URL.createObjectURL(this.currentImage);
-      this.progress = 0;
-      this.message = "";
+      if (image) {
+        this.currentImage = image;
+        this.previewImage = URL.createObjectURL(this.currentImage);
+        this.progress = 0;
+        this.message = "";
+      } else {
+        this.currentImage = null;
+        this.previewImage = null;
+      }
     },
     async upload() {
       if (this.$store.state.loginstore.userstate[0].point <= 0) {
@@ -200,13 +210,14 @@ export default {
             this.loading = false;
             this.dialog_fail = true;
             this.message = "이미지 업로드 실패";
+            this.$router.go();
             // console.log(err.response.status);
           });
       }
     },
     successDialog() {
       this.dialog_success = false;
-      this.$router.go(-1);
+      this.$router.go();
     },
     failDialog() {
       this.buttonKey++;

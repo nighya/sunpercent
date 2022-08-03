@@ -14,6 +14,7 @@
           truncate-length="12"
           @change="selectImage"
           multiple
+          :rules="rules"
         ></v-file-input>
       </v-col>
 
@@ -132,6 +133,12 @@ export default {
   name: "ContentUpload",
   data() {
     return {
+      rules: [
+        files =>
+          !files ||
+          files.size < 5242880 ||
+          "사진 크기는 5MB 초과 할 수 없습니다."
+      ],
       currentImage: [],
       previewImage: [],
       progress: 0,
@@ -146,13 +153,18 @@ export default {
   },
   methods: {
     selectImage(image) {
-      // this.currentImage = [...image]
-      this.currentImage = [...image];
-      this.previewImage = this.currentImage.map(data =>
-        URL.createObjectURL(data)
-      );
-      this.progress = 0;
-      this.message = "";
+      if (image) {
+        // this.currentImage = [...image]
+        this.currentImage = [...image];
+        this.previewImage = this.currentImage.map(data =>
+          URL.createObjectURL(data)
+        );
+        this.progress = 0;
+        this.message = "";
+      } else {
+        this.currentImage = null;
+        this.previewImage = null;
+      }
     },
     async upload() {
       if (this.$store.state.loginstore.userstate[0].point <= 0) {
