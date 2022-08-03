@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="home pa-6">
-      <h1>home</h1>
+    <div>
+      <Content></Content>
     </div>
     <v-footer padless>
       <v-col class="text-center" cols="12">
@@ -27,13 +27,14 @@
   </div>
 </template>
 <script>
+import Content from './Content.vue'
+
 export default {
+  components:{Content},
   data() {
     return {};
   },
-  methods: {
-    move_TermsOfUse() {}
-  }
+
 };
 </script>
 <style>

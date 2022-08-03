@@ -185,6 +185,7 @@
 
 <script>
 import baseimage from "../src/assets/base_user.png";
+
 export default {
   data: () => ({
     baseimage: baseimage,
@@ -270,6 +271,7 @@ export default {
       "loginstore/getUserPoint",
       this.$store.state.loginstore.userstate[0].user_uid
     );
+    // window.onbeforeunload = ()=>{localStorage.removeItem("vuex")}
 
   },
   computed: {

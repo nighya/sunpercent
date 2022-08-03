@@ -16,9 +16,9 @@ const ls = new SecureLS({
 
 import { EncryptStorage } from "encrypt-storage";
 import VuexPersistence from "vuex-persist";
-
 export const encryptStorage = new EncryptStorage(`"${ process.env.COOKIE_SECRET }"`, {
   storageType: "sessionStorage"
+  // storageType: "localStorage"
 });
 const vuexLocal = new VuexPersistence({
   storage: encryptStorage,
@@ -45,9 +45,10 @@ export default new Vuex.Store({
       storage: {
         getItem: key => ls.get(JSON.stringify(key)),
         setItem: (key, value) => JSON.stringify(ls.set(key, value)),
-        removeItem: key => JSON.stringify(ls.remove(key))
+        removeItem: key => JSON.stringify(ls.remove(key)),
       },
-      paths: ["imagestore", "scorestore"]
+      paths: ["imagestore", "scorestore"],
+      
     }),
     vuexLocal.plugin
   ]

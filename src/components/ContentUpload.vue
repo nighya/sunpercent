@@ -1,5 +1,6 @@
 <template>
   <div class="pa-3">
+    <h3 class="ml-1">외모점수 사진올리기</h3>
     <v-row no-gutters justify="center" align="center">
       <v-col cols="8">
         <v-file-input
