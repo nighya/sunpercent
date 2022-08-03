@@ -25,7 +25,10 @@
 
     <v-stepper-content step="2">
       <v-card class="mb-2" height="200px">
-        <v-form ref="form">
+        <div class="ma-2">
+          비밀번호를 입력하고 다음단계를 클릭하시면 회원탈퇴 처리를 시작하며 삭제된 데이터는 복구되지 않습니다.
+        </div>
+        <v-form class="mt-5" ref="form">
           <v-text-field
             v-model="password"
             class="ml-2 mr-2"

@@ -30,6 +30,17 @@ export default new Router({
           next();
         }
       }
+    },    {
+      path: "/Content_multi",
+      name: "Content_multi",
+      component: () => import("@/components/Content_multi"),
+      beforeEnter: (to, from, next) => {
+        if (store.state.loginstore.userstate[0].needchpw > 0) {
+          next({ path: "/changepassword" });
+        } else {
+          next();
+        }
+      }
     },
     {
       path: "/login",
@@ -86,6 +97,22 @@ export default new Router({
       path: "/contentupload",
       name: "ContentUpload",
       component: () => import("@/components/ContentUpload"),
+      beforeEnter: (to, from, next) => {
+        if (
+          store.state.loginstore.userstate[0].user_uid === null ||
+          store.state.loginstore.userstate[0].user_uid === undefined
+        ) {
+          alert("로그인이 필요 합니다.");
+          next({ path: "/login" });
+        } else {
+          next();
+        }
+      }
+    },
+    {
+      path: "/ContentUpload_multi",
+      name: "ContentUpload_multi",
+      component: () => import("@/components/ContentUpload_multi"),
       beforeEnter: (to, from, next) => {
         if (
           store.state.loginstore.userstate[0].user_uid === null ||

@@ -70,7 +70,10 @@
 
       <v-spacer></v-spacer>
       <div>
-        <v-btn class="search" icon to="/contentupload">
+        <v-btn icon to="/ContentUpload_multi">
+          <v-icon>mdi-image-multiple</v-icon>
+        </v-btn>
+        <v-btn icon to="/contentupload">
           <v-icon>mdi-plus</v-icon>
         </v-btn>
         <v-btn class="search" icon to="/search">
@@ -194,6 +197,7 @@ export default {
     items: [
       { title: "Home", icon: "mdi-home-heart" },
       { title: "Content", icon: "mdi-format-list-text" },
+      { title: "Content_multi", icon: "mdi-format-list-text" },
       { title: "Profile", icon: "mdi-card-account-details-outline" },
       { title: "MyNote", icon: "mdi-email-outline" }
     ],
@@ -235,6 +239,9 @@ export default {
         case "Content":
           this.$router.push("/content").catch(() => true);
           break;
+        case "Content_multi":
+          this.$router.push("/Content_multi").catch(() => true);
+          break;
         case "Profile":
           this.moveMypage();
           break;
@@ -272,7 +279,6 @@ export default {
       this.$store.state.loginstore.userstate[0].user_uid
     );
     // window.onbeforeunload = ()=>{localStorage.removeItem("vuex")}
-
   },
   computed: {
     IsLoginedgeters() {

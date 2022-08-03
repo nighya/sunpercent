@@ -22,19 +22,19 @@
         >
           개인정보처리방침 </v-btn
         ><span style="color:grey; padding:12px;">help@sunpercent.com</span>
+        <span class="ml-6">© 2022 sunpercent All Rights Reserved.</span>
       </v-col>
     </v-footer>
   </div>
 </template>
 <script>
-import Content from './Content.vue'
+import Content from "./Content.vue";
 
 export default {
-  components:{Content},
+  components: { Content },
   data() {
     return {};
-  },
-
+  }
 };
 </script>
 <style>
