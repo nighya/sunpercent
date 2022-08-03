@@ -1,6 +1,6 @@
 <template>
   <div class="pa-3">
-    <h3 class="ml-1">사진골라줘 사진올리기</h3>
+    <h3 class="ml-1">multiple</h3>
     <v-row no-gutters justify="center" align="center">
       <v-col cols="8">
         <v-file-input
