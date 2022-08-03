@@ -46,8 +46,8 @@
     </div>
 
     <div v-if="previewImage">
-      <div>
-        <img class="preview my-3" :src="previewImage" alt="" />
+      <div v-for="preimage in previewImage" :key="preimage">
+        <img class="preview my-3" :src="preimage" alt="" />
       </div>
     </div>
 
@@ -132,8 +132,8 @@ export default {
   name: "ContentUpload",
   data() {
     return {
-      currentImage: null,
-      previewImage: null,
+      currentImage: [],
+      previewImage: [],
       progress: 0,
       message: "",
       imageInfos: [],
@@ -146,8 +146,8 @@ export default {
   },
   methods: {
     selectImage(image) {
-      this.currentImage = image;
-      this.previewImage = URL.createObjectURL(this.currentImage);
+      this.currentImage = [...image];
+      this.previewImage = this.currentImage.map((data)=> URL.createObjectURL(data));
       this.progress = 0;
       this.message = "";
     },
