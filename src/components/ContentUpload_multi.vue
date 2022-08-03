@@ -135,12 +135,10 @@ export default {
     return {
       rules: [
         files =>
-          !files ||
-          files.size < 5242880 ||
-          "사진 크기는 5MB 초과 할 수 없습니다."
+          !files || files.length < 4 || "사진은 3개까지만 선택 가능합니다."
       ],
-      currentImage: [],
-      previewImage: [],
+      currentImage: null,
+      previewImage: null,
       progress: 0,
       message: "",
       imageInfos: [],
@@ -154,7 +152,6 @@ export default {
   methods: {
     selectImage(image) {
       if (image) {
-        // this.currentImage = [...image]
         this.currentImage = [...image];
         this.previewImage = this.currentImage.map(data =>
           URL.createObjectURL(data)
@@ -172,60 +169,61 @@ export default {
           "게시물을 업로드 하시려면 포인트 2점이 필요합니다. 다른 게시물에 점수를 주면 포인트를 얻을 수 있습니다."
         );
         this.$router.go();
+      } else if (!this.currentImage) {
+        if (this.buttonKey == 0 || this.buttonKey > 1) {
+          return (this.buttonKey = 1);
+        }
+        this.message = "이미지가 선택되지 않았습니다.";
+        return;
       } else {
-        if (!this.currentImage) {
-          if (this.buttonKey == 0 || this.buttonKey > 1) {
-            return (this.buttonKey = 1);
+        if (this.currentImage) {
+          const fd = new FormData();
+          // fd.append("image", this.currentImage);  //OLD
+          //NEW ONE
+          for (let index = 0; index < this.currentImage.length; index++) {
+            let file = this.currentImage[index];
+            fd.append("image", file);
           }
-          this.message = "이미지가 선택되지 않았습니다.";
-          return;
-        }
-        const fd = new FormData();
-        // fd.append("image", this.currentImage);  //OLD
-        //NEW ONE
-        for (let index = 0; index < this.currentImage.length; index++) {
-          let file = this.currentImage[index];
-          fd.append("image", file);
-        }
-        fd.append(
-          "user_uid",
-          this.$store.state.loginstore.userstate[0].user_uid
-        );
-        fd.append(
-          "nickname",
-          this.$store.state.loginstore.userstate[0].nickname
-        );
-        fd.append("gender", this.$store.state.loginstore.userstate[0].gender);
-        this.progress = 0;
-        await http
-          .post("/imageupload_multi", fd, {
-            withCredentials: true
-          })
-          .then((this.loading = true))
-          .then(e => {
-            this.loading = false;
-            this.dialog_success = true;
-            this.message = "이미지 업로드 성공";
-          })
+          fd.append(
+            "user_uid",
+            this.$store.state.loginstore.userstate[0].user_uid
+          );
+          fd.append(
+            "nickname",
+            this.$store.state.loginstore.userstate[0].nickname
+          );
+          fd.append("gender", this.$store.state.loginstore.userstate[0].gender);
+          this.progress = 0;
+          await http
+            .post("/imageupload_multi", fd, {
+              withCredentials: true
+            })
+            .then((this.loading = true))
+            .then(e => {
+              this.loading = false;
+              this.dialog_success = true;
+              this.message = "이미지 업로드 성공";
+            })
 
-          .catch(err => {
-            if (err.response.status == 403) {
-              this.dialog_relogin = true;
-            } else if (err.response.status == 400) {
-              alert(
-                "게시물을 업로드 하시려면 포인트 2점이 필요합니다. 다른 게시물에 점수를 주면 포인트를 얻을 수 있습니다."
-              );
-              this.$router.go();
-            }
-            this.$refs.imageRef.reset();
-            this.currentImage = [];
-            this.previewImage = [];
-            this.loading = false;
-            this.dialog_fail = true;
-            this.message = "이미지 업로드 실패";
-            this.$router.go();
-            // console.log(err.response.status);
-          });
+            .catch(err => {
+              if (err.response.status == 403) {
+                this.dialog_relogin = true;
+              } else if (err.response.status == 405) {
+              } else if (err.response.status == 400) {
+                alert(
+                  "게시물을 업로드 하시려면 포인트 2점이 필요합니다. 다른 게시물에 점수를 주면 포인트를 얻을 수 있습니다."
+                );
+                this.$router.go();
+              }
+              this.$refs.imageRef.reset();
+              this.currentImage = [];
+              this.previewImage = [];
+              this.loading = false;
+              this.dialog_fail = true;
+              this.message = "이미지 업로드 실패";
+              // console.log(err.response.status);
+            });
+        }
       }
     },
     successDialog() {

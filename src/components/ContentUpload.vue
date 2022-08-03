@@ -134,7 +134,9 @@ export default {
     return {
       rules: [
         files =>
-          !files || files.size < 5242880 || "사진 크기는 5MB 초과 할 수 없습니다."
+          !files ||
+          files.size < 5242880 ||
+          "사진 크기는 5MB 초과 할 수 없습니다."
       ],
       currentImage: null,
       previewImage: null,
@@ -200,6 +202,7 @@ export default {
           .catch(err => {
             if (err.response.status == 403) {
               this.dialog_relogin = true;
+            } else if (err.response.status == 405) {
             } else if (err.response.status == 400) {
               alert(
                 "게시물을 업로드 하시려면 포인트 2점이 필요합니다. 다른 게시물에 점수를 주면 포인트를 얻을 수 있습니다."
