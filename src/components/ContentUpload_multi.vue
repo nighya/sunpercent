@@ -69,7 +69,7 @@
     <div class="text-center">
       <v-dialog v-model="dialog_success" width="500" persistent>
         <v-card>
-          <v-card-title >
+          <v-card-title>
             이미지가 업로드 되었습니다.
           </v-card-title>
           <v-card-text class="mt-3">
@@ -146,8 +146,11 @@ export default {
   },
   methods: {
     selectImage(image) {
+      // this.currentImage = [...image]
       this.currentImage = [...image];
-      this.previewImage = this.currentImage.map((data)=> URL.createObjectURL(data));
+      this.previewImage = this.currentImage.map(data =>
+        URL.createObjectURL(data)
+      );
       this.progress = 0;
       this.message = "";
     },
@@ -166,7 +169,12 @@ export default {
           return;
         }
         const fd = new FormData();
-        fd.append("image", this.currentImage);
+        // fd.append("image", this.currentImage);  //OLD
+        //NEW ONE
+        for (let index = 0; index < this.currentImage.length; index++) {
+          let file = this.currentImage[index];
+          fd.append("image", file);
+        }
         fd.append(
           "user_uid",
           this.$store.state.loginstore.userstate[0].user_uid
@@ -178,7 +186,7 @@ export default {
         fd.append("gender", this.$store.state.loginstore.userstate[0].gender);
         this.progress = 0;
         await http
-          .post("/imageupload", fd, {
+          .post("/imageupload_multi", fd, {
             withCredentials: true
           })
           .then((this.loading = true))
@@ -198,16 +206,19 @@ export default {
               this.$router.go();
             }
             this.$refs.imageRef.reset();
+            this.currentImage = [];
+            this.previewImage = [];
             this.loading = false;
             this.dialog_fail = true;
             this.message = "이미지 업로드 실패";
+            this.$router.go();
             // console.log(err.response.status);
           });
       }
     },
     successDialog() {
       this.dialog_success = false;
-      this.$router.go(-1);
+      this.$router.go();
     },
     failDialog() {
       this.buttonKey++;
