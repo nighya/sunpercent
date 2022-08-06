@@ -1,11 +1,11 @@
 <template>
-
   <div>
     <div class="mt-2 ml-3"><h2>Content_multi</h2></div>
 
     <v-container>
-      <v-row justify="center" >
-        <v-col v-for="(data, index) in AllGetterslist_multi"
+      <v-row justify="center">
+        <v-col
+          v-for="(data, index) in AllGetterslist_multi"
           :key="index"
           class="d-flex child-flex"
           cols="4"
@@ -21,23 +21,36 @@
                 >신고누적으로<br />이미지차단</v-card-text
               ></v-img
             >
-            <v-img
+            <v-carousel hide-delimiters
               v-else
-              v-for="(item,index) in data.image_path" :key="index"
-            ><v-img  class="grey--text align-end" 
-              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-              aspect-ratio="3" :src="`http://192.168.0.12:4000/${item}`"></v-img>
-              <!-- <v-card-title v-text="data.user_uid"></v-card-title> -->
-
-              <template v-slot:placeholder>
-                <v-row class="fill-height ma-0" align="center" justify="center">
-                  <v-progress-circular
-                    indeterminate
-                    color="grey lighten-5"
-                  ></v-progress-circular>
+              cycle
+              height="auto"
+              hide-delimiter-background
+              show-arrows-on-hover
+            >
+              <v-carousel-item
+                v-for="(item, index) in data.image_path"
+                :key="index"
+                
+              >
+                <v-row class="fill-height" align="center" justify="center">
+                  <v-img  height="200" :src="`http://192.168.0.12:4000/${item}`">
+                    <template v-slot:placeholder>
+                      <v-row
+                        class="fill-height ma-0"
+                        align="center"
+                        justify="center"
+                      >
+                        <v-progress-circular
+                          indeterminate
+                          color="grey lighten-5"
+                        ></v-progress-circular>
+                      </v-row> </template
+                  ></v-img>
                 </v-row>
-              </template>
-            </v-img>
+              </v-carousel-item>
+            </v-carousel>
+            <!-- <v-card-title v-text="data.user_uid"></v-card-title> -->
 
             <v-row>
               <v-card-text class="mt-2">
@@ -65,8 +78,8 @@
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
 dayjs.locale("ko");
-import relativeTime from 'dayjs/plugin/relativeTime'
-dayjs.extend(relativeTime)
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
 
 import black_image from "../assets/black.jpg";
 export default {
