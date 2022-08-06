@@ -4,6 +4,7 @@ export default {
   namespaced: true,
   state: {
     imagestate: [],
+    imagestate_multi: [],
     imagedetail: [{ image_path: {} }],
     imagemycontentstate: [],
     userprofile: [{ profile_image: null }],
@@ -15,6 +16,9 @@ export default {
     },
     allImagelist: state => {
       return state.imagestate;
+    },
+    allImagelist_multi: state => {
+      return state.imagestate_multi;
     },
     imageDetail: state => {
       return state.imagedetail;
@@ -42,6 +46,9 @@ export default {
     SET_IMAGE: (state, datas) => {
       state.imagestate = datas;
     },
+    SET_IMAGE_MULTI: (state, datas) => {
+      state.imagestate_multi = datas;
+    },
     SET_IMAGE_DETAIL: (state, datas) => {
       state.imagedetail = datas;
     },
@@ -64,6 +71,16 @@ export default {
         withCredentials: true
       });
       commit("SET_IMAGE", response.data);
+    },
+    async getallimages_multi({ commit }) {
+      const response = await http.get(`/getAllimages_multi`, {
+        withCredentials: true
+      });
+      let image_path_arr = response.data.map(item => {
+        item.image_path = item.image_path.split(",");
+      });
+      // console.log(test);
+      commit("SET_IMAGE_MULTI", response.data);
     },
     async getimage({ commit }, payload) {
       const response = await http.get(`/getimage/${payload}`, {

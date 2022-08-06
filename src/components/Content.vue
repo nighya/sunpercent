@@ -63,9 +63,6 @@
   </div>
 </template>
 <script>
-import moment from "moment";
-import "moment/locale/ko";
-moment.locale("ko");
 
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
@@ -88,6 +85,7 @@ export default {
     }
   },
   methods: {
+    //이미지 업로드
     contentupload() {
       if (this.$store.state.loginstore.userstate[0].point < 2) {
         alert(

@@ -2,6 +2,7 @@
   <div>
     <div>
       <Content></Content>
+      <Content_multi></Content_multi>
     </div>
     <v-footer padless>
       <v-col class="text-center" cols="12">
@@ -31,9 +32,10 @@
 </template>
 <script>
 import Content from "./Content.vue";
+import Content_multi from "./Content_multi.vue";
 
 export default {
-  components: { Content },
+  components: { Content,Content_multi },
   data() {
     return {};
   }
