@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="mt-2 ml-3"><h2>Content_multi</h2></div>
-
     <v-container>
       <v-row>
         <v-col
@@ -21,20 +20,19 @@
                 >신고누적으로<br />이미지차단</v-card-text
               ></v-img
             >
-            <v-carousel hide-delimiters
+            <v-carousel
               v-else
+              hide-delimiters
               cycle
-              height="auto"
               hide-delimiter-background
               show-arrows-on-hover
             >
               <v-carousel-item
                 v-for="(item, index) in data.image_path"
                 :key="index"
-                
               >
                 <v-row class="fill-height" align="center" justify="center">
-                  <v-img  height="200" :src="`http://192.168.0.12:4000/${item}`">
+                  <v-img height="373" :src="`http://192.168.0.12:4000/${item}`">
                     <template v-slot:placeholder>
                       <v-row
                         class="fill-height ma-0"
