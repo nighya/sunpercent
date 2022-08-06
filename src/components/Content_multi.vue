@@ -10,7 +10,7 @@
           cols="4"
         >
           <div @click="ContentDetail(data)">
-            <v-carousel hide-delimiters show-arrows-on-hover height="auto">
+            <v-carousel hide-delimiter-background show-arrows-on-hover height="auto">
               <v-carousel-item
                 v-for="(item, index) in data.image_path"
                 :key="index"
