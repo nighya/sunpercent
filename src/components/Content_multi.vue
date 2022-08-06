@@ -10,42 +10,34 @@
           cols="4"
         >
           <div @click="ContentDetail(data)">
-            <v-img
-              v-if="data.report_count > 2"
-              :src="black_image"
-              class="grey--text align-center"
-              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-              aspect-ratio="1"
-              ><v-card-text class="font-weight-thin" align="center"
-                >신고누적으로<br />이미지차단</v-card-text
-              ></v-img
-            >
-            <v-carousel
-              v-else
-              hide-delimiters
-              cycle
-              hide-delimiter-background
-              show-arrows-on-hover
-            >
+            <v-carousel hide-delimiters show-arrows-on-hover height="auto">
               <v-carousel-item
                 v-for="(item, index) in data.image_path"
                 :key="index"
               >
-                <v-row class="fill-height" align="center" justify="center">
-                  <v-img height="373" :src="`http://192.168.0.12:4000/${item}`">
-                    <template v-slot:placeholder>
-                      <v-row
-                        class="fill-height ma-0"
-                        align="center"
-                        justify="center"
-                      >
-                        <v-progress-circular
-                          indeterminate
-                          color="grey lighten-5"
-                        ></v-progress-circular>
-                      </v-row> </template
-                  ></v-img>
-                </v-row>
+                <v-img
+                  v-if="data.report_count > 2"
+                  :src="black_image"
+                  class="grey--text align-center"
+                  gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+                  aspect-ratio="1"
+                  ><v-card-text class="font-weight-thin" align="center"
+                    >신고누적으로<br />이미지차단</v-card-text
+                  ></v-img
+                >
+                <v-img v-else aspect-ratio="1" :src="`http://192.168.0.12:4000/${item}`">
+                  <template v-slot:placeholder>
+                    <v-row
+                      class="fill-height ma-0"
+                      align="center"
+                      justify="center"
+                    >
+                      <v-progress-circular
+                        indeterminate
+                        color="grey lighten-5"
+                      ></v-progress-circular>
+                    </v-row> </template
+                ></v-img>
               </v-carousel-item>
             </v-carousel>
             <!-- <v-card-title v-text="data.user_uid"></v-card-title> -->
