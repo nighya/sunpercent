@@ -73,7 +73,7 @@
             이미지가 업로드 되었습니다.
           </v-card-title>
           <v-card-text class="mt-3">
-            게시물 확인은 닉네임으로 검색해 보세요. 이전페이지로 이동합니다.
+            게시물 확인은 닉네임으로 검색해 보세요.
           </v-card-text>
           <v-divider></v-divider>
           <v-card-actions>

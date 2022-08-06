@@ -3,7 +3,7 @@
     <div class="mt-2 ml-3"><h2>Content_multi</h2></div>
 
     <v-container>
-      <v-row justify="center">
+      <v-row>
         <v-col
           v-for="(data, index) in AllGetterslist_multi"
           :key="index"
