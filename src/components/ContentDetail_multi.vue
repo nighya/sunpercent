@@ -1,6 +1,6 @@
 <template
   ><div class="contentdetail pa-6 center">
-    {{average_total}}
+    {{ average_total }}
     <v-col cols="12">
       <v-row justify="center">
         <v-card
@@ -94,22 +94,21 @@
             </div>
           </template>
 
-          <!-- <v-alert
+          <v-alert
             v-if="
-              this.$store.state.scorestore.scorestate.filter(
+              $store.state.scorestore.scorestate_multi.filter(
                 item =>
-                  item.from_uid ==
-                  this.$store.state.loginstore.userstate[0].user_uid
+                  item.from_uid == $store.state.loginstore.userstate[0].user_uid
               ).length > 0
             "
             type="success"
             >내가 점수 등록한 게시물</v-alert
-          > -->
+          >
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn
               v-if="
-                $store.state.scorestore.scorestate.filter(
+                $store.state.scorestore.scorestate_multi.filter(
                   item =>
                     item.from_uid ==
                     $store.state.loginstore.userstate[0].user_uid
@@ -175,7 +174,16 @@
         </v-card>
       </v-row>
     </v-col>
-    <!-- 별점주기 -->
+
+    <div id="chart" class="mt-10 mr-7">
+      <apexchart
+        class="d-flex justify-center"
+        height="350"
+        type="donut"
+        :options="chartOptions"
+        :series="series"
+      ></apexchart>
+    </div>
 
     <div class="text-center">
       <v-dialog v-model="scoredialog_multi" width="400" persistent>
@@ -273,8 +281,12 @@
 <script>
 import http from "../http/http";
 import black_image from "../assets/black.jpg";
+import VueApexCharts from "vue-apexcharts";
 
 export default {
+  components: {
+    apexcharts: VueApexCharts
+  },
   data() {
     return {
       black_image: black_image,
@@ -284,7 +296,27 @@ export default {
       score_total: null,
       score_a: null,
       score_b: null,
-      score_c: null
+      score_c: null,
+      //차트 데이터
+      series: [],
+      chartOptions: {
+        chart: {
+          type: "donut"
+        },
+        responsive: [
+          {
+            breakpoint: 480,
+            options: {
+              chart: {
+                width: 200
+              },
+              legend: {
+                position: "bottom"
+              }
+            }
+          }
+        ]
+      }
     };
   },
   mounted() {
@@ -303,18 +335,18 @@ export default {
     },
     average_total() {
       const total = this.$store.state.scorestore.scorestate_multi;
+      this.series = [];
       total.map(data => {
         if (data.content_score_multi == "1번 사진") {
-          this.score_a += 1;
+          this.series.splice(0, 0, 1);
         }
         if (data.content_score_multi == "2번 사진") {
-          this.score_b += 1;
+          this.series.splice(1, 0, 1);
         }
         if (data.content_score_multi == "3번 사진") {
-          this.score_c += 1;
+          this.series.splice(2, 0, 1);
         }
       });
-      this.score_total = total.length
     }
   },
   methods: {
