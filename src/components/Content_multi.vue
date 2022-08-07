@@ -70,8 +70,8 @@ import "dayjs/locale/ko";
 dayjs.locale("ko");
 import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
-
 import black_image from "../assets/black.jpg";
+
 export default {
   data: () => ({
     black_image: black_image
