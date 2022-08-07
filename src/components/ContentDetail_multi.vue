@@ -26,6 +26,7 @@
                 max-height="500px"
                 max-width="1000px"
                 aspect-ratio="1"
+                contain
                 ><v-card-text class="font-weight-thin" align="center"
                   >신고누적으로<br />이미지차단</v-card-text
                 ></v-img
@@ -37,6 +38,7 @@
                 max-height="500px"
                 max-width="1000px"
                 aspect-ratio="1"
+                contain
                 :src="`http://192.168.0.12:4000/${item}`"
               >
                 <template v-slot:placeholder>
@@ -104,22 +106,22 @@
           > -->
           <v-card-actions>
             <v-spacer></v-spacer>
-            <!-- <v-btn
+            <v-btn
               v-if="
-                this.$store.state.scorestore.scorestate.filter(
+                $store.state.scorestore.scorestate.filter(
                   item =>
                     item.from_uid ==
-                    this.$store.state.loginstore.userstate[0].user_uid
+                    $store.state.loginstore.userstate[0].user_uid
                 ).length <= 0 &&
-                  this.$store.state.imagestore.imagedetail_multi[0].user_uid !=
-                    this.$store.state.loginstore.userstate[0].user_uid
+                  $store.state.imagestore.imagedetail_multi[0].user_uid !=
+                    $store.state.loginstore.userstate[0].user_uid
               "
               text
               color="primary"
               dark
               @click.prevent="score_multi"
               >사진고르기</v-btn
-            > -->
+            >
 
             <!-- <v-btn
               text
@@ -174,7 +176,7 @@
     </v-col>
     <!-- 별점주기 -->
 
-    <!-- <div class="text-center">
+    <div class="text-center">
       <v-dialog v-model="scoredialog_multi" width="400" persistent>
         <v-card class="elevation-16 mx-auto " width="400">
           <v-card-title class="text-h5">
@@ -182,30 +184,31 @@
           </v-card-title>
           <v-card-text>
             <div class="text-center mt-12">
-              <v-rating
-                v-model="rating"
-                color="yellow darken-3"
-                background-color="grey darken-1"
-                empty-icon="$ratingFull"
-                half-increments
-                length="7"
-                x-large
-              ></v-rating>
-              <v-card-text>{{ this.rating }} / 7</v-card-text>
+              <v-container fluid>
+                <v-radio-group v-model="score_multi_value" row >
+                  <v-radio
+                    v-for="n in $store.state.imagestore.imagedetail_multi[0]
+                      .image_path.length"
+                    :key="n"
+                    :label="`${n}번 사진`"
+                    :value="`${n}번 사진`"
+                  ></v-radio>
+                </v-radio-group>
+              </v-container>
             </div>
           </v-card-text>
           <v-divider></v-divider>
           <v-card-actions class="justify-space-between">
-            <v-btn text @click="score_cancel">
+            <v-btn text @click="score_cancel_multi">
               취소
             </v-btn>
-            <v-btn color="primary" text @click.prevent="score_send">
+            <v-btn color="primary" text @click.prevent="score_send_multi">
               점수 보내기
             </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
-    </div> -->
+    </div>
     <!-- <div class="text-center">
       <v-dialog v-model="deletedialog" width="400" persistent>
         <v-card class="elevation-16 mx-auto " width="400">
@@ -276,7 +279,8 @@ export default {
   data() {
     return {
       black_image: black_image,
-      scoredialog_multi: false
+      scoredialog_multi: false,
+      score_multi_value:null,
     };
   },
   mounted() {
@@ -298,6 +302,13 @@ export default {
   methods: {
     score_multi() {
       this.scoredialog_multi = true;
+    },
+    score_cancel_multi() {
+      this.scoredialog_multi = false;
+    },
+    score_send_multi() {
+      console.log("score_send_multi : " + this.score_multi_value);
+      this.scoredialog_multi = false;
     }
   }
 };
