@@ -9,7 +9,8 @@
           show-arrows
           center-active
           ><v-slide-item v-for="(data, index) in AllGetterslist" :key="index">
-            <v-carousel :show-arrows="false"
+            <v-carousel
+              :show-arrows="false"
               hide-delimiters
               height="auto"
               hide-delimiter-background
@@ -64,11 +65,12 @@
             :key="index"
           >
             <v-carousel
+              cycle
               height="auto"
               hide-delimiter-background
               show-arrows-on-hover
             >
-              <v-carousel-item 
+              <v-carousel-item
                 class="ma-3"
                 v-for="(item, index) in data.image_path"
                 :key="index"
@@ -175,8 +177,7 @@ export default {
     dayjs_now(data) {
       const result = dayjs(data).fromNow();
       return result;
-    },
-
+    }
   }
 };
 </script>
