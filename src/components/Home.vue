@@ -9,11 +9,10 @@
           show-arrows
           center-active
           ><v-slide-item v-for="(data, index) in AllGetterslist" :key="index">
-            <v-carousel
+            <v-carousel :show-arrows="false"
               hide-delimiters
               height="auto"
               hide-delimiter-background
-              show-arrows-on-hover
             >
               <v-carousel-item class="ma-3">
                 <v-row class="fill-height" align="center" justify="center">
@@ -24,6 +23,7 @@
                     class="grey--text align-center"
                     gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
                     aspect-ratio="1"
+                    @click="ContentDetail(data)"
                     ><v-card-text class="font-weight-thin" align="center"
                       >신고누적으로<br />이미지차단</v-card-text
                     ></v-img
@@ -33,6 +33,7 @@
                     width="175"
                     :src="`http://192.168.0.12:4000/${data.image_path}`"
                     aspect-ratio="1"
+                    @click="ContentDetail(data)"
                   >
                     <template v-slot:placeholder>
                       <v-row
@@ -67,7 +68,7 @@
               hide-delimiter-background
               show-arrows-on-hover
             >
-              <v-carousel-item
+              <v-carousel-item 
                 class="ma-3"
                 v-for="(item, index) in data.image_path"
                 :key="index"
@@ -174,7 +175,8 @@ export default {
     dayjs_now(data) {
       const result = dayjs(data).fromNow();
       return result;
-    }
+    },
+
   }
 };
 </script>
