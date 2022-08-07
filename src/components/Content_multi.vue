@@ -9,7 +9,7 @@
           class="d-flex child-flex"
           cols="4"
         >
-          <div @click="ContentDetail(data)">
+          <div @click="ContentDetail_multi(data)">
             <v-carousel hide-delimiter-background show-arrows-on-hover height="auto">
               <v-carousel-item
                 v-for="(item, index) in data.image_path"
@@ -96,9 +96,9 @@ export default {
         this.$router.push("/contentupload");
       }
     },
-    ContentDetail(data) {
+    ContentDetail_multi(data) {
       this.$router.push({
-        name: "ContentDetail",
+        name: "ContentDetail_multi",
         params: {
           content_uid: data.content_uid,
           datas: data

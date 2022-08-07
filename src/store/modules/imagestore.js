@@ -6,6 +6,7 @@ export default {
     imagestate: [],
     imagestate_multi: [],
     imagedetail: [{ image_path: {} }],
+    imagedetail_multi: [{ image_path: {} }],
     imagemycontentstate: [],
     userprofile: [{ profile_image: null }],
     userprofile_image: [{ image_path: null }]
@@ -22,6 +23,9 @@ export default {
     },
     imageDetail: state => {
       return state.imagedetail;
+    },
+    imageDetail_multi: state => {
+      return state.imagedetail_multi;
     },
     userProfile_getters: state => {
       return state.userprofile;
@@ -51,6 +55,9 @@ export default {
     },
     SET_IMAGE_DETAIL: (state, datas) => {
       state.imagedetail = datas;
+    },
+    SET_IMAGE_DETAIL_MULTI: (state, datas) => {
+      state.imagedetail_multi = datas;
     },
 
     DELETE_IMAGE: (state, datas) => {
@@ -87,6 +94,15 @@ export default {
         withCredentials: true
       });
       commit("SET_IMAGE_DETAIL", response.data);
+    },
+    async getimage_multi({ commit }, payload) {
+      const response = await http.get(`/getimage_multi/${payload}`, {
+        withCredentials: true
+      });
+      let image_path_arr = response.data.map(item => {
+        item.image_path = item.image_path.split(",");
+      });
+      commit("SET_IMAGE_DETAIL_MULTI", response.data);
     },
 
     async deleteImage({ commit }, payload) {

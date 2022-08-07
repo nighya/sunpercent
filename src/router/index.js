@@ -131,6 +131,11 @@ export default new Router({
       component: () => import("@/components/ContentDetail")
     },
     {
+      path: "/content_multi/:content_uid",
+      name: "ContentDetail_multi",
+      component: () => import("@/components/ContentDetail_multi")
+    },
+    {
       path: "/search",
       name: "Search",
       component: () => import("@/components/Search")

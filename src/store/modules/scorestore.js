@@ -2,7 +2,10 @@ import http from "../../http/http"
 
 export default {
   namespaced: true,
-  state: { scorestate: [] },
+  state: {
+    scorestate: [],
+    scorestate_multi:[],
+  },
   getters: {
     scoreContent: state => {
       return state.scorestate;
