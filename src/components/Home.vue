@@ -8,35 +8,31 @@
           active-class="success"
           show-arrows
           center-active
-          ><v-slide-item
-            v-for="(data, index) in AllGetterslist"
-            :key="index"
-            ><v-img
-              v-if="data.report_count > 2"
-              :src="black_image"
-              class="grey--text align-center"
-              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-              aspect-ratio="1"
-              ><v-card-text class="font-weight-thin" align="center"
-                >신고누적으로<br />이미지차단</v-card-text
-              ></v-img
-            >
+          ><v-slide-item v-for="(data, index) in AllGetterslist" :key="index">
             <v-carousel
               hide-delimiters
-              v-else
-              cycle
               height="auto"
               hide-delimiter-background
               show-arrows-on-hover
             >
-              <v-carousel-item
-                class="ma-3"
-              >
+              <v-carousel-item class="ma-3">
                 <v-row class="fill-height" align="center" justify="center">
                   <v-img
-                    height="250"
-                    width="230"
+                    v-if="data.report_count > 2"
+                    width="175"
+                    :src="black_image"
+                    class="grey--text align-center"
+                    gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+                    aspect-ratio="1"
+                    ><v-card-text class="font-weight-thin" align="center"
+                      >신고누적으로<br />이미지차단</v-card-text
+                    ></v-img
+                  >
+                  <v-img
+                    v-else
+                    width="175"
                     :src="`http://192.168.0.12:4000/${data.image_path}`"
+                    aspect-ratio="1"
                   >
                     <template v-slot:placeholder>
                       <v-row
@@ -54,7 +50,7 @@
               </v-carousel-item> </v-carousel></v-slide-item
         ></v-slide-group>
       </v-sheet>
-      <v-divider class="mt-5 mb-3 ml-2 mr-2"></v-divider>
+      <v-divider class="mt-10 mb-3 ml-2 mr-2"></v-divider>
       <h2>Content multi</h2>
       <v-sheet class="mt-5 mb-5 mx-auto" elevation="8" max-width="1000">
         <v-slide-group
@@ -65,20 +61,8 @@
           ><v-slide-item
             v-for="(data, index) in AllGetterslist_multi"
             :key="index"
-            ><v-img
-              v-if="data.report_count > 2"
-              :src="black_image"
-              class="grey--text align-center"
-              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-              aspect-ratio="1"
-              ><v-card-text class="font-weight-thin" align="center"
-                >신고누적으로<br />이미지차단</v-card-text
-              ></v-img
-            >
+          >
             <v-carousel
-              hide-delimiters
-              v-else
-              cycle
               height="auto"
               hide-delimiter-background
               show-arrows-on-hover
@@ -90,9 +74,21 @@
               >
                 <v-row class="fill-height" align="center" justify="center">
                   <v-img
-                    height="250"
-                    width="230"
+                    v-if="data.report_count > 2"
+                    :src="black_image"
+                    class="grey--text align-center"
+                    gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+                    aspect-ratio="1"
+                    width="175"
+                    ><v-card-text class="font-weight-thin" align="center"
+                      >신고누적으로<br />이미지차단</v-card-text
+                    ></v-img
+                  >
+                  <v-img
+                    v-else
+                    width="175"
                     :src="`http://192.168.0.12:4000/${item}`"
+                    aspect-ratio="1"
                   >
                     <template v-slot:placeholder>
                       <v-row
