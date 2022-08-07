@@ -1,5 +1,6 @@
 <template
   ><div class="contentdetail pa-6 center">
+    {{average_total}}
     <v-col cols="12">
       <v-row justify="center">
         <v-card
@@ -185,15 +186,17 @@
           <v-card-text>
             <div class="text-center mt-12">
               <v-container fluid>
-                <v-radio-group v-model="score_multi_value" row>
-                  <v-radio
-                    v-for="n in $store.state.imagestore.imagedetail_multi[0]
-                      .image_path.length"
-                    :key="n"
-                    :label="`${n}번 사진`"
-                    :value="`${n}번 사진`"
-                  ></v-radio>
-                </v-radio-group>
+                <v-form ref="form">
+                  <v-radio-group v-model="score_multi_value" row :rules="rules">
+                    <v-radio
+                      v-for="n in $store.state.imagestore.imagedetail_multi[0]
+                        .image_path.length"
+                      :key="n"
+                      :label="`${n}번 사진`"
+                      :value="`${n}번 사진`"
+                    ></v-radio>
+                  </v-radio-group>
+                </v-form>
               </v-container>
             </div>
           </v-card-text>
@@ -276,7 +279,12 @@ export default {
     return {
       black_image: black_image,
       scoredialog_multi: false,
-      score_multi_value: null
+      score_multi_value: null,
+      rules: [v => !!v || "선택되지 않았습니다."],
+      score_total: null,
+      score_a: null,
+      score_b: null,
+      score_c: null
     };
   },
   mounted() {
@@ -285,14 +293,28 @@ export default {
       this.$route.params.content_uid
     );
     const obj = {
-      content_uid: this.$route.params.content_uid,
-      user_uid: this.$store.state.loginstore.userstate[0].user_uid
+      content_uid: this.$route.params.content_uid
     };
-    // this.$store.dispatch("scorestore/getscore", obj);
+    this.$store.dispatch("scorestore/getscore_multi", obj);
   },
   computed: {
     imageDetail_multi() {
       return this.$store.getters["imagestore/imageDetail_multi"];
+    },
+    average_total() {
+      const total = this.$store.state.scorestore.scorestate_multi;
+      total.map(data => {
+        if (data.content_score_multi == "1번 사진") {
+          this.score_a += 1;
+        }
+        if (data.content_score_multi == "2번 사진") {
+          this.score_b += 1;
+        }
+        if (data.content_score_multi == "3번 사진") {
+          this.score_c += 1;
+        }
+      });
+      this.score_total = total.length
     }
   },
   methods: {
@@ -307,36 +329,40 @@ export default {
     //   this.scoredialog_multi = false;
     // },
     score_send_multi() {
-      let scoredata = {
-        content_uid: this.$store.state.imagestore.imagedetail_multi[0].content_uid,
-        to_uid: this.$store.state.imagestore.imagedetail_multi[0].user_uid,
-        from_uid: this.$store.state.loginstore.userstate[0].user_uid,
-        content_score_multi: this.score_multi_value,
-        gender: this.$store.state.loginstore.userstate[0].gender
-      };
-      http
-        .post("/contentscore_multi", scoredata, {
-          withCredentials: true
-        })
-        .then(e => {
-          this.scoredialog_multi = false;
-        })
-        .then(() => this.$router.go(0))
-        .catch(err => {
-          if (err.response.status == 403) {
+      const validate = this.$refs.form.validate();
+      if (validate) {
+        let scoredata = {
+          content_uid: this.$store.state.imagestore.imagedetail_multi[0]
+            .content_uid,
+          to_uid: this.$store.state.imagestore.imagedetail_multi[0].user_uid,
+          from_uid: this.$store.state.loginstore.userstate[0].user_uid,
+          content_score_multi: this.score_multi_value,
+          gender: this.$store.state.loginstore.userstate[0].gender
+        };
+        http
+          .post("/contentscore_multi", scoredata, {
+            withCredentials: true
+          })
+          .then(e => {
             this.scoredialog_multi = false;
-            this.$alert(
-              "권한이 없습니다. 로그인 페이지로 이동합니다."
-            ).then(() => this.$router.push("/login"));
-          } else if (err.response.status == 400) {
-            this.$alert("이미 점수가 등록된 게시물 입니다.")
-              .then(() => (this.scoredialog_multi = false))
-              .then(() => this.$router.go(0));
-            // this.$router.go(0)
-          } else {
-            this.scoredialog_multi = false;
-          }
-        });
+          })
+          .then(() => this.$router.go(0))
+          .catch(err => {
+            if (err.response.status == 403) {
+              this.scoredialog_multi = false;
+              this.$alert(
+                "권한이 없습니다. 로그인 페이지로 이동합니다."
+              ).then(() => this.$router.push("/login"));
+            } else if (err.response.status == 400) {
+              this.$alert("이미 점수가 등록된 게시물 입니다.")
+                .then(() => (this.scoredialog_multi = false))
+                .then(() => this.$router.go(0));
+              // this.$router.go(0)
+            } else {
+              this.scoredialog_multi = false;
+            }
+          });
+      }
     }
   }
 };
