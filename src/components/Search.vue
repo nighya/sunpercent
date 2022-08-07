@@ -17,10 +17,36 @@
         :error-messages="nickname_err_msg"
       ></v-text-field>
     </v-form>
-    <v-btn class="ml-10 mt-1" color="primary" small text @click="delete_search_result">
+    <v-btn
+      class="ml-10 mt-1"
+      color="primary"
+      small
+      text
+      @click="delete_search_result"
+    >
       검색결과삭제하기</v-btn
     >
+    <!--데이터 테이블1-->
     <div>
+      <p class="ml-5 mr-5">content</p>
+      <v-data-table
+        :headers="headers"
+        :items="content_data"
+        :items-per-page="5"
+        class="elevation-1 ma-5"
+      >
+        <template v-slot:[`item.image_path`]="{ item }">
+          <img
+            :src="`http://192.168.0.12:4000/${item.image_path}`"
+            style="width: 80px; height: 80px"
+            @click="ContentDetail(item)"
+          />
+        </template>
+      </v-data-table>
+    </div>
+    <!--데이터 테이블2-->
+    <div>
+      <p class="ml-5 mr-5">content_multi</p>
       <v-data-table
         :headers="headers"
         :items="content_data"
@@ -92,7 +118,7 @@ export default {
   },
   mounted() {
     ls.config.encrypt = true;
-    this.search_keyword = JSON.parse(ls.get("search_data_keyword"))
+    this.search_keyword = JSON.parse(ls.get("search_data_keyword"));
     const get_lo_storage = JSON.parse(ls.get("search_data"));
     if (get_lo_storage) {
       this.content_data = get_lo_storage;
@@ -123,7 +149,10 @@ export default {
               this.content_data = filterData;
               // localStorage.setItem("search_data", JSON.stringify(filterData));
               ls.set("search_data", JSON.stringify(filterData));
-              ls.set("search_data_keyword", JSON.stringify(this.search_keyword));
+              ls.set(
+                "search_data_keyword",
+                JSON.stringify(this.search_keyword)
+              );
               this.content_no_data_msg = false;
             }
           }
@@ -134,8 +163,7 @@ export default {
     },
     delete_search_result() {
       ls.set("search_data", JSON.stringify([]));
-      this.search_keyword = null,
-      this.content_data = [];
+      (this.search_keyword = null), (this.content_data = []);
     },
 
     ContentDetail(data) {
