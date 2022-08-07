@@ -7,7 +7,7 @@
         label="search"
         hint="닉네임으로 게시물을 검색 합니다."
         persistent-hint
-        @keydown.enter="search_result"
+        @keydown.prevent.enter="search_result"
         v-model="search_keyword"
         :rules="[
           rules.nickname.require2,
@@ -92,7 +92,12 @@ export default {
   },
   mounted() {
     ls.config.encrypt = true;
-    this.content_data = JSON.parse(ls.get("search_data"));
+    this.search_keyword = JSON.parse(ls.get("search_data_keyword"))
+    const get_lo_storage = JSON.parse(ls.get("search_data"));
+    if (get_lo_storage) {
+      this.content_data = get_lo_storage;
+    }
+    // this.content_data = JSON.parse(ls.get("search_data"));
   },
   methods: {
     async search_result() {
@@ -103,20 +108,22 @@ export default {
         try {
           const nicknameObj = { nickname: this.search_keyword };
           // console.log("nicknameObj :  " + JSON.stringify(nicknameObj));
-          const response = await http.post(`/content/search`, nicknameObj, {
+          const response = await http.post(`/content_search`, nicknameObj, {
             withCredentials: true
           });
           if (response.data.msg == "No Data") {
             this.content_no_data_msg = true;
             // localStorage.setItem("search_data", JSON.stringify([]));
-            ls.set("search_data", JSON.stringify([]));
             this.content_data = [];
+            ls.set("search_data", JSON.stringify([]));
+            ls.set("search_data_keyword", JSON.stringify(this.search_keyword));
           } else {
             if (response.data) {
               const filterData = response.data.filter(d => d.report_count <= 2);
               this.content_data = filterData;
               // localStorage.setItem("search_data", JSON.stringify(filterData));
               ls.set("search_data", JSON.stringify(filterData));
+              ls.set("search_data_keyword", JSON.stringify(this.search_keyword));
               this.content_no_data_msg = false;
             }
           }
@@ -127,6 +134,7 @@ export default {
     },
     delete_search_result() {
       ls.set("search_data", JSON.stringify([]));
+      this.search_keyword = null,
       this.content_data = [];
     },
 
