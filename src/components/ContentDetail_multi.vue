@@ -321,7 +321,7 @@ export default {
             }
           }
         },
-        labels: ["없음", "없음", "없음"],
+        labels: ["1번 사진", "2번 사진", "3번 사진"],
         legend: {
           position: "bottom"
         },
@@ -370,39 +370,27 @@ export default {
       return this.$store.getters["imagestore/imageDetail_multi"];
     },
     average_total() {
-      // console.log("토탈 컴퓨티드 진입");
       const total = this.$store.state.scorestore.scorestate_multi;
       let data_a = 0;
       let data_b = 0;
       let data_c = 0;
       this.series = [];
-      this.chartOptions.labels = ["없음", "없음", "없음"];
       try {
         total.map(data => {
           if (data.content_score_multi == "1번 사진") {
             data_a += 1;
-            if (this.chartOptions.labels[0] == "없음") {
-              this.chartOptions.labels[0] = "1번 사진";
-            }
             // console.log("1번사진");
           }
           if (data.content_score_multi == "2번 사진") {
             data_b += 1;
-            if (this.chartOptions.labels[1] == "없음") {
-              this.chartOptions.labels[1] = "2번 사진";
-            }
             // console.log("2번사진");
           }
           if (data.content_score_multi == "3번 사진") {
             data_c += 1;
-            if (this.chartOptions.labels[2] == "없음") {
-              this.chartOptions.labels[2] = "3번 사진";
-            }
             // console.log("3번사진");
           }
         });
         this.series.push(data_a, data_b, data_c);
-        // console.log("series 데이터 : " + this.series);
       } catch (err) {}
     }
   },
