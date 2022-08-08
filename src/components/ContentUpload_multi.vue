@@ -6,10 +6,12 @@
         <v-form ref="form">
           <v-text-field
             id="제목"
-            label="제목을 입력해 주세요."
+            label="제목"
             name="email"
             prepend-icon="mdi-format-title"
             type="text"
+            counter
+            maxlength="50"
             v-model="title"
             :rules="title_rules"
             :error-messages="email_err_msg"
@@ -25,16 +27,15 @@
             @change="selectImage"
             multiple
             :rules="rules"
-          ></v-file-input
-        >        
+          ></v-file-input>
         </v-form>
       </v-col>
 
-      <v-col cols="4" class="ma-5"
-        align="center" justify="center">
+      <v-col cols="4" class="ma-5" align="center" justify="center">
         <v-btn
-        class="pa-5"
-        align="center" justify="center"
+          class="pa-5"
+          align="center"
+          justify="center"
           color="success"
           dark
           small
@@ -149,7 +150,7 @@ export default {
   name: "ContentUpload",
   data() {
     return {
-      title:null,
+      title: null,
       title_rules: [
         value => !!value || "제목을 입력해 주세요.",
         value =>
@@ -215,6 +216,7 @@ export default {
               "user_uid",
               this.$store.state.loginstore.userstate[0].user_uid
             );
+            fd.append("title", this.title);
             fd.append(
               "nickname",
               this.$store.state.loginstore.userstate[0].nickname
