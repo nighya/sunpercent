@@ -49,16 +49,43 @@
       <p class="ml-5 mr-5">content_multi</p>
       <v-data-table
         :headers="headers"
-        :items="content_data"
+        :items="content_multi_data"
         :items-per-page="5"
         class="elevation-1 ma-5"
       >
         <template v-slot:[`item.image_path`]="{ item }">
-          <img
-            :src="`http://192.168.0.12:4000/${item.image_path}`"
-            style="width: 80px; height: 80px"
-            @click="ContentDetail(item)"
-          />
+                      <v-carousel
+              cycle
+              height="auto"
+              hide-delimiters
+              :show-arrows="false"
+            >
+              <v-carousel-item
+                class="ma-3"
+                v-for="(data, index) in item.image_path"
+                :key="index"
+              >
+                <v-row class="fill-height" align="center" justify="center">
+
+                  <img
+                    :src="`http://192.168.0.12:4000/${data}`"
+                    style="width: 80px; height: 80px"
+                    @click="ContentDetail_multi(item)"
+                  />
+                    <template v-slot:placeholder>
+                      <v-row
+                        class="fill-height ma-0"
+                        align="center"
+                        justify="center"
+                      >
+                        <v-progress-circular
+                          indeterminate
+                          color="grey lighten-5"
+                        ></v-progress-circular>
+                      </v-row> </template>
+                </v-row>
+              </v-carousel-item> </v-carousel>
+
         </template>
       </v-data-table>
     </div>
@@ -97,6 +124,7 @@ export default {
         }
       },
       content_data: [],
+      content_multi_data: [],
       content_no_data_msg: false,
       search_keyword: null,
       headers: [
@@ -120,8 +148,12 @@ export default {
     ls.config.encrypt = true;
     this.search_keyword = JSON.parse(ls.get("search_data_keyword"));
     const get_lo_storage = JSON.parse(ls.get("search_data"));
+    const get_lo_storage_multi = JSON.parse(ls.get("search_data_multi"));
     if (get_lo_storage) {
       this.content_data = get_lo_storage;
+    }
+    if (get_lo_storage_multi) {
+      this.content_multi_data = get_lo_storage_multi;
     }
     // this.content_data = JSON.parse(ls.get("search_data"));
   },
@@ -141,14 +173,30 @@ export default {
             this.content_no_data_msg = true;
             // localStorage.setItem("search_data", JSON.stringify([]));
             this.content_data = [];
+            this.content_multi_data = [];
             ls.set("search_data", JSON.stringify([]));
+            ls.set("search_data_multi", JSON.stringify([]));
             ls.set("search_data_keyword", JSON.stringify(this.search_keyword));
           } else {
             if (response.data) {
-              const filterData = response.data.filter(d => d.report_count <= 2);
-              this.content_data = filterData;
+              const filterData = response.data.filter(
+                data => data.report_count <= 2
+              );
+              const nomal_data = [];
+              const multi_data = [];
+              filterData.map(data => {
+                if (data.image_path.includes("/multi_")) {
+                  data.image_path = data.image_path.split(",");
+                  multi_data.push(data);
+                } else {
+                  nomal_data.push(data);
+                }
+              });
+              this.content_data = nomal_data;
+              this.content_multi_data = multi_data;
               // localStorage.setItem("search_data", JSON.stringify(filterData));
-              ls.set("search_data", JSON.stringify(filterData));
+              ls.set("search_data", JSON.stringify(nomal_data));
+              ls.set("search_data_multi", JSON.stringify(multi_data));
               ls.set(
                 "search_data_keyword",
                 JSON.stringify(this.search_keyword)
@@ -169,6 +217,15 @@ export default {
     ContentDetail(data) {
       this.$router.push({
         name: "ContentDetail",
+        params: {
+          content_uid: data.content_uid,
+          datas: data
+        }
+      });
+    },
+    ContentDetail_multi(data) {
+      this.$router.push({
+        name: "ContentDetail_multi",
         params: {
           content_uid: data.content_uid,
           datas: data
