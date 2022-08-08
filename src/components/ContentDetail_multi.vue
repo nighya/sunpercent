@@ -334,19 +334,32 @@ export default {
       return this.$store.getters["imagestore/imageDetail_multi"];
     },
     average_total() {
+      console.log("토탈 컴퓨티드 진입");
       const total = this.$store.state.scorestore.scorestate_multi;
+      let data_a = 0
+      let data_b = 0
+      let data_c = 0
       this.series = [];
-      total.map(data => {
-        if (data.content_score_multi == "1번 사진") {
-          this.series.splice(0, 0, 1);
-        }
-        if (data.content_score_multi == "2번 사진") {
-          this.series.splice(1, 0, 1);
-        }
-        if (data.content_score_multi == "3번 사진") {
-          this.series.splice(2, 0, 1);
-        }
-      });
+      try {
+        total.map(data => {
+          if (data.content_score_multi == "1번 사진") {
+            data_a += 1;
+            console.log("1번사진");
+          }
+          if (data.content_score_multi == "2번 사진") {
+            data_b += 1;
+            // this.series.splice(1, 0, 1);
+            console.log("2번사진");
+          }
+          if (data.content_score_multi == "3번 사진") {
+            data_c += 1;
+            // this.series.splice(2, 0, 1);
+            console.log("3번사진");
+          }
+        });
+        this.series.push(data_a, data_b, data_c)
+        console.log("series 데이터 : "+ this.series)
+      } catch (err) {}
     }
   },
   methods: {
