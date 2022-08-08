@@ -102,7 +102,7 @@
               ).length > 0
             "
             type="success"
-            >내가 점수 등록한 게시물</v-alert
+            >내가 사진 선택 완료한 게시물</v-alert
           >
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -159,17 +159,17 @@
               "
               >쪽지보내기</v-btn
             >
-            <!--
+
             <v-btn
               v-if="
-                this.$store.state.imagestore.imagedetail_multi[0].user_uid !=
-                  this.$store.state.loginstore.userstate[0].user_uid
+                $store.state.imagestore.imagedetail_multi[0].user_uid !=
+                  $store.state.loginstore.userstate[0].user_uid
               "
               text
               color="grey"
-              @click="report"
+              @click.prevent="report_multi"
               >신고하기</v-btn
-            > -->
+            >
           </v-card-actions>
         </v-card>
       </v-row>
@@ -214,7 +214,7 @@
               취소
             </v-btn>
             <v-btn color="primary" text @click.prevent="score_send_multi">
-              점수 보내기
+              사진 선택 완료하기
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -240,9 +240,9 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-    </div>
+    </div> -->
     <div class="text-center" ref="report_form" align="center" justify="center">
-      <v-dialog v-model="reportdialog" width="400" persistent>
+      <v-dialog v-model="reportdialog_multi" width="400" persistent>
         <v-card class="elevation-16 mx-auto " width="400">
           <v-card-title class="text-h10 justify-center">
             신고하기
@@ -266,16 +266,16 @@
             </v-row>
           </v-form>
           <v-card-actions class="justify-space-between">
-            <v-btn text @click="report_cancel">
+            <v-btn text @click="report_cancel_multi">
               취소
             </v-btn>
-            <v-btn color="primary" text @click.prevent="report_content">
+            <v-btn color="primary" text @click.prevent="report_content_multi">
               신고
             </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
-    </div> -->
+    </div>
   </div>
 </template>
 <script>
@@ -290,6 +290,19 @@ export default {
   data() {
     return {
       black_image: black_image,
+      reportRules: [v => !!v || "신고사유가 선택되지 않았습니다."],
+      report_reason: null,
+      report_reason_list: [
+        "너무 선정적 입니다.",
+        "사진을 알아볼 수가 없어요.",
+        "중복된 게시물 입니다.",
+        "게시판 성격과 맞지 않아요.",
+        "광고성 게시물 입니다.",
+        "사진편집이 과해 보여요",
+        "외모 사진이 아닙니다.",
+        "작성자 성별과 사진의 성별이 다릅니다."
+      ],
+      reportdialog_multi: false,
       scoredialog_multi: false,
       score_multi_value: null,
       rules: [v => !!v || "선택되지 않았습니다."],
@@ -395,6 +408,49 @@ export default {
     }
   },
   methods: {
+    report_content_multi() {
+      const validate = this.$refs.report_form.validate();
+      if (validate) {
+        let reportdataObj = {
+          content_uid: this.$store.state.imagestore.imagedetail_multi[0]
+            .content_uid,
+          to_uid: this.$store.state.imagestore.imagedetail_multi[0].user_uid,
+          from_uid: this.$store.state.loginstore.userstate[0].user_uid,
+          report_reason: this.report_reason
+        };
+        http
+          .post("/report_multi", reportdataObj, {
+            withCredentials: true
+          })
+          .then(e => {
+            this.reportdialog = false;
+          })
+          .then(() => this.$router.go(0))
+          .catch(err => {
+            if (err.response.status == 403) {
+              this.reportdialog = false;
+              this.$alert(
+                "권한이 없습니다. 로그인 페이지로 이동합니다."
+              ).then(() => this.$router.push("/login"));
+            } else if (err.response.status == 400) {
+              this.$alert("이미 신고완료한 게시물 입니다.")
+                .then(() => (this.reportdialog = false))
+                .then(() => this.$router.go(0));
+              // this.$router.go(0)
+            } else {
+              this.reportdialog = false;
+            }
+          });
+      } else {
+        alert("신고사유가 선택되지 않았습니다.");
+      }
+    },
+    report_cancel_multi() {
+      this.reportdialog_multi = false;
+    },
+    report_multi() {
+      this.reportdialog_multi = true;
+    },
     score_multi() {
       this.scoredialog_multi = true;
     },
