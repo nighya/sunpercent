@@ -9,7 +9,8 @@ export default {
     imagedetail_multi: [{ image_path: {} }],
     imagemycontentstate: [],
     userprofile: [{ profile_image: null }],
-    userprofile_image: [{ image_path: null }]
+    userprofile_image: [{ image_path: null }],
+    userprofile_image_multi: [{ image_path: null }],
   },
   getters: {
     mycontentimagegetters: state => {
@@ -32,6 +33,9 @@ export default {
     },
     userProfile_image_getters: state => {
       return state.userprofile_image;
+    },
+    userProfile_image_multi_getters: state => {
+      return state.userprofile_image_multi;
     }
   },
   mutations: {
@@ -40,6 +44,9 @@ export default {
     },
     USER_PROFILE_IMAGE: (state, datas) => {
       state.userprofile_image = datas;
+    },
+    USER_PROFILE_IMAGE_MULTI: (state, datas) => {
+      state.userprofile_image_multi = datas;
     },
     CONTENT_SCORE: (state, datas) => {
       state.imagedetail[0].score_count = datas.score_count;
@@ -160,8 +167,18 @@ export default {
           withCredentials: true
         }
       );
-
-      commit("USER_PROFILE_IMAGE", response.data);
+      const nomal_data = [];
+      const multi_data = [];
+      response.data.map(data => {
+        if (data.image_path.includes("/multi_")) {
+          data.image_path = data.image_path.split(",");
+          multi_data.push(data);
+        } else {
+          nomal_data.push(data);
+        }
+      });
+      commit("USER_PROFILE_IMAGE", nomal_data);
+      commit("USER_PROFILE_IMAGE_MULTI", multi_data);
     }
   }
 };

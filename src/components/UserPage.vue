@@ -57,54 +57,110 @@
     </div>
 
     <v-divider class="ml-6 mr-6"></v-divider>
+
     <div>
-      <v-row class="pa-6 mt-2">
-        <span
-          class="ml-3"
-          v-if="
-            this.$store.state.imagestore.userprofile_image[0].image_path ==
-              undefined ||
+      <!--image-->
+      <div>
+        <v-row class="pa-6 mt-2">
+          <!--
+          <span
+            class="ml-3"
+            v-if="
               this.$store.state.imagestore.userprofile_image[0].image_path ==
-                null
-          "
-          >게시물이 없습니다.</span
-        >
-        <v-col
-          v-for="(data, index) in userProfile_image"
-          :key="index"
-          class="d-flex child-flex"
-          cols="4"
-        >
-          <v-img
-            v-if="data.report_count > 2"
-            :src="black_image"
-            class="grey--text align-center"
-            gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-            aspect-ratio="1"
-            @click="ContentDetail(data)"
-            ><v-card-text class="font-weight-thin" align="center"
-              >신고누적으로<br />이미지차단</v-card-text
-            ></v-img
+                undefined ||
+                this.$store.state.imagestore.userprofile_image[0].image_path ==
+                  null
+            "
+            >게시물이 없습니다.</span
           >
-          <v-img
-            v-else
-            :src="`http://192.168.0.12:4000${data.image_path}`"
-            :lazy-src="`http://192.168.0.12:4000${data.image_path}`"
-            aspect-ratio="1"
-            class="grey lighten-2"
-            @click="ContentDetail(data)"
+          -->
+          <v-col
+            v-for="(data, index) in userProfile_image"
+            :key="index"
+            class="d-flex child-flex"
+            cols="4"
           >
-            <template v-slot:placeholder>
-              <v-row class="fill-height ma-0" align="center" justify="center">
-                <v-progress-circular
-                  indeterminate
-                  color="grey lighten-5"
-                ></v-progress-circular>
-              </v-row>
-            </template>
-          </v-img>
-        </v-col>
-      </v-row>
+            <v-img
+              v-if="data.report_count > 2"
+              :src="black_image"
+              class="grey--text align-center"
+              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+              aspect-ratio="1"
+              @click="ContentDetail(data)"
+              ><v-card-text class="font-weight-thin" align="center"
+                >신고누적으로<br />이미지차단</v-card-text
+              ></v-img
+            >
+            <v-img
+              v-else
+              :src="`http://192.168.0.12:4000${data.image_path}`"
+              :lazy-src="`http://192.168.0.12:4000${data.image_path}`"
+              aspect-ratio="1"
+              class="grey lighten-2"
+              @click="ContentDetail(data)"
+            >
+              <template v-slot:placeholder>
+                <v-row class="fill-height ma-0" align="center" justify="center">
+                  <v-progress-circular
+                    indeterminate
+                    color="grey lighten-5"
+                  ></v-progress-circular>
+                </v-row>
+              </template>
+            </v-img>
+          </v-col>
+        </v-row>
+      </div>
+      <!--multi image-->
+      <div>
+        <v-row class="pa-6 mt-2">
+          <span
+            class="ml-3"
+            v-if="
+              this.$store.state.imagestore.userprofile_image_multi[0]
+                .image_path == undefined ||
+                this.$store.state.imagestore.userprofile_image_multi[0]
+                  .image_path == null
+            "
+            >게시물이 없습니다.</span
+          >
+          <v-col
+            v-for="(data, index) in userProfile_image_multi"
+            :key="index"
+            class="d-flex child-flex"
+            cols="4"
+          >
+            <v-img
+              v-if="data.report_count > 2"
+              :src="black_image"
+              class="grey--text align-center"
+              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+              aspect-ratio="1"
+              @click="ContentDetail_multi(data)"
+              ><v-card-text class="font-weight-thin" align="center"
+                >신고누적으로<br />이미지차단</v-card-text
+              ></v-img
+            >
+            <v-img
+              v-else
+              :src="`http://192.168.0.12:4000${data.image_path[0]}`"
+              :lazy-src="`http://192.168.0.12:4000${data.image_path[0]}`"
+              aspect-ratio="1"
+              class="grey lighten-2"
+              @click="ContentDetail(data)"
+            >
+              <template v-slot:placeholder>
+                <v-row class="fill-height ma-0" align="center" justify="center">
+                  <v-progress-circular
+                    indeterminate
+                    color="grey lighten-5"
+                  ></v-progress-circular>
+                </v-row>
+              </template>
+            </v-img>
+          </v-col>
+        </v-row>
+      </div>
     </div>
   </div>
 </template>
@@ -139,6 +195,15 @@ export default {
           datas: data
         }
       });
+    },
+    ContentDetail_multi(data) {
+      this.$router.push({
+        name: "ContentDetail_multi",
+        params: {
+          content_uid: data.content_uid,
+          datas: data
+        }
+      });
     }
   },
   computed: {
@@ -147,6 +212,9 @@ export default {
     },
     userProfile_image() {
       return this.$store.getters["imagestore/userProfile_image_getters"];
+    },
+    userProfile_image_multi() {
+      return this.$store.getters["imagestore/userProfile_image_multi_getters"];
     }
   }
 };
