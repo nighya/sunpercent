@@ -9,7 +9,7 @@
           class="justify-center"
           v-for="(data, index) in imageDetail_multi"
           :key="index"
-        >
+        ><v-card-title>{{$store.state.imagestore.imagedetail_multi[0].title}}</v-card-title>
           <v-carousel
             hide-delimiter-background
             show-arrows-on-hover
@@ -41,7 +41,7 @@
                 aspect-ratio="1"
                 contain
                 :src="`http://192.168.0.12:4000/${item}`"
-                ><div class="pa-8" align="center" justify="center">
+                ><div class="pa-9" align="center" justify="center">
                   {{ index + 1 }}번 사진
                 </div>
                 <template v-slot:placeholder>
@@ -125,17 +125,17 @@
               >사진고르기</v-btn
             >
 
-            <!-- <v-btn
+            <v-btn
               text
               color="primary"
               v-if="
-                this.$store.state.imagestore.imagedetail_multi[0].user_uid ==
-                  this.$store.state.loginstore.userstate[0].user_uid
+                $store.state.imagestore.imagedetail_multi[0].user_uid ==
+                  $store.state.loginstore.userstate[0].user_uid
               "
               dark
               @click.prevent="delete_dialog"
               >삭제하기</v-btn
-            > -->
+            >
 
             <v-btn
               v-if="
@@ -222,11 +222,11 @@
         </v-card>
       </v-dialog>
     </div>
-    <!-- <div class="text-center">
+    <div class="text-center">
       <v-dialog v-model="deletedialog" width="400" persistent>
         <v-card class="elevation-16 mx-auto " width="400">
           <v-card-title class="text-h10 justify-center">
-            사진과 점수를 삭제합니다.
+            사진과 통계점수를 삭제합니다.
           </v-card-title>
           <v-card-text class="text-center mt-5">
             해당 게시물을 삭제하시겠습니까?
@@ -236,13 +236,13 @@
             <v-btn text @click="delete_cancel">
               취소
             </v-btn>
-            <v-btn color="primary" text @click.prevent="deleteimage">
+            <v-btn color="primary" text @click.prevent="deleteimage_multi">
               삭제
             </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
-    </div> -->
+    </div>
     <div class="text-center" ref="report_form" align="center" justify="center">
       <v-dialog v-model="reportdialog_multi" width="400" persistent>
         <v-card class="elevation-16 mx-auto " width="400">
@@ -307,6 +307,7 @@ export default {
       reportdialog_multi: false,
       scoredialog_multi: false,
       score_multi_value: null,
+      deletedialog: false,
 
       rules: [v => !!v || "선택되지 않았습니다."],
       score_total: null,
@@ -415,6 +416,21 @@ export default {
     }
   },
   methods: {
+    delete_cancel() {
+      this.deletedialog = false;
+    },
+    deleteimage_multi() {
+      let imagedataObj = {
+        content_uid: this.$store.state.imagestore.imagedetail_multi[0].content_uid,
+        image_path: this.$store.state.imagestore.imagedetail_multi[0].image_path,
+        user_uid: this.$store.state.loginstore.userstate[0].user_uid
+      };
+      this.$store.dispatch("imagestore/deleteImage_multi", imagedataObj);
+      this.$router.go(-1);
+    },
+    delete_dialog() {
+      this.deletedialog = true;
+    },
     report_content_multi() {
       const validate = this.$refs.report_form.validate();
       if (validate) {

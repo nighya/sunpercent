@@ -64,6 +64,11 @@ export default {
       state.imagestate = state.imagestate.filter(
         t => datas.content_uid !== t.content_uid
       );
+    },
+    DELETE_IMAGE_MULTI: (state, datas) => {
+      state.imagestate_multi = state.imagestate_multi.filter(
+        t => datas.content_uid !== t.content_uid
+      );
     }
   },
   actions: {
@@ -114,6 +119,16 @@ export default {
         }
       );
       commit("DELETE_IMAGE", payload);
+    },
+    async deleteImage_multi({ commit }, payload) {
+      const response = await http.post(
+        `/getimage_multi/${payload.content_uid}`,
+        payload,
+        {
+          withCredentials: true
+        }
+      );
+      commit("DELETE_IMAGE_MULTI", payload);
     },
 
     async contentscore({ commit }, payload) {
