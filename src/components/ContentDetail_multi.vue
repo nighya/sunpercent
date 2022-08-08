@@ -19,6 +19,7 @@
               v-for="(item, index) in data.image_path"
               :key="index"
             >
+              
               <v-img
                 v-if="data.report_count > 2"
                 :src="black_image"
@@ -41,7 +42,7 @@
                 aspect-ratio="1"
                 contain
                 :src="`http://192.168.0.12:4000/${item}`"
-              >
+              ><div class="pa-8" align="center" justify="center">{{ index + 1 }}번 사진</div>
                 <template v-slot:placeholder>
                   <v-row
                     class="fill-height ma-0"
