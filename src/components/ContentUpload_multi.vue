@@ -3,23 +3,38 @@
     <h3 class="ml-1">multiple</h3>
     <v-row no-gutters justify="center" align="center">
       <v-col cols="8">
-        <v-file-input
-          ref="form"
-          chips
-          prepend-icon="mdi-camera"
-          counter
-          show-size
-          label="Select Image"
-          accept="image/*"
-          truncate-length="12"
-          @change="selectImage"
-          multiple
-          :rules="rules"
-        ></v-file-input>
+        <v-form ref="form">
+          <v-text-field
+            id="제목"
+            label="제목을 입력해 주세요."
+            name="email"
+            prepend-icon="mdi-format-title"
+            type="text"
+            v-model="title"
+            :rules="title_rules"
+            :error-messages="email_err_msg"
+          ></v-text-field>
+          <v-file-input
+            chips
+            prepend-icon="mdi-camera"
+            counter
+            show-size
+            label="Select Image"
+            accept="image/*"
+            truncate-length="12"
+            @change="selectImage"
+            multiple
+            :rules="rules"
+          ></v-file-input
+        >        
+        </v-form>
       </v-col>
 
-      <v-col cols="4" class="pl-4">
+      <v-col cols="4" class="ma-5"
+        align="center" justify="center">
         <v-btn
+        class="pa-5"
+        align="center" justify="center"
           color="success"
           dark
           small
@@ -90,7 +105,8 @@
       <v-dialog v-model="dialog_fail" width="500" persistent>
         <v-card>
           <v-card-title>
-            이미지 업로드를 실패하였습니다. 이미지 1장당 크기가 5MB 초과하였거나 이미지 파일이 아닐 수 있습니다.
+            이미지 업로드를 실패하였습니다. 이미지 1장당 크기가 5MB 초과하였거나
+            이미지 파일이 아닐 수 있습니다.
           </v-card-title>
           <v-card-text>
             이미지를 다시 선택하여 시도해 보세요.
@@ -133,6 +149,13 @@ export default {
   name: "ContentUpload",
   data() {
     return {
+      title:null,
+      title_rules: [
+        value => !!value || "제목을 입력해 주세요.",
+        value =>
+          (value && value.length <= 50) ||
+          "최대 문자의 길이가 50자 이하로 입력하셔야 합니다."
+      ],
       rules: [
         files =>
           !files || files.length < 4 || "사진은 최대 3개까지만 가능합니다.",

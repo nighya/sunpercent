@@ -19,7 +19,6 @@
               v-for="(item, index) in data.image_path"
               :key="index"
             >
-              
               <v-img
                 v-if="data.report_count > 2"
                 :src="black_image"
@@ -42,7 +41,9 @@
                 aspect-ratio="1"
                 contain
                 :src="`http://192.168.0.12:4000/${item}`"
-              ><div class="pa-8" align="center" justify="center">{{ index + 1 }}번 사진</div>
+                ><div class="pa-8" align="center" justify="center">
+                  {{ index + 1 }}번 사진
+                </div>
                 <template v-slot:placeholder>
                   <v-row
                     class="fill-height ma-0"
@@ -306,6 +307,7 @@ export default {
       reportdialog_multi: false,
       scoredialog_multi: false,
       score_multi_value: null,
+
       rules: [v => !!v || "선택되지 않았습니다."],
       score_total: null,
       score_a: null,
@@ -336,6 +338,10 @@ export default {
           }
         },
         labels: ["1번 사진", "2번 사진", "3번 사진"],
+        title: {
+          text: "사진 선택 통계",
+          align: "center"
+        },
         legend: {
           position: "bottom"
         },
