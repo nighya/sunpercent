@@ -14,7 +14,6 @@
             maxlength="50"
             v-model="title"
             :rules="title_rules"
-            :error-messages="email_err_msg"
           ></v-text-field>
           <v-file-input
             chips
