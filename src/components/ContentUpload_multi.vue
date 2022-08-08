@@ -90,10 +90,10 @@
       <v-dialog v-model="dialog_fail" width="500" persistent>
         <v-card>
           <v-card-title>
-            이미지 업로드를 실패하였습니다.
+            이미지 업로드를 실패하였습니다. 이미지 1장당 크기가 5MB 초과하였거나 이미지 파일이 아닐 수 있습니다.
           </v-card-title>
           <v-card-text>
-            이미지를 선택하여 다시 시도해 보세요.
+            이미지를 다시 선택하여 시도해 보세요.
           </v-card-text>
           <v-divider></v-divider>
           <v-card-actions>
