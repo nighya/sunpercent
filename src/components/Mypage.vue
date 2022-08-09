@@ -1,111 +1,113 @@
 <template>
-<div>
-  {{ pre_url_set }}
-  <div class="mypage pa-6" align="center">
-    <v-avatar
-      tile
-      v-if="this.$store.state.loginstore.userstate[0].profile_image == null"
-      size="200"
-    >
-      <v-img contain :src="baseimage"></v-img>
-    </v-avatar>
-    <v-avatar v-else size="200" tile>
-      <v-img
-        contain
-        :src="
-          `http://192.168.0.12:4000${this.$store.state.loginstore.userstate[0].profile_image}`
-        "
-      ></v-img>
-    </v-avatar>
-    <p class="pa-1 mt-2">
-      <v-row>
-        <v-card-text class="mt-2">
-          <p>
-            {{ this.$store.state.loginstore.userstate[0].email }}
-          </p>
-          <v-icon
-            class="mr-1"
-            color="blue darken-3"
-            v-if="this.$store.state.loginstore.userstate[0].gender == `male`"
-            >mdi-alpha-m-circle-outline</v-icon
-          >
-          <v-icon
-            class="mr-1"
-            color="pink"
-            v-if="this.$store.state.loginstore.userstate[0].gender == `female`"
-            >mdi-alpha-w-circle-outline</v-icon
-          >{{ this.$store.state.loginstore.userstate[0].nickname }}
-
-          <v-icon class="mr-1" color="amber lighten-1"
-            >mdi-alpha-p-circle</v-icon
-          >{{ this.$store.state.loginstore.userstate[0].point }}
-        </v-card-text>
-      </v-row>
-    </p>
-
-    <v-btn color="primary" text @click="show_dialog">프로필사진 수정</v-btn>
-    <v-btn color="primary" text @click="deleteProfile">
-      기본이미지
-    </v-btn>
-    <v-btn color="primary" text @click="ChangePassword">비밀번호 변경</v-btn>
-    <v-btn color="primary" text @click="moveMynote">쪽지함</v-btn>
-    <v-btn color="red" text @click="moveWithdrawal">회원탈퇴</v-btn>
-
-    <div class="text-center">
-      <v-dialog v-model="dialog_profile_image_update" width="600" persistent>
-        <v-card>
-          <v-card-title class="grey darken-3">
-            프로필사진 수정하기
-          </v-card-title>
-
-          <v-row no-gutters justify="center" align="center">
-            <v-col cols="8">
-              <v-file-input
-                ref="imageRef"
-                chips
-                prepend-icon="mdi-camera"
-                counter
-                show-size
-                label="Select Image"
-                accept="image/*"
-                truncate-length="12"
-                @change="selectImage"
-              ></v-file-input>
-            </v-col>
-            <div v-if="previewImage">
-              <div>
-                <v-img
-                  contain
-                  max-height="310"
-                  max-width="360"
-                  class="preview pa-3"
-                  :src="previewImage"
-                  alt=""
-                />
-              </div>
-            </div>
-          </v-row>
-
-          <v-divider></v-divider>
-          <v-card-actions>
-            <v-btn color="primary" text @click="cancel">
-              취소
-            </v-btn>
-
-            <v-spacer></v-spacer>
-            <v-btn
-              color="primary"
-              text
-              @click="updataProfile"
-              :loading="loading"
-              :key="buttonKey"
+  <div>
+    {{ pre_url_set }}
+    <div class="mypage pa-6" align="center">
+      <v-avatar
+        tile
+        v-if="this.$store.state.loginstore.userstate[0].profile_image == null"
+        size="200"
+      >
+        <v-img contain :src="baseimage"></v-img>
+      </v-avatar>
+      <v-avatar v-else size="200" tile>
+        <v-img
+          contain
+          :src="
+            `http://192.168.0.12:4000${this.$store.state.loginstore.userstate[0].profile_image}`
+          "
+        ></v-img>
+      </v-avatar>
+      <p class="pa-1 mt-2">
+        <v-row>
+          <v-card-text class="mt-2">
+            <p>
+              {{ this.$store.state.loginstore.userstate[0].email }}
+            </p>
+            <v-icon
+              class="mr-1"
+              color="blue darken-3"
+              v-if="this.$store.state.loginstore.userstate[0].gender == `male`"
+              >mdi-alpha-m-circle-outline</v-icon
             >
-              확인
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-    </div>
+            <v-icon
+              class="mr-1"
+              color="pink"
+              v-if="
+                this.$store.state.loginstore.userstate[0].gender == `female`
+              "
+              >mdi-alpha-w-circle-outline</v-icon
+            >{{ this.$store.state.loginstore.userstate[0].nickname }}
+
+            <v-icon class="mr-1" color="amber lighten-1"
+              >mdi-alpha-p-circle</v-icon
+            >{{ this.$store.state.loginstore.userstate[0].point }}
+          </v-card-text>
+        </v-row>
+      </p>
+
+      <v-btn color="primary" text @click="show_dialog">프로필사진 수정</v-btn>
+      <v-btn color="primary" text @click="deleteProfile">
+        기본이미지
+      </v-btn>
+      <v-btn color="primary" text @click="ChangePassword">비밀번호 변경</v-btn>
+      <v-btn color="primary" text @click="moveMynote">쪽지함</v-btn>
+      <v-btn color="grey" text @click="moveWithdrawal">회원탈퇴</v-btn>
+
+      <div class="text-center">
+        <v-dialog v-model="dialog_profile_image_update" width="600" persistent>
+          <v-card>
+            <v-card-title class="grey darken-3">
+              프로필사진 수정하기
+            </v-card-title>
+
+            <v-row no-gutters justify="center" align="center">
+              <v-col cols="8">
+                <v-file-input
+                  ref="imageRef"
+                  chips
+                  prepend-icon="mdi-camera"
+                  counter
+                  show-size
+                  label="Select Image"
+                  accept="image/*"
+                  truncate-length="12"
+                  @change="selectImage"
+                ></v-file-input>
+              </v-col>
+              <div v-if="previewImage">
+                <div>
+                  <v-img
+                    contain
+                    max-height="310"
+                    max-width="360"
+                    class="preview pa-3"
+                    :src="previewImage"
+                    alt=""
+                  />
+                </div>
+              </div>
+            </v-row>
+
+            <v-divider></v-divider>
+            <v-card-actions>
+              <v-btn color="primary" text @click="cancel">
+                취소
+              </v-btn>
+
+              <v-spacer></v-spacer>
+              <v-btn
+                color="primary"
+                text
+                @click="updataProfile"
+                :loading="loading"
+                :key="buttonKey"
+              >
+                확인
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </div>
     </div>
     <v-divider></v-divider>
     <!--image-->
@@ -222,7 +224,6 @@
         </v-col>
       </v-row>
     </div>
-  
   </div>
 </template>
 <script>
@@ -307,20 +308,23 @@ export default {
       }
     },
     async deleteProfile() {
-      const obj = {
-        profile_image: this.$store.state.loginstore.userstate[0].profile_image,
-        user_uid: this.$store.state.loginstore.userstate[0].user_uid
-      };
-      try {
-        this.$store.dispatch("loginstore/profile_image_delete", obj);
-        this.dialog_profile_image_update = false;
-      } catch (err) {
-        alert("기본이미지로 변경하지 못했습니다.");
-        this.$refs.imageRef.reset();
-        this.loading = false;
-        this.message = "기본이미지로 변경실패" + err;
-        this.dialog_profile_image_update = false;
-        // console.log(err.response.status);
+      if (confirm("기본이미지로 변경하시겠습니까?")) {
+        const obj = {
+          profile_image: this.$store.state.loginstore.userstate[0]
+            .profile_image,
+          user_uid: this.$store.state.loginstore.userstate[0].user_uid
+        };
+        try {
+          this.$store.dispatch("loginstore/profile_image_delete", obj);
+          this.dialog_profile_image_update = false;
+        } catch (err) {
+          alert("기본이미지로 변경하지 못했습니다.");
+          this.$refs.imageRef.reset();
+          this.loading = false;
+          this.message = "기본이미지로 변경실패" + err;
+          this.dialog_profile_image_update = false;
+          // console.log(err.response.status);
+        }
       }
     },
     ContentDetail(data) {
