@@ -254,7 +254,7 @@ export default {
           break;
         case "로그인":
           this.logout();
-          this.$router.replace("/login").catch(() => true);
+          this.$router.push("/login").catch(() => true);
           break;
         case "로그아웃":
           this.logout();

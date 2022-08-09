@@ -72,18 +72,21 @@ import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
 import black_image from "../assets/black.jpg";
 
+
 export default {
   data: () => ({
     black_image: black_image
   }),
   mounted() {
     this.$store.dispatch("imagestore/getallimages_multi");
+    
   },
 
   computed: {
     AllGetterslist_multi() {
       return this.$store.getters["imagestore/allImagelist_multi"];
-    }
+    },
+
   },
   methods: {
     //이미지 업로드

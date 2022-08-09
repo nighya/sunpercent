@@ -96,6 +96,7 @@ export default {
       }
     },
     ContentDetail(data) {
+      // ls.set("pre_target", JSON.stringify());
       this.$router.push({
         name: "ContentDetail",
         params: {

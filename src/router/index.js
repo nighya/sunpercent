@@ -30,7 +30,8 @@ export default new Router({
           next();
         }
       }
-    },    {
+    },
+    {
       path: "/Content_multi",
       name: "Content_multi",
       component: () => import("@/components/Content_multi"),
@@ -45,7 +46,30 @@ export default new Router({
     {
       path: "/login",
       name: "Login",
-      component: () => import("@/components/Login")
+      component: () => import("@/components/Login"),
+      beforeEnter: (to, from, next) => {
+        let test = false;
+        const filter_word = [
+          "/content_multi/",
+          "/content/",
+          "/mypage/",
+          "/userpage/"
+        ];
+        const from_path = filter_word.map(data => from.path.includes(data));
+        const pre_path = from_path.filter(data => {
+          if (data == true) {
+            test = true;
+          }
+        });
+        if (test) {
+          console.log("필터 성공");
+          next();
+        } else {
+          console.log("필터없음 로컬스토리지 지움");
+          localStorage.removeItem("pre_target");
+          next();
+        }
+      }
     },
     {
       path: "/findpassword",

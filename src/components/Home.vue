@@ -65,6 +65,8 @@
             :key="index"
           >
             <v-carousel
+            hide-delimiters
+              :show-arrows="false"
               cycle
               height="auto"
               hide-delimiter-background
@@ -92,6 +94,7 @@
                     width="175"
                     :src="`http://192.168.0.12:4000/${item}`"
                     aspect-ratio="1"
+                    @click="ContentDetail_multi(data)"
                   >
                     <template v-slot:placeholder>
                       <v-row
@@ -168,6 +171,15 @@ export default {
     ContentDetail(data) {
       this.$router.push({
         name: "ContentDetail",
+        params: {
+          content_uid: data.content_uid,
+          datas: data
+        }
+      });
+    },
+        ContentDetail_multi(data) {
+      this.$router.push({
+        name: "ContentDetail_multi",
         params: {
           content_uid: data.content_uid,
           datas: data

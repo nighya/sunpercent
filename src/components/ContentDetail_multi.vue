@@ -1,6 +1,6 @@
 <template
   ><div class="contentdetail pa-6 center">
-    {{ average_total }}
+    {{ average_total }}{{pre_url_set}}
     <v-col cols="12">
       <v-row justify="center">
         <v-card
@@ -9,7 +9,9 @@
           class="justify-center"
           v-for="(data, index) in imageDetail_multi"
           :key="index"
-        ><v-card-title>{{$store.state.imagestore.imagedetail_multi[0].title}}</v-card-title>
+          ><v-card-title>{{
+            $store.state.imagestore.imagedetail_multi[0].title
+          }}</v-card-title>
           <v-carousel
             hide-delimiter-background
             show-arrows-on-hover
@@ -215,7 +217,7 @@
             <v-btn text @click="score_cancel_multi">
               취소
             </v-btn>
-            <v-btn color="primary" text @click.prevent="score_send_multi">
+            <v-btn :loading="loading" color="primary" text @click.prevent="score_send_multi">
               사진 선택 완료하기
             </v-btn>
           </v-card-actions>
@@ -284,6 +286,8 @@
 import http from "../http/http";
 import black_image from "../assets/black.jpg";
 import VueApexCharts from "vue-apexcharts";
+import ls from "localstorage-slim";
+ls.config.encrypt = true;
 
 export default {
   components: {
@@ -291,6 +295,7 @@ export default {
   },
   data() {
     return {
+      loading:false,
       black_image: black_image,
       reportRules: [v => !!v || "신고사유가 선택되지 않았습니다."],
       report_reason: null,
@@ -387,6 +392,9 @@ export default {
     this.$store.dispatch("scorestore/getscore_multi", obj);
   },
   computed: {
+    pre_url_set() {
+       return ls.set("pre_target", this.$router.currentRoute.fullPath);
+    },
     imageDetail_multi() {
       return this.$store.getters["imagestore/imageDetail_multi"];
     },
@@ -421,8 +429,10 @@ export default {
     },
     deleteimage_multi() {
       let imagedataObj = {
-        content_uid: this.$store.state.imagestore.imagedetail_multi[0].content_uid,
-        image_path: this.$store.state.imagestore.imagedetail_multi[0].image_path,
+        content_uid: this.$store.state.imagestore.imagedetail_multi[0]
+          .content_uid,
+        image_path: this.$store.state.imagestore.imagedetail_multi[0]
+          .image_path,
         user_uid: this.$store.state.loginstore.userstate[0].user_uid
       };
       this.$store.dispatch("imagestore/deleteImage_multi", imagedataObj);
@@ -485,6 +495,7 @@ export default {
     //   this.scoredialog_multi = false;
     // },
     score_send_multi() {
+      this.loading = true
       const validate = this.$refs.form.validate();
       if (validate) {
         let scoredata = {
@@ -500,6 +511,7 @@ export default {
             withCredentials: true
           })
           .then(e => {
+            this.loading = false;
             this.scoredialog_multi = false;
           })
           .then(() => this.$router.go(0))

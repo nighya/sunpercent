@@ -154,7 +154,8 @@
 <script>
 import baseimage from "../assets/base_user.png";
 import black_image from "../assets/black.jpg";
-
+import ls from "localstorage-slim";
+ls.config.encrypt = true;
 export default {
   data() {
     return {
@@ -174,6 +175,9 @@ export default {
   },
 
   computed: {
+        pre_url_set() {
+       return ls.set("pre_target", this.$router.currentRoute.fullPath);
+    },
     mycontentGetterslist() {
       return this.$store.getters["imagestore/mycontentimagegetters"];
     }

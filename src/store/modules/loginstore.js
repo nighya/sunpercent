@@ -1,5 +1,7 @@
 import http from "../../http/http";
 import router from "../../router/index";
+import ls from "localstorage-slim";
+ls.config.encrypt = true;
 
 export default {
   namespaced: true,
@@ -80,10 +82,16 @@ export default {
           withCredentials: true
         });
         commit("loginToken", response.data);
-        router.push('/content');
+        const get_lo_storage = JSON.stringify(ls.get("pre_target"));
+        if (get_lo_storage) {
+          router.go(-1);
+        } else {
+          console.log("get_lo_storage 없음 : "+get_lo_storage)
+          router.push("/");
+        }
       } catch (err) {
         alert("로그인 되지 않았습니다.");
-        console.log("에러  :" + err);
+        console.log("Login 에러  :" + err);
         throw err;
       }
     },
