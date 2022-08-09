@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{pre_url_set}}
+    {{ pre_url_set }}
     <h1 class=" pa-6">Userpage</h1>
     <div class=" pa-6" align="center">
       <v-avatar
@@ -61,9 +61,9 @@
 
     <div>
       <!--image-->
-      <div>
+      <div class="mt-5">
+        <span class="ml-6">외모점수</span>
         <v-row class="pa-6 mt-2">
-          <!--
           <span
             class="ml-3"
             v-if="
@@ -74,8 +74,9 @@
             "
             >게시물이 없습니다.</span
           >
-          -->
+
           <v-col
+            v-else
             v-for="(data, index) in userProfile_image"
             :key="index"
             class="d-flex child-flex"
@@ -113,7 +114,8 @@
         </v-row>
       </div>
       <!--multi image-->
-      <div>
+      <div class="mt-5">
+        <span class="ml-6">사진골라줘</span>
         <v-row class="pa-6 mt-2">
           <span
             class="ml-3"
@@ -126,6 +128,7 @@
             >게시물이 없습니다.</span
           >
           <v-col
+            v-else
             v-for="(data, index) in userProfile_image_multi"
             :key="index"
             class="d-flex child-flex"

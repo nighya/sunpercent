@@ -1,6 +1,7 @@
 <template>
+<div>
+  {{ pre_url_set }}
   <div class="mypage pa-6" align="center">
-    {{ pre_url_set }}
     <v-avatar
       tile
       v-if="this.$store.state.loginstore.userstate[0].profile_image == null"
@@ -48,7 +49,7 @@
     </v-btn>
     <v-btn color="primary" text @click="ChangePassword">비밀번호 변경</v-btn>
     <v-btn color="primary" text @click="moveMynote">쪽지함</v-btn>
-    <v-btn color="primary" text @click="moveWithdrawal">회원탈퇴</v-btn>
+    <v-btn color="red" text @click="moveWithdrawal">회원탈퇴</v-btn>
 
     <div class="text-center">
       <v-dialog v-model="dialog_profile_image_update" width="600" persistent>
@@ -105,16 +106,21 @@
         </v-card>
       </v-dialog>
     </div>
+    </div>
     <v-divider></v-divider>
     <!--image-->
-    <div>
+    <div class="mt-5">
+      <span class="ml-6">외모점수</span>
       <v-row class="pa-6 mt-2">
-        <!-- <span
-        class="ml-3"
-        v-if="this.$store.state.imagestore.imagemycontentstate[0] == undefined"
-        >게시물이 없습니다.</span
-      > -->
+        <span
+          class="ml-3"
+          v-if="
+            this.$store.state.imagestore.imagemycontentstate[0] == undefined
+          "
+          >게시물이 없습니다.</span
+        >
         <v-col
+          v-else
           v-for="(data, index) in mycontentGetterslist"
           :key="index"
           class="d-flex child-flex"
@@ -152,15 +158,15 @@
       </v-row>
     </div>
     <!--multi image-->
-    <div>
+    <div class="mt-5">
+      <span class="ml-6">사진골라줘</span>
       <v-row class="pa-6 mt-2">
         <span
           class="ml-3"
           v-if="
-            this.$store.state.imagestore.imagemycontentstate_multi[0]
-              .image_path == undefined ||
-              this.$store.state.imagestore.imagemycontentstate_multi[0]
-                .image_path == null
+            this.$store.state.imagestore.imagemycontentstate_multi[0] ==
+              undefined ||
+              this.$store.state.imagestore.imagemycontentstate_multi[0] == null
           "
           >게시물이 없습니다.</span
         >
@@ -190,7 +196,7 @@
                 aspect-ratio="1"
                 :src="`http://192.168.0.12:4000/${item}`"
                 @click="ContentDetail_multi(data)"
-              ><span class="white--text">{{ data.score_count }}명</span>
+                ><span class="white--text">{{ data.score_count }}명</span>
                 <template v-slot:placeholder>
                   <v-row
                     class="fill-height ma-0"
@@ -216,6 +222,7 @@
         </v-col>
       </v-row>
     </div>
+  
   </div>
 </template>
 <script>
