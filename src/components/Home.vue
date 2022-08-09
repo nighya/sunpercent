@@ -19,7 +19,8 @@
                 <v-row class="fill-height" align="center" justify="center">
                   <v-img
                     v-if="data.report_count > 2"
-                    width="175"
+                    max-height="175"
+                    max-width="175"
                     :src="black_image"
                     class="grey--text align-center"
                     gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
@@ -31,7 +32,8 @@
                   >
                   <v-img
                     v-else
-                    width="175"
+                    max-height="175"
+                    max-width="175"
                     :src="`http://192.168.0.12:4000/${data.image_path}`"
                     aspect-ratio="1"
                     @click="ContentDetail(data)"
@@ -65,7 +67,7 @@
             :key="index"
           >
             <v-carousel
-            hide-delimiters
+              hide-delimiters
               :show-arrows="false"
               cycle
               height="auto"
@@ -84,14 +86,16 @@
                     class="grey--text align-center"
                     gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
                     aspect-ratio="1"
-                    width="175"
+                    max-height="175"
+                    max-width="175"
                     ><v-card-text class="font-weight-thin" align="center"
                       >신고누적으로<br />이미지차단</v-card-text
                     ></v-img
                   >
                   <v-img
                     v-else
-                    width="175"
+                    max-height="175"
+                    max-width="175"
                     :src="`http://192.168.0.12:4000/${item}`"
                     aspect-ratio="1"
                     @click="ContentDetail_multi(data)"
@@ -177,7 +181,7 @@ export default {
         }
       });
     },
-        ContentDetail_multi(data) {
+    ContentDetail_multi(data) {
       this.$router.push({
         name: "ContentDetail_multi",
         params: {
