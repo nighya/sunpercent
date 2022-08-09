@@ -4,11 +4,13 @@
     <v-col cols="12">
       <v-row justify="center">
         <v-card width="100%" max-width="780px" class="justify-center">
+          <!--
+            v-img 음영효과 넣기 옵션
+            gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"-->
           <v-img
             v-if="this.$store.state.imagestore.imagedetail[0].report_count > 2"
             :src="black_image"
             class="grey--text align-center"
-            gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
             aspect-ratio="1"
             ><v-card-text class="font-weight-thin" align="center"
               >신고누적으로<br />이미지차단</v-card-text

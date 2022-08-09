@@ -37,7 +37,6 @@
               <v-img
                 v-else
                 class="white--text align-end mx-auto"
-                gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
                 max-height="500px"
                 max-width="1000px"
                 aspect-ratio="1"
