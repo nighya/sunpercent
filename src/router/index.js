@@ -48,7 +48,7 @@ export default new Router({
       name: "Login",
       component: () => import("@/components/Login"),
       beforeEnter: (to, from, next) => {
-        let test = false;
+        let local_value = false;
         const filter_word = [
           "/content_multi/",
           "/content/",
@@ -58,14 +58,19 @@ export default new Router({
         const from_path = filter_word.map(data => from.path.includes(data));
         const pre_path = from_path.filter(data => {
           if (data == true) {
-            test = true;
+            local_value = true;
           }
         });
-        if (test) {
-          console.log("필터 성공");
+        if (local_value) {
+          console.log("필터 성공 로컬스토리지 안지움");
           next();
         } else {
           console.log("필터없음 로컬스토리지 지움");
+          localStorage.removeItem("pre_target");
+          next();
+        }
+        if (from.path === '/register') {
+          console.log("register라서 로컬스토리지 지움");
           localStorage.removeItem("pre_target");
           next();
         }

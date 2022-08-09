@@ -147,7 +147,7 @@
               :lazy-src="`http://192.168.0.12:4000${data.image_path[0]}`"
               aspect-ratio="1"
               class="grey lighten-2"
-              @click="ContentDetail(data)"
+              @click="ContentDetail_multi(data)"
             >
               <template v-slot:placeholder>
                 <v-row class="fill-height ma-0" align="center" justify="center">
@@ -208,8 +208,8 @@ export default {
     }
   },
   computed: {
-        pre_url_set() {
-       return ls.set("pre_target", this.$router.currentRoute.fullPath);
+    pre_url_set() {
+      return ls.set("pre_target", this.$router.currentRoute.fullPath);
     },
     userProfile() {
       return this.$store.getters["imagestore/userProfile_getters"];

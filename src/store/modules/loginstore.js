@@ -77,16 +77,19 @@ export default {
     //   commit("POST_LOGIN", payload);
     // },
     async login({ commit }, payload) {
+      
       try {
+        const get_lo_storage = ls.get("pre_target");
         const response = await http.post("/login", payload, {
           withCredentials: true
         });
         commit("loginToken", response.data);
-        const get_lo_storage = JSON.stringify(ls.get("pre_target"));
-        if (get_lo_storage) {
+        
+        if (get_lo_storage !== null) {
+          console.log("get_lo_storage 있음 if문 작동 : "+get_lo_storage)
           router.go(-1);
         } else {
-          console.log("get_lo_storage 없음 : "+get_lo_storage)
+          console.log("get_lo_storage 없음 else문 작동 : "+get_lo_storage)
           router.push("/");
         }
       } catch (err) {
