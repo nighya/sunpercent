@@ -54,38 +54,33 @@
         class="elevation-1 ma-5"
       >
         <template v-slot:[`item.image_path`]="{ item }">
-                      <v-carousel
-              cycle
-              height="auto"
-              hide-delimiters
-              :show-arrows="false"
+          <v-carousel cycle height="auto" hide-delimiters :show-arrows="false">
+            <v-carousel-item
+              class="ma-3"
+              v-for="(data, index) in item.image_path"
+              :key="index"
             >
-              <v-carousel-item
-                class="ma-3"
-                v-for="(data, index) in item.image_path"
-                :key="index"
-              >
-                <v-row class="fill-height" align="center" justify="center">
-
-                  <img
-                    :src="`http://192.168.0.12:4000/${data}`"
-                    style="width: 80px; height: 80px"
-                    @click="ContentDetail_multi(item)"
-                  />
-                    <template v-slot:placeholder>
-                      <v-row
-                        class="fill-height ma-0"
-                        align="center"
-                        justify="center"
-                      >
-                        <v-progress-circular
-                          indeterminate
-                          color="grey lighten-5"
-                        ></v-progress-circular>
-                      </v-row> </template>
-                </v-row>
-              </v-carousel-item> </v-carousel>
-
+              <v-row class="fill-height" align="center" justify="center">
+                <img
+                  :src="`http://192.168.0.12:4000/${data}`"
+                  style="width: 80px; height: 80px"
+                  @click="ContentDetail_multi(item)"
+                />
+                <template v-slot:placeholder>
+                  <v-row
+                    class="fill-height ma-0"
+                    align="center"
+                    justify="center"
+                  >
+                    <v-progress-circular
+                      indeterminate
+                      color="grey lighten-5"
+                    ></v-progress-circular>
+                  </v-row>
+                </template>
+              </v-row>
+            </v-carousel-item>
+          </v-carousel>
         </template>
       </v-data-table>
     </div>
