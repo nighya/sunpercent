@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{pre_url_set}}
     <h1 class=" pa-6">Userpage</h1>
     <div class=" pa-6" align="center">
       <v-avatar

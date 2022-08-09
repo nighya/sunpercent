@@ -1,5 +1,6 @@
 <template>
   <div class="mypage pa-6" align="center">
+    {{pre_url_set}}
     <v-avatar
       tile
       v-if="this.$store.state.loginstore.userstate[0].profile_image == null"

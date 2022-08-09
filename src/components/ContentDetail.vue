@@ -1,5 +1,6 @@
 <template>
   <div class="contentdetail pa-6 center">
+    {{pre_url_set}}
     <v-col cols="12">
       <v-row justify="center">
         <v-card width="100%" max-width="780px" class="justify-center">
