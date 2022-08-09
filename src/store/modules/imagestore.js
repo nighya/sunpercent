@@ -8,6 +8,7 @@ export default {
     imagedetail: [{ image_path: {} }],
     imagedetail_multi: [{ image_path: {} }],
     imagemycontentstate: [],
+    imagemycontentstate_multi:[],
     userprofile: [{ profile_image: null }],
     userprofile_image: [{ image_path: null }],
     userprofile_image_multi: [{ image_path: null }],
@@ -15,6 +16,9 @@ export default {
   getters: {
     mycontentimagegetters: state => {
       return state.imagemycontentstate;
+    },
+    mycontentimagegetters_multi: state => {
+      return state.imagemycontentstate_multi;
     },
     allImagelist: state => {
       return state.imagestate;
@@ -54,6 +58,9 @@ export default {
     SET_MYCONTENT_IMAGE: (state, datas) => {
       state.imagemycontentstate = datas;
     },
+    SET_MYCONTENT_IMAGE_MULTI: (state, datas) => {
+      state.imagemycontentstate_multi = datas;
+    },
     SET_IMAGE: (state, datas) => {
       state.imagestate = datas;
     },
@@ -83,7 +90,18 @@ export default {
       const response = await http.get(`/Mypage/mycontentimage/${payload}`, {
         withCredentials: true
       });
-      commit("SET_MYCONTENT_IMAGE", response.data);
+      const nomal_data = [];
+      const multi_data = [];
+      response.data.map(item => {
+        if (item.image_path.includes("/multi_")) {
+          item.image_path = item.image_path.split(",");
+          multi_data.push(item);
+        } else {
+          nomal_data.push(item);
+        }
+      });
+      commit("SET_MYCONTENT_IMAGE", nomal_data);
+      commit("SET_MYCONTENT_IMAGE_MULTI", multi_data);
     },
     async getallimages({ commit }) {
       const response = await http.get(`/getAllimages`, {

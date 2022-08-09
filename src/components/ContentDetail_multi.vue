@@ -1,6 +1,6 @@
 <template
   ><div class="contentdetail pa-6 center">
-    {{ average_total }}{{pre_url_set}}
+    {{ average_total }}{{ pre_url_set }}
     <v-col cols="12">
       <v-row justify="center">
         <v-card
@@ -217,7 +217,12 @@
             <v-btn text @click="score_cancel_multi">
               취소
             </v-btn>
-            <v-btn :loading="loading" color="primary" text @click.prevent="score_send_multi">
+            <v-btn
+              :loading="loading"
+              color="primary"
+              text
+              @click.prevent="score_send_multi"
+            >
               사진 선택 완료하기
             </v-btn>
           </v-card-actions>
@@ -295,7 +300,7 @@ export default {
   },
   data() {
     return {
-      loading:false,
+      loading: false,
       black_image: black_image,
       reportRules: [v => !!v || "신고사유가 선택되지 않았습니다."],
       report_reason: null,
@@ -393,7 +398,7 @@ export default {
   },
   computed: {
     pre_url_set() {
-       return ls.set("pre_target", this.$router.currentRoute.fullPath);
+      return ls.set("pre_target", this.$router.currentRoute.fullPath);
     },
     imageDetail_multi() {
       return this.$store.getters["imagestore/imageDetail_multi"];
@@ -495,7 +500,7 @@ export default {
     //   this.scoredialog_multi = false;
     // },
     score_send_multi() {
-      this.loading = true
+      this.loading = true;
       const validate = this.$refs.form.validate();
       if (validate) {
         let scoredata = {
@@ -513,6 +518,17 @@ export default {
           .then(e => {
             this.loading = false;
             this.scoredialog_multi = false;
+            try {
+              const content_uid = this.$store.state.imagestore
+                .imagedetail_multi[0].content_uid;
+              const payload = {
+                content_uid: this.$store.state.imagestore.imagedetail_multi[0]
+                  .content_uid
+              };
+              http.post(`/contentscore_multi/${content_uid}`, payload);
+            } catch (e) {
+              console.log("score_send_multi 에러");
+            }
           })
           .then(() => this.$router.go(0))
           .catch(err => {

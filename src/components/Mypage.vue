@@ -1,6 +1,6 @@
 <template>
   <div class="mypage pa-6" align="center">
-    {{pre_url_set}}
+    {{ pre_url_set }}
     <v-avatar
       tile
       v-if="this.$store.state.loginstore.userstate[0].profile_image == null"
@@ -106,39 +106,105 @@
       </v-dialog>
     </div>
     <v-divider></v-divider>
-    <v-row class="mt-2">
-      <span
+    <!--image-->
+    <div>
+      <v-row class="pa-6 mt-2">
+        <!-- <span
         class="ml-3"
         v-if="this.$store.state.imagestore.imagemycontentstate[0] == undefined"
         >게시물이 없습니다.</span
-      >
-      <v-col
-        v-for="(data, index) in mycontentGetterslist"
-        :key="index"
-        class="d-flex child-flex"
-        cols="4"
-      >
-        <v-img
-          v-if="data.report_count > 2"
-          :src="black_image"
-          class="grey--text align-center"
-          gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-          aspect-ratio="1"
-          @click="ContentDetail(data)"
-          ><v-card-text class="font-weight-thin" align="center"
-            >신고누적으로<br />이미지차단</v-card-text
-          ></v-img
+      > -->
+        <v-col
+          v-for="(data, index) in mycontentGetterslist"
+          :key="index"
+          class="d-flex child-flex"
+          cols="4"
         >
-        <v-img
-          v-else
-          :src="`http://192.168.0.12:4000/${data.image_path}`"
-          :lazy-src="`http://192.168.0.12:4000/${data.image_path}`"
-          aspect-ratio="1"
-          class="grey lighten-2"
-          @click="ContentDetail(data)"
-        >
-          <span class="white--text">{{ data.score_count }}명</span>
+          <v-img
+            v-if="data.report_count > 2"
+            :src="black_image"
+            class="grey--text align-center"
+            gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+            aspect-ratio="1"
+            ><v-card-text class="font-weight-thin" align="center"
+              >신고누적으로<br />이미지차단</v-card-text
+            ></v-img
+          >
+          <v-img
+            v-else
+            :src="`http://192.168.0.12:4000/${data.image_path}`"
+            aspect-ratio="1"
+            class="grey lighten-2"
+            @click="ContentDetail(data)"
+          >
+            <span class="white--text">{{ data.score_count }}명</span>
 
+            <template v-slot:placeholder>
+              <v-row class="fill-height ma-0" align="center" justify="center">
+                <v-progress-circular
+                  indeterminate
+                  color="grey lighten-5"
+                ></v-progress-circular>
+              </v-row>
+            </template>
+          </v-img>
+        </v-col>
+      </v-row>
+    </div>
+    <!--multi image-->
+    <div>
+      <v-row class="pa-6 mt-2">
+        <span
+          class="ml-3"
+          v-if="
+            this.$store.state.imagestore.imagemycontentstate_multi[0]
+              .image_path == undefined ||
+              this.$store.state.imagestore.imagemycontentstate_multi[0]
+                .image_path == null
+          "
+          >게시물이 없습니다.</span
+        >
+        <v-col
+          v-for="(data, index) in mycontentGetterslist_multi"
+          :key="index"
+          class="d-flex child-flex"
+          cols="4"
+        >
+          <v-carousel cycle hide-delimiters show-arrows-on-hover height="auto">
+            <v-carousel-item
+              v-for="(item, index) in data.image_path"
+              :key="index"
+            >
+              <v-img
+                v-if="data.report_count > 2"
+                :src="black_image"
+                class="grey--text align-center"
+                gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+                aspect-ratio="1"
+                ><v-card-text class="font-weight-thin" align="center"
+                  >신고누적으로<br />이미지차단</v-card-text
+                ></v-img
+              >
+              <v-img
+                v-else
+                aspect-ratio="1"
+                :src="`http://192.168.0.12:4000/${item}`"
+                @click="ContentDetail_multi(data)"
+              ><span class="white--text">{{ data.score_count }}명</span>
+                <template v-slot:placeholder>
+                  <v-row
+                    class="fill-height ma-0"
+                    align="center"
+                    justify="center"
+                  >
+                    <v-progress-circular
+                      indeterminate
+                      color="grey lighten-5"
+                    ></v-progress-circular>
+                  </v-row> </template
+              ></v-img>
+            </v-carousel-item>
+          </v-carousel>
           <template v-slot:placeholder>
             <v-row class="fill-height ma-0" align="center" justify="center">
               <v-progress-circular
@@ -147,9 +213,9 @@
               ></v-progress-circular>
             </v-row>
           </template>
-        </v-img>
-      </v-col>
-    </v-row>
+        </v-col>
+      </v-row>
+    </div>
   </div>
 </template>
 <script>
@@ -176,11 +242,14 @@ export default {
   },
 
   computed: {
-        pre_url_set() {
-       return ls.set("pre_target", this.$router.currentRoute.fullPath);
+    pre_url_set() {
+      return ls.set("pre_target", this.$router.currentRoute.fullPath);
     },
     mycontentGetterslist() {
       return this.$store.getters["imagestore/mycontentimagegetters"];
+    },
+    mycontentGetterslist_multi() {
+      return this.$store.getters["imagestore/mycontentimagegetters_multi"];
     }
   },
   methods: {
@@ -256,16 +325,23 @@ export default {
         }
       });
     },
+    ContentDetail_multi(data) {
+      this.$router.push({
+        name: "ContentDetail_multi",
+        params: {
+          content_uid: data.content_uid,
+          datas: data
+        }
+      });
+    },
     moveMynote() {
       this.$router
         .push(`/MyNote/${this.$store.state.loginstore.userstate[0].user_uid}`)
         .catch(() => true);
     },
-      moveWithdrawal() {
-      this.$router
-        .push(`/Withdrawal`)
-        .catch(() => true);
-    },
+    moveWithdrawal() {
+      this.$router.push(`/Withdrawal`).catch(() => true);
+    }
   }
 };
 </script>
