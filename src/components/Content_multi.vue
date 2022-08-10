@@ -117,7 +117,7 @@ export default {
           content_uid: data.content_uid,
           datas: data
         }
-      });
+      }).catch(()=>{});
     },
     dayjs_now(data) {
       const result = dayjs(data).fromNow();

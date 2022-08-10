@@ -284,6 +284,8 @@
         </v-card>
       </v-dialog>
     </div>
+        <v-divider class="mt-15 mb-10"></v-divider>
+    <div ><Content_multi></Content_multi></div>
   </div>
 </template>
 <script>
@@ -292,10 +294,12 @@ import black_image from "../assets/black.jpg";
 import VueApexCharts from "vue-apexcharts";
 import ls from "localstorage-slim";
 ls.config.encrypt = true;
+import Content_multi from './Content_multi.vue'
 
 export default {
   components: {
-    apexcharts: VueApexCharts
+    apexcharts: VueApexCharts,
+    Content_multi
   },
   data() {
     return {

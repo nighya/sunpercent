@@ -297,6 +297,9 @@
         총합계 평균점수 및 차트는 해당 게시물의 작성자에게만 표시 됩니다.
       </v-alert>
     </div>
+    <v-divider class="mt-15 mb-10"></v-divider>
+    <div ><Content></Content></div>
+    
   </div>
 </template>
 <script>
@@ -306,10 +309,12 @@ import http from "../http/http";
 import black_image from "../assets/black.jpg";
 import ls from "localstorage-slim";
 ls.config.encrypt = true;
+import Content from './Content.vue'
 
 export default {
   components: {
-    apexcharts: VueApexCharts
+    apexcharts: VueApexCharts,
+    Content
   },
   data() {
     return {
