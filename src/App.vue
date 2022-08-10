@@ -47,6 +47,7 @@
       grow
     >
       <v-btn
+        icon
         v-for="item in bottom_items"
         :key="item.title"
         @click="menuclick(item)"
@@ -70,12 +71,23 @@
 
       <v-spacer></v-spacer>
       <div>
-        <v-btn icon to="/ContentUpload_multi">
-          <v-icon>mdi-image-multiple</v-icon>
-        </v-btn>
-        <v-btn icon to="/contentupload">
-          <v-icon>mdi-plus</v-icon>
-        </v-btn>
+        <v-menu offset-y>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn text v-bind="attrs" v-on="on">
+              <v-icon>mdi-image-multiple</v-icon>
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item
+              v-for="(item, i) in upload_items"
+              :key="i"
+              @click="menuclick(item)"
+            >
+              <v-icon class="mr-2" small>{{ item.icon }}</v-icon>
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
         <v-btn class="search" icon to="/search">
           <v-icon>mdi-magnify</v-icon>
         </v-btn>
@@ -196,10 +208,10 @@ export default {
     drawer: false,
     items: [
       { title: "Home", icon: "mdi-home-heart" },
-      { title: "Content", icon: "mdi-format-list-text" },
-      { title: "Content_multi", icon: "mdi-format-list-text" },
-      { title: "Profile", icon: "mdi-card-account-details-outline" },
-      { title: "MyNote", icon: "mdi-email-outline" }
+      { title: "외모점수", icon: "mdi-format-list-checks" },
+      { title: "사진골라줘", icon: "mdi-format-list-text" },
+      { title: "내정보", icon: "mdi-card-account-details-outline" },
+      { title: "쪽지함", icon: "mdi-email-outline" }
     ],
     menuitems: [
       { title: "내정보", icon: "mdi-card-account-details-outline" },
@@ -207,11 +219,18 @@ export default {
       { title: "로그아웃", icon: "mdi-logout" },
       { title: "회원등록", icon: "mdi-account-plus-outline" }
     ],
+    upload_items: [
+      {
+        title: "외모점수 사진올리기",
+        icon: "mdi-image"
+      },
+      { title: "사진골라줘 사진올리기", icon: "mdi-image-multiple" }
+    ],
     bottom_items: [
-      { title: "Refresh", icon: "mdi-refresh" },
+      { title: "새로고침", icon: "mdi-refresh" },
       { title: "Home", icon: "mdi-home-heart" },
-      { title: "Content", icon: "mdi-format-list-text" },
-      { title: "Profile", icon: "mdi-account" }
+      { title: "외모점수", icon: "mdi-format-list-checks" },
+      { title: "내정보", icon: "mdi-account" }
     ]
   }),
   methods: {
@@ -230,22 +249,28 @@ export default {
     },
     menuclick(menuclick) {
       switch (menuclick.title) {
-        case "Refresh":
+        case "새로고침":
           this.$router.go();
           break;
         case "Home":
           this.$router.push("/").catch(() => true);
           break;
-        case "Content":
+        case "외모점수 사진올리기":
+          this.$router.push("/contentupload").catch(() => true);
+          break;
+        case "사진골라줘 사진올리기":
+          this.$router.push("/contentupload_multi").catch(() => true);
+          break;
+        case "외모점수":
           this.$router.push("/content").catch(() => true);
           break;
-        case "Content_multi":
+        case "사진골라줘":
           this.$router.push("/Content_multi").catch(() => true);
           break;
-        case "Profile":
+        case "내정보":
           this.moveMypage();
           break;
-        case "MyNote":
+        case "쪽지함":
           this.$router
             .push(
               `/MyNote/${this.$store.state.loginstore.userstate[0].user_uid}`

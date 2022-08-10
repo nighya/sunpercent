@@ -62,15 +62,15 @@ export default new Router({
           }
         });
         if (local_value) {
-          console.log("필터 성공 로컬스토리지 안지움");
+          // console.log("필터 성공 로컬스토리지 안지움");
           next();
         } else {
-          console.log("필터없음 로컬스토리지 지움");
+          // console.log("필터없음 로컬스토리지 지움");
           localStorage.removeItem("pre_target");
           next();
         }
         if (from.path === '/register') {
-          console.log("register라서 로컬스토리지 지움");
+          // console.log("register라서 로컬스토리지 지움");
           localStorage.removeItem("pre_target");
           next();
         }
@@ -131,15 +131,15 @@ export default new Router({
           store.state.loginstore.userstate[0].user_uid === null ||
           store.state.loginstore.userstate[0].user_uid === undefined
         ) {
-          alert("로그인이 필요 합니다.");
-          next({ path: "/login" });
+          if(confirm("로그인이 필요 합니다. 로그인 하시겠습니까?")){next({ path: "/login" });}
+          
         } else {
           next();
         }
       }
     },
     {
-      path: "/ContentUpload_multi",
+      path: "/contentupload_multi",
       name: "ContentUpload_multi",
       component: () => import("@/components/ContentUpload_multi"),
       beforeEnter: (to, from, next) => {
@@ -147,8 +147,7 @@ export default new Router({
           store.state.loginstore.userstate[0].user_uid === null ||
           store.state.loginstore.userstate[0].user_uid === undefined
         ) {
-          alert("로그인이 필요 합니다.");
-          next({ path: "/login" });
+          if(confirm("로그인이 필요 합니다. 로그인 하시겠습니까?")){next({ path: "/login" });}
         } else {
           next();
         }

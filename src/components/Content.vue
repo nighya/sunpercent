@@ -1,7 +1,10 @@
 <template>
   <div>
-    <div class="mt-2 ml-3"><h2>Content</h2></div>
-
+    <div class="mt-2 ml-3">
+      <v-btn to="/contentupload">
+        외모점수 사진올리기
+      </v-btn>
+    </div>
     <v-container>
       <v-row>
         <v-col
@@ -63,12 +66,11 @@
   </div>
 </template>
 <script>
-
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
 dayjs.locale("ko");
-import relativeTime from 'dayjs/plugin/relativeTime'
-dayjs.extend(relativeTime)
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
 
 import black_image from "../assets/black.jpg";
 export default {

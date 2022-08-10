@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div>
-      <h2>Content</h2>
+    <div class="ma-5">
+      <h2>외모점수</h2>
       <v-sheet class="mt-5 mb-5 mx-auto" elevation="8" max-width="1000">
         <v-slide-group
           class="pa-4"
@@ -55,7 +55,7 @@
         ></v-slide-group>
       </v-sheet>
       <v-divider class="mt-10 mb-3 ml-2 mr-2"></v-divider>
-      <h2>Content multi</h2>
+      <h2>사진골라줘</h2>
       <v-sheet class="mt-5 mb-5 mx-auto" elevation="8" max-width="1000">
         <v-slide-group
           class="pa-4"

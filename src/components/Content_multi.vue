@@ -1,6 +1,12 @@
 <template>
   <div>
-    <div class="mt-2 ml-3"><h2>Content_multi</h2></div>
+    <div class="mt-2 ml-3 mr-3">
+      <v-btn to="/contentupload_multi">
+        사진골라줘 사진올리기
+      </v-btn>
+      
+    </div>
+
     <v-container>
       <v-row>
         <v-col
@@ -10,7 +16,11 @@
           cols="4"
         >
           <div @click="ContentDetail_multi(data)">
-            <v-carousel hide-delimiter-background show-arrows-on-hover height="auto">
+            <v-carousel
+              hide-delimiter-background
+              show-arrows-on-hover
+              height="auto"
+            >
               <v-carousel-item
                 v-for="(item, index) in data.image_path"
                 :key="index"
@@ -25,7 +35,11 @@
                     >신고누적으로<br />이미지차단</v-card-text
                   ></v-img
                 >
-                <v-img v-else aspect-ratio="1" :src="`http://192.168.0.12:4000/${item}`">
+                <v-img
+                  v-else
+                  aspect-ratio="1"
+                  :src="`http://192.168.0.12:4000/${item}`"
+                >
                   <template v-slot:placeholder>
                     <v-row
                       class="fill-height ma-0"
@@ -72,21 +86,18 @@ import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
 import black_image from "../assets/black.jpg";
 
-
 export default {
   data: () => ({
     black_image: black_image
   }),
   mounted() {
     this.$store.dispatch("imagestore/getallimages_multi");
-    
   },
 
   computed: {
     AllGetterslist_multi() {
       return this.$store.getters["imagestore/allImagelist_multi"];
-    },
-
+    }
   },
   methods: {
     //이미지 업로드
