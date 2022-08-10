@@ -151,27 +151,43 @@
             @click="deleteSentNoteDetail"
             >mdi-trash-can-outline</v-icon
           >
-
-          <div
-            v-if="
-              $store.state.loginstore.userstate[0].nickname ==
-                showNoteData.to_nickname
-            "
+          <v-divider></v-divider>
+          <v-row class="mt-1 mb-1">
+            <v-col>
+              <v-icon
+                color="blue darken-3"
+                v-if="showNoteData.from_gender == 'male'"
+                >mdi-alpha-m-circle-outline</v-icon
+              >
+              <v-icon color="pink" v-if="showNoteData.from_gender == 'female'"
+                >mdi-alpha-w-circle-outline</v-icon
+              >
+              <span
+                v-if="
+                  $store.state.loginstore.userstate[0].nickname ==
+                    showNoteData.to_nickname
+                "
+              >
+                {{ showNoteData.from_nickname }}
+              </span>
+              <span
+                v-if="
+                  $store.state.loginstore.userstate[0].nickname ==
+                    showNoteData.from_nickname
+                "
+              >
+                {{ showNoteData.to_nickname }}
+              </span> </v-col
+            ><v-col align="end">
+              <span>{{ showNoteData.date }}</span>
+            </v-col></v-row
           >
-            쪽지보낸사람 : {{ showNoteData.from_nickname }}
-          </div>
-          <div
-            v-if="
-              $store.state.loginstore.userstate[0].nickname ==
-                showNoteData.from_nickname
-            "
-          >
-            쪽지받은사람 : {{ showNoteData.to_nickname }}
-          </div>
-          <div>성별 : {{ showNoteData.from_gender }}</div>
-          <div>제목 : {{ showNoteData.title }}</div>
-          <div>내용 : {{ showNoteData.message }}</div>
-          <div>날짜 : {{ showNoteData.date }}</div>
+          <v-divider></v-divider>
+          <div class="mt-2 mb-1">제목</div>
+          <div class="mb-2">{{ showNoteData.title }}</div>
+          <v-divider></v-divider>
+          <div class="mt-2 mb-1">내용</div>
+          <div class="mb-2">{{ showNoteData.message }}</div>
         </div>
         <div v-else>쪽지가 선택되지 않았습니다.</div>
       </v-tab-item>
@@ -399,7 +415,7 @@ export default {
         to_uid: data.to_uid
       };
       try {
-        this.$store.state.notestore.confirm_received_state -= 1
+        this.$store.state.notestore.confirm_received_state -= 1;
         this.$store.dispatch("notestore/confirmreceivednote", confirmNoteObj);
       } catch (err) {
         if (err) {
