@@ -44,6 +44,7 @@ module.exports = {
     assetsRoot: path.resolve(__dirname, '../dist'),
     // assetsRoot: path.resolve(__dirname, '../sunpercent_backend/dist'),
     assetsSubDirectory: 'static',
+    // assetsPublicPath: './',
     assetsPublicPath: '/',
 
     /**
