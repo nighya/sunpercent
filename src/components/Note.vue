@@ -114,6 +114,20 @@
       </v-tab-item>
       <v-tab-item class="ma-5" value="tab-4">
         <div v-if="showNoteData.date !== null">
+          <v-card-title
+            v-if="
+              $store.state.loginstore.userstate[0].nickname ==
+                showNoteData.from_nickname
+            "
+            >내가보낸쪽지</v-card-title
+          >
+          <v-card-title
+            v-if="
+              $store.state.loginstore.userstate[0].nickname ==
+                showNoteData.to_nickname
+            "
+            >내가받은쪽지</v-card-title
+          >
           <!--받은쪽지 리플 버튼-->
           <v-icon
             v-if="
@@ -156,12 +170,23 @@
             <v-col>
               <v-icon
                 color="blue darken-3"
-                v-if="showNoteData.from_gender == 'male'"
+                v-if="
+                  $store.state.loginstore.userstate[0].nickname ==
+                    showNoteData.to_nickname &&
+                    showNoteData.from_gender == 'male'
+                "
                 >mdi-alpha-m-circle-outline</v-icon
               >
-              <v-icon color="pink" v-if="showNoteData.from_gender == 'female'"
+              <v-icon
+                color="pink"
+                v-if="
+                  $store.state.loginstore.userstate[0].nickname ==
+                    showNoteData.to_nickname &&
+                    showNoteData.from_gender == 'female'
+                "
                 >mdi-alpha-w-circle-outline</v-icon
               >
+
               <span
                 v-if="
                   $store.state.loginstore.userstate[0].nickname ==
@@ -414,13 +439,19 @@ export default {
         id_num: data.id_num,
         to_uid: data.to_uid
       };
-      try {
-        this.$store.state.notestore.confirm_received_state -= 1;
-        this.$store.dispatch("notestore/confirmreceivednote", confirmNoteObj);
-      } catch (err) {
-        if (err) {
+      if (
+        this.showNoteData.to_nickname ===
+        this.$store.state.loginstore.userstate[0].nickname
+      ) {
+        try {
+          this.$store.state.notestore.confirm_received_state -= 1;
+          this.$store.dispatch("notestore/confirmreceivednote", confirmNoteObj);
+        } catch (err) {
+          if (err) {
+          }
         }
       }
+
       this.tab = "tab-4";
     },
     moveSentReplyNotetab() {
