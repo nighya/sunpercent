@@ -5,6 +5,7 @@
   "description": "A Vue.js project",
   "author": "rjatkdudgh@naver.com <rjatkdudgh@naver.com>",
   "scripts": {
+    "test": "node build/build.js",
     "build": "webpack --config build/webpack.prod.conf.js  --progress  ",
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --host 192.168.0.12",
     "start": "npm run dev"

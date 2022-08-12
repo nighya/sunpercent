@@ -4,7 +4,6 @@
       <v-btn to="/contentupload_multi">
         사진골라줘 사진올리기
       </v-btn>
-      
     </div>
 
     <v-container>
@@ -111,13 +110,15 @@ export default {
       }
     },
     ContentDetail_multi(data) {
-      this.$router.push({
-        name: "ContentDetail_multi",
-        params: {
-          content_uid: data.content_uid,
-          datas: data
-        }
-      }).catch(()=>{});
+      this.$router
+        .push({
+          name: "ContentDetail_multi",
+          params: {
+            content_uid: data.content_uid,
+            datas: data
+          }
+        })
+        .catch(() => {});
     },
     dayjs_now(data) {
       const result = dayjs(data).fromNow();

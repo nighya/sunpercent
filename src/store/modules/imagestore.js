@@ -104,7 +104,7 @@ export default {
       commit("SET_MYCONTENT_IMAGE_MULTI", multi_data);
     },
     async getallimages({ commit }) {
-      const response = await http.get(`/getAllimages`, {
+      const response = await http.get(`/api/getAllimages`, {
         withCredentials: true
       });
       commit("SET_IMAGE", response.data);
