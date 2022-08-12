@@ -19,6 +19,8 @@
                 <v-row class="fill-height" align="center" justify="center">
                   <v-img
                     v-if="data.report_count > 2"
+                    min-height="155"
+                    min-width="155"
                     max-height="175"
                     max-width="175"
                     :src="black_image"
@@ -32,6 +34,8 @@
                   >
                   <v-img
                     v-else
+                    min-height="155"
+                    min-width="155"
                     max-height="175"
                     max-width="175"
                     :src="`http://192.168.0.12:4000/${data.image_path}`"
@@ -86,6 +90,8 @@
                     class="grey--text align-center"
                     gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
                     aspect-ratio="1"
+                    min-height="155"
+                    min-width="155"
                     max-height="175"
                     max-width="175"
                     ><v-card-text class="font-weight-thin" align="center"
@@ -94,6 +100,8 @@
                   >
                   <v-img
                     v-else
+                    min-height="155"
+                    min-width="155"
                     max-height="175"
                     max-width="175"
                     :src="`http://192.168.0.12:4000/${item}`"
