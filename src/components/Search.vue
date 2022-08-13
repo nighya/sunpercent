@@ -161,7 +161,7 @@ export default {
         try {
           const nicknameObj = { nickname: this.search_keyword };
           // console.log("nicknameObj :  " + JSON.stringify(nicknameObj));
-          const response = await http.post(`/content_search`, nicknameObj, {
+          const response = await http.post(`/sun/content_search`, nicknameObj, {
             withCredentials: true
           });
           if (response.data.msg == "No Data") {

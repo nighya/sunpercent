@@ -90,7 +90,7 @@ export default {
         try {
           this.loading = true;
           const response = await http.post(
-            "/delete_user_goodbye",
+            "/sun/delete_user_goodbye",
             withdrawal_obj,
             {
               withCredentials: true

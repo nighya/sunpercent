@@ -220,10 +220,10 @@ export default new Router({
       name: "PolicyPrivacy",
       component: () => import("@/components/PolicyPrivacy")
     },
-    {
-      path: "*",
-      redirect: "/404"
-    },
+    // {
+    //   path: "*",
+    //   redirect: "/404"
+    // },
     {
       path: "/404",
       name: "NotFound",

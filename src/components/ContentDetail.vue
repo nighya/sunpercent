@@ -455,7 +455,7 @@ export default {
         gender: this.$store.state.loginstore.userstate[0].gender
       };
       http
-        .post("/contentscore", scoredata, {
+        .post("/sun/contentscore", scoredata, {
           withCredentials: true
         })
         .then(e => {
@@ -506,7 +506,7 @@ export default {
           report_reason: this.report_reason
         };
         http
-          .post("/report", reportdataObj, {
+          .post("/sun/report", reportdataObj, {
             withCredentials: true
           })
           .then(e => {

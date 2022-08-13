@@ -92,7 +92,7 @@ export default {
 
         try {
           const response = await http.post(
-            "/login/changepassword",
+            "/sun/login/changepassword",
             passwordChangeObj,
             {
               withCredentials: true

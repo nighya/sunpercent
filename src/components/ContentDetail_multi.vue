@@ -460,7 +460,7 @@ export default {
           report_reason: this.report_reason
         };
         http
-          .post("/report_multi", reportdataObj, {
+          .post("/sun/report_multi", reportdataObj, {
             withCredentials: true
           })
           .then(e => {
@@ -515,7 +515,7 @@ export default {
           gender: this.$store.state.loginstore.userstate[0].gender
         };
         http
-          .post("/contentscore_multi", scoredata, {
+          .post("/sun/contentscore_multi", scoredata, {
             withCredentials: true
           })
           .then(e => {
@@ -528,7 +528,7 @@ export default {
                 content_uid: this.$store.state.imagestore.imagedetail_multi[0]
                   .content_uid
               };
-              http.post(`/contentscore_multi/${content_uid}`, payload);
+              http.post(`/sun/contentscore_multi/${content_uid}`, payload);
             } catch (e) {
               console.log("score_send_multi 에러");
             }

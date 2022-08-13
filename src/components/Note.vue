@@ -313,7 +313,7 @@ export default {
           if (noteObj.to_nickname == noteObj.from_nickname) {
             alert("자기자신에게는 보낼 수 없습니다.");
           } else {
-            await http.post(`/note/sendnote`, noteObj, {
+            await http.post(`/sun/note/sendnote`, noteObj, {
               withCredentials: true
             });
 

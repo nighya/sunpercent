@@ -74,7 +74,7 @@ export default {
         try {
           this.loading = true;
           const response = await http.post(
-            "/login/forgotpassword",
+            "/sun/login/forgotpassword",
             passwordResetObj,
             {
               withCredentials: true

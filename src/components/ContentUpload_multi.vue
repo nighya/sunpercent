@@ -236,7 +236,7 @@ export default {
             );
             this.progress = 0;
             await http
-              .post("/imageupload_multi", fd, {
+              .post("/sun/imageupload_multi", fd, {
                 withCredentials: true
               })
               .then((this.loading = true))

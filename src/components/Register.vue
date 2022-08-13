@@ -164,7 +164,7 @@ export default {
         email: value
       };
       try {
-        const response = await http.post("/email_validate", emailObj, {
+        const response = await http.post("/sun/email_validate", emailObj, {
           withCredentials: true
         });
         // console.log("response.data.msg"+ response.data.msg);
@@ -182,7 +182,7 @@ export default {
         nickname: value
       };
       try {
-        const response = await http.post("/nickname_validate", nicknameObj, {
+        const response = await http.post("/sun/nickname_validate", nicknameObj, {
           withCredentials: true
         });
         if (response.data.msg == "Nickname empty") {
