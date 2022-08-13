@@ -106,7 +106,7 @@
                     min-width="155"
                     max-height="175"
                     max-width="175"
-                    :src="`${$httpurl}${item}`"
+                    :src="`${$httpurl}/${item}`"
                     aspect-ratio="1"
                     @click="ContentDetail_multi(data)"
                   >
