@@ -5,6 +5,10 @@ import store from "../store/index";
 Vue.use(Router);
 
 export default new Router({
+  scrollBehavior() {
+    return { x: 0, y: 0 };
+  },
+
   mode: "history",
   routes: [
     {
@@ -69,7 +73,7 @@ export default new Router({
           localStorage.removeItem("pre_target");
           next();
         }
-        if (from.path === '/register') {
+        if (from.path === "/register") {
           // console.log("register라서 로컬스토리지 지움");
           localStorage.removeItem("pre_target");
           next();
@@ -131,8 +135,9 @@ export default new Router({
           store.state.loginstore.userstate[0].user_uid === null ||
           store.state.loginstore.userstate[0].user_uid === undefined
         ) {
-          if(confirm("로그인이 필요 합니다. 로그인 하시겠습니까?")){next({ path: "/login" });}
-          
+          if (confirm("로그인이 필요 합니다. 로그인 하시겠습니까?")) {
+            next({ path: "/login" });
+          }
         } else {
           next();
         }
@@ -147,7 +152,9 @@ export default new Router({
           store.state.loginstore.userstate[0].user_uid === null ||
           store.state.loginstore.userstate[0].user_uid === undefined
         ) {
-          if(confirm("로그인이 필요 합니다. 로그인 하시겠습니까?")){next({ path: "/login" });}
+          if (confirm("로그인이 필요 합니다. 로그인 하시겠습니까?")) {
+            next({ path: "/login" });
+          }
         } else {
           next();
         }
