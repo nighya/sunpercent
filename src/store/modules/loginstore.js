@@ -86,10 +86,10 @@ export default {
         commit("loginToken", response.data);
         
         if (get_lo_storage !== null) {
-          console.log("get_lo_storage 있음 if문 작동 : "+get_lo_storage)
+          // console.log("get_lo_storage 있음 if문 작동 : "+get_lo_storage)
           router.go(-1);
         } else {
-          console.log("get_lo_storage 없음 else문 작동 : "+get_lo_storage)
+          // console.log("get_lo_storage 없음 else문 작동 : "+get_lo_storage)
           router.push("/");
         }
       } catch (err) {

@@ -1,4 +1,5 @@
 import http from "../../http/http";
+import router from "../../router";
 
 export default {
   namespaced: true,
@@ -8,10 +9,10 @@ export default {
     imagedetail: [{ image_path: {} }],
     imagedetail_multi: [{ image_path: {} }],
     imagemycontentstate: [],
-    imagemycontentstate_multi:[],
+    imagemycontentstate_multi: [],
     userprofile: [{ profile_image: null }],
     userprofile_image: [{ image_path: null }],
-    userprofile_image_multi: [{ image_path: null }],
+    userprofile_image_multi: [{ image_path: null }]
   },
   getters: {
     mycontentimagegetters: state => {
@@ -123,12 +124,19 @@ export default {
       const response = await http.get(`/sun/getimage/${payload}`, {
         withCredentials: true
       });
-      commit("SET_IMAGE_DETAIL", response.data);
+      if (response.data.length == 0) {
+        router.push("/404");
+      } else {
+        commit("SET_IMAGE_DETAIL", response.data);
+      }
     },
     async getimage_multi({ commit }, payload) {
       const response = await http.get(`/sun/getimage_multi/${payload}`, {
         withCredentials: true
       });
+      if (response.data.length == 0) {
+        router.push("/404");
+      }
       let image_path_arr = response.data.map(item => {
         item.image_path = item.image_path.split(",");
       });
