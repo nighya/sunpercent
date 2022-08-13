@@ -30,7 +30,9 @@
                 ></v-text-field>
               </v-form>
             </v-card-text>
-            <div class="ma-5 subtitle-2" align="center"><a align="center" @click="FindPassword">비밀번호 찾기</a></div>
+            <div class="ma-5 subtitle-2" align="center">
+              <a align="center" @click="FindPassword">비밀번호 찾기</a>
+            </div>
             <v-card-actions class="justify-center">
               <v-btn color="grey darken-3" dark @click="moveRegisterpage"
                 >회원가입</v-btn
@@ -53,7 +55,6 @@
 <script>
 import axios from "axios";
 
-
 export default {
   data() {
     return {
@@ -73,11 +74,14 @@ export default {
   methods: {
     async login() {
       this.loading = true;
-      const proxy_cors_url = "http://192.168.0.25:8888/";
+      const proxy_cors_url = "http://121.159.147.72:8888/";
       const validate = this.$refs.form.validate();
-      const user_login_ip = await axios.get(
-        proxy_cors_url + "https://api.ipify.org"
-      );
+      const user_login_ip = await axios.get({
+        url: "http://121.159.147.72:8888/https://api.ipify.org",
+        headers: {
+          "X-Requested-With": "XMLHttpRequest"
+        }
+      });
       if (validate) {
         let userloginObj = {
           email: this.email,
@@ -88,7 +92,6 @@ export default {
         this.clearForm();
         this.loading = false;
         // this.$router.go(-1);
-        
       } else {
         alert("로그인되지 않았습니다.");
         this.loading = false;
