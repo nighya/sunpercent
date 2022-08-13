@@ -19,7 +19,7 @@
           <v-img
             v-else
             :src="
-              `http://192.168.0.12:4000${this.$store.state.imagestore.imagedetail[0].image_path}`
+              `${$httpurl}${this.$store.state.imagestore.imagedetail[0].image_path}`
             "
             class="white--text align-end mx-auto"
             gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
@@ -250,7 +250,7 @@
           max-width="100%"
           max-height="100%"
           :src="
-            `http://192.168.0.12:4000${this.$store.state.imagestore.imagedetail[0].image_path}`
+            `${$httpurl}${this.$store.state.imagestore.imagedetail[0].image_path}`
           "
           ><v-col class="text-right"
             ><v-icon large right @click="showimage_dialog_close" dark
@@ -432,7 +432,7 @@ export default {
     },
     newWindowImage() {
       window.open(
-        `http://192.168.0.12:4000${this.$store.state.imagestore.imagedetail[0].image_path}`,
+        `${$httpurl}${this.$store.state.imagestore.imagedetail[0].image_path}`,
         "_blank"
       );
     },

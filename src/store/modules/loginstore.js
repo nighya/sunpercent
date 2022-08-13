@@ -98,18 +98,6 @@ export default {
         throw err;
       }
     },
-    // async password_reset_mail_send({ commit }, payload) {
-    //   try {
-    //     const response = await http.post("/login/forgotpassword", payload, {
-    //       withCredentials: true
-    //     });
-    //     commit("PASSWORD_RESET_MAIL_SEND", response.data);
-    //   } catch (err) {
-    //     alert("비밀번호 초기화에 실패하였습니다.");
-    //     console.log("에러  :" +err)
-    //     throw err;
-    //   }
-    // },
     logout({ commit }) {
       commit("LOGOUT");
     },
@@ -123,8 +111,7 @@ export default {
         commit("SET_USER_POINT", response.data);
         // console.log("response.data  :"+JSON.stringify(response.data))
       } catch (err) {
-        // alert("getuser error.");
-        console.log("getUser error  :  " + err);
+        // console.log("getUser error  :  " + err);
         throw err;
       }
     },

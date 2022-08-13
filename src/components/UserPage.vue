@@ -18,7 +18,7 @@
         <v-img
           contain
           :src="
-            `http://192.168.0.12:4000${this.$store.state.imagestore.userprofile[0].profile_image}`
+            `${$httpurl}${this.$store.state.imagestore.userprofile[0].profile_image}`
           "
         ></v-img>
       </v-avatar>
@@ -95,8 +95,8 @@
             >
             <v-img
               v-else
-              :src="`http://192.168.0.12:4000${data.image_path}`"
-              :lazy-src="`http://192.168.0.12:4000${data.image_path}`"
+              :src="`${$httpurl}${data.image_path}`"
+              :lazy-src="`${$httpurl}${data.image_path}`"
               aspect-ratio="1"
               class="grey lighten-2"
               @click="ContentDetail(data)"
@@ -157,7 +157,7 @@
                 <v-img
                   v-else
                   aspect-ratio="1"
-                  :src="`http://192.168.0.12:4000/${item}`"
+                  :src="`${$httpurl}${item}`"
                   @click="ContentDetail_multi(data)"
                 >
                   <template v-slot:placeholder>

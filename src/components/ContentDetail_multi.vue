@@ -41,7 +41,7 @@
                 max-width="1000px"
                 aspect-ratio="1"
                 contain
-                :src="`http://192.168.0.12:4000/${item}`"
+                :src="`${$httpurl}${item}`"
                 ><div class="pa-9" align="center" justify="center">
                   {{ index + 1 }}번 사진
                 </div>

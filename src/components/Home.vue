@@ -39,7 +39,7 @@
                     min-width="155"
                     max-height="175"
                     max-width="175"
-                    :src="`http://192.168.0.12:4000/${data.image_path}`"
+                    :src="`${$httpurl}${data.image_path}`"
                     aspect-ratio="1"
                     @click="ContentDetail(data)"
                   >
@@ -106,7 +106,7 @@
                     min-width="155"
                     max-height="175"
                     max-width="175"
-                    :src="`http://192.168.0.12:4000/${item}`"
+                    :src="`${$httpurl}${item}`"
                     aspect-ratio="1"
                     @click="ContentDetail_multi(data)"
                   >
@@ -134,7 +134,7 @@
           text
           class="pa-3"
           target="_blank"
-          href="http://192.168.0.12:8080/TermsOfUse"
+          href="https://sunpercent.com/TermsOfUse"
         >
           이용약관
         </v-btn>
@@ -143,7 +143,7 @@
           text
           class="pa-3"
           target="_blank"
-          href="http://192.168.0.12:8080/PolicyPrivacy"
+          href="https://sunpercent.com/PolicyPrivacy"
         >
           개인정보처리방침 </v-btn
         ><span style="color:grey; padding:12px;">|</span

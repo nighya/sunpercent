@@ -74,7 +74,7 @@
         <div>
           <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
-              <v-btn text v-bind="attrs" v-on="on">
+              <v-btn icon text v-bind="attrs" v-on="on">
                 <v-icon>mdi-image-multiple</v-icon>
               </v-btn>
             </template>
@@ -126,7 +126,7 @@
                     v-else
                     contain
                     :src="
-                      `http://192.168.0.12:4000${$store.state.loginstore.userstate[0].profile_image}`
+                      `${$httpurl}${$store.state.loginstore.userstate[0].profile_image}`
                     "
                   />
                 </v-avatar>
@@ -148,7 +148,7 @@
                       v-else
                       contain
                       :src="
-                        `http://192.168.0.12:4000${this.$store.state.loginstore.userstate[0].profile_image}`
+                        `${$httpurl}${this.$store.state.loginstore.userstate[0].profile_image}`
                       "
                     />
                   </v-avatar>

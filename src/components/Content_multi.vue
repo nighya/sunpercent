@@ -37,7 +37,7 @@
                 <v-img
                   v-else
                   aspect-ratio="1"
-                  :src="`http://192.168.0.12:4000/${item}`"
+                  :src="`${$httpurl}${item}`"
                 >
                   <template v-slot:placeholder>
                     <v-row

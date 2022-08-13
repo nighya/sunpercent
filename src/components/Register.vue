@@ -74,7 +74,7 @@
                         <template v-slot:activator="{ on }">
                           <a
                             target="_blank"
-                            href="http://192.168.0.12:8080/TermsOfUse"
+                            href="https://sunpercent.com/TermsOfUse"
                             @click.stop
                             v-on="on"
                           >

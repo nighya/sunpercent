@@ -2,7 +2,7 @@ import axios from "axios";
 import router from "../router/index";
 
 const instance = axios.create({
-  baseURL: "http://192.168.0.12:4000",
+  baseURL: "https://sunpercent.com",
   timeout: 5000,
   withCredentials: true
 });
