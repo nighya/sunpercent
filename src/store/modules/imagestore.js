@@ -87,7 +87,7 @@ export default {
   },
   actions: {
     async mycontentimage({ commit }, payload) {
-      const response = await http.get(`/Mypage/mycontentimage/${payload}`, {
+      const response = await http.get(`/sun/Mypage/mycontentimage/${payload}`, {
         withCredentials: true
       });
       const nomal_data = [];
@@ -104,13 +104,13 @@ export default {
       commit("SET_MYCONTENT_IMAGE_MULTI", multi_data);
     },
     async getallimages({ commit }) {
-      const response = await http.get(`/api/getAllimages`, {
+      const response = await http.get(`/sun/getAllimages`, {
         withCredentials: true
       });
       commit("SET_IMAGE", response.data);
     },
     async getallimages_multi({ commit }) {
-      const response = await http.get(`/getAllimages_multi`, {
+      const response = await http.get(`/sun/getAllimages_multi`, {
         withCredentials: true
       });
       let image_path_arr = response.data.map(item => {
@@ -120,13 +120,13 @@ export default {
       commit("SET_IMAGE_MULTI", response.data);
     },
     async getimage({ commit }, payload) {
-      const response = await http.get(`/getimage/${payload}`, {
+      const response = await http.get(`/sun/getimage/${payload}`, {
         withCredentials: true
       });
       commit("SET_IMAGE_DETAIL", response.data);
     },
     async getimage_multi({ commit }, payload) {
-      const response = await http.get(`/getimage_multi/${payload}`, {
+      const response = await http.get(`/sun/getimage_multi/${payload}`, {
         withCredentials: true
       });
       let image_path_arr = response.data.map(item => {
@@ -137,7 +137,7 @@ export default {
 
     async deleteImage({ commit }, payload) {
       const response = await http.post(
-        `/getimage/${payload.content_uid}`,
+        `/sun/getimage/${payload.content_uid}`,
         payload,
         {
           withCredentials: true
@@ -147,7 +147,7 @@ export default {
     },
     async deleteImage_multi({ commit }, payload) {
       const response = await http.post(
-        `/getimage_multi/${payload.content_uid}`,
+        `/sun/getimage_multi/${payload.content_uid}`,
         payload,
         {
           withCredentials: true
@@ -158,7 +158,7 @@ export default {
 
     async contentscore({ commit }, payload) {
       const response = await http.post(
-        `/contentscore/${payload.content_uid}`,
+        `/sun/contentscore/${payload.content_uid}`,
         payload,
         {
           withCredentials: true
@@ -169,7 +169,7 @@ export default {
     },
     async userProfile({ commit }, payload) {
       const response = await http.post(
-        `/userpageProfile/${payload.nickname}/${payload.user_uid}`,
+        `/sun/userpageProfile/${payload.nickname}/${payload.user_uid}`,
         payload,
         {
           withCredentials: true
@@ -179,7 +179,7 @@ export default {
     },
     async userProfile_image({ commit }, payload) {
       const response = await http.post(
-        `/userpageProfileImage/${payload.nickname}/${payload.user_uid}`,
+        `/sun/userpageProfileImage/${payload.nickname}/${payload.user_uid}`,
         payload,
         {
           withCredentials: true

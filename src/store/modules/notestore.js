@@ -79,14 +79,14 @@ export default {
   },
   actions: {
     async getsentnote({ commit }, payload) {
-      const response = await http.post(`/note/getsentnote`, payload, {
+      const response = await http.post(`/sun/note/getsentnote`, payload, {
         withCredentials: true
       });
       commit("SET_GET_SENT_NOTE", response.data);
     },
 
     async getreceivednote({ commit }, payload) {
-      const response = await http.post(`/note/getreceivednote`, payload, {
+      const response = await http.post(`/sun/note/getreceivednote`, payload, {
         withCredentials: true
       });
       commit("SET_GET_RECEIVED_NOTE", response.data);
@@ -95,7 +95,7 @@ export default {
     async deletesentnotedetail({ commit }, payload) {
       try {
         const response = await http.post(
-          `/notedelete/deleteSentNoteDetail`,
+          `/sun/notedelete/deleteSentNoteDetail`,
           payload,
           {
             withCredentials: true
@@ -109,7 +109,7 @@ export default {
     async deletereceivednotedetail({ commit }, payload) {
       try {
         const response = await http.post(
-          `/notedelete/deleteReceivedNoteDetail`,
+          `/sun/notedelete/deleteReceivedNoteDetail`,
           payload,
           {
             withCredentials: true
@@ -123,7 +123,7 @@ export default {
     async deletesentnoteselected({ commit }, payload) {
       try {
         const response = http.post(
-          `/notedelete/deleteSentNoteSelected`,
+          `/sun/notedelete/deleteSentNoteSelected`,
           payload,
           {
             withCredentials: true
@@ -136,7 +136,7 @@ export default {
     async deletreceivednoteselected({ commit }, payload) {
       try {
         const response = http.post(
-          `/notedelete/deleteReceivedNoteSelected`,
+          `/sun/notedelete/deleteReceivedNoteSelected`,
           payload,
           {
             withCredentials: true
@@ -149,7 +149,7 @@ export default {
     async confirmreceivednote({ commit }, payload) {
       try {
         const response = await http.post(
-          `/confirm_received_NoteDetail`,
+          `/sun/confirm_received_NoteDetail`,
           payload,
           { withCredentials: true }
         );

@@ -80,7 +80,7 @@ export default {
       
       try {
         const get_lo_storage = ls.get("pre_target");
-        const response = await http.post("/login", payload, {
+        const response = await http.post("/sun/login", payload, {
           withCredentials: true
         });
         commit("loginToken", response.data);
@@ -117,7 +117,7 @@ export default {
     async getUserPoint({ commit }, payload) {
       try {
         // console.log("getUserPoint payload   :   "+ payload)
-        const response = await http.post("/getUserPoint", payload, {
+        const response = await http.post("/sun/getUserPoint", payload, {
           withCredentials: true
         });
         commit("SET_USER_POINT", response.data);
@@ -132,7 +132,7 @@ export default {
     register: ({ commit }, params) => {
       return new Promise((resove, reject) => {
         http
-          .post("/register", params, {
+          .post("/sun/register", params, {
             withCredentials: true
           })
           .then(res => {
@@ -153,9 +153,13 @@ export default {
       fd.append("image", payload.image);
       fd.append("user_uid", payload.user_uid);
       try {
-        const response = await http.post(`/Mypage/${payload.user_uid}`, fd, {
-          withCredentials: true
-        });
+        const response = await http.post(
+          `/sun/Mypage/${payload.user_uid}`,
+          fd,
+          {
+            withCredentials: true
+          }
+        );
         commit("SET_PROFILE_IMAGE", response.data);
       } catch (err) {
         alert(
@@ -166,7 +170,7 @@ export default {
     async profile_image_delete({ commit }, payload) {
       try {
         const response = await http.post(
-          `/Mypage/deleteProfileImage/${payload.user_uid}`,
+          `/sun/Mypage/deleteProfileImage/${payload.user_uid}`,
           payload,
           {
             withCredentials: true

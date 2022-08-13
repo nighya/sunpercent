@@ -27,14 +27,18 @@ export default {
       // console.log("getscore  content_uid   :  " + payload.content_uid)
       // console.log("getscore  current_user_uid 2  :  "+payload.user_uid )
       
-      const response = await http.post(`/getscore/${content_uid}`, current_user_uid,{
-        withCredentials: true
-      });
+      const response = await http.post(
+        `/sun/getscore/${content_uid}`,
+        current_user_uid,
+        {
+          withCredentials: true
+        }
+      );
       commit("SET_SCORE_CONTENT", response.data);
     },
     async getscore_multi({ commit }, payload) {
       const content_uid = payload.content_uid
-      const response = await http.post(`/getscore_multi/${content_uid}`, {
+      const response = await http.post(`/sun/getscore_multi/${content_uid}`, {
         withCredentials: true
       });
       commit("SET_SCORE_CONTENT_MULTI", response.data);
