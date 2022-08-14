@@ -41,7 +41,7 @@
                 max-width="1000px"
                 aspect-ratio="1"
                 contain
-                :src="`${$httpurl}${item}`"
+                :src="`https://sunpercent.com${item}`"
                 ><div class="pa-9" align="center" justify="center">
                   {{ index + 1 }}번 사진
                 </div>
@@ -284,8 +284,8 @@
         </v-card>
       </v-dialog>
     </div>
-        <v-divider class="mt-15 mb-10"></v-divider>
-    <div ><Content_multi></Content_multi></div>
+    <v-divider class="mt-15 mb-10"></v-divider>
+    <div><Content_multi></Content_multi></div>
   </div>
 </template>
 <script>
@@ -294,7 +294,7 @@ import black_image from "../assets/black.jpg";
 import VueApexCharts from "vue-apexcharts";
 import ls from "localstorage-slim";
 ls.config.encrypt = true;
-import Content_multi from './Content_multi.vue'
+import Content_multi from "./Content_multi.vue";
 
 export default {
   components: {

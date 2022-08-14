@@ -16,6 +16,9 @@
         >
           <div @click="ContentDetail_multi(data)">
             <v-carousel
+              hide-delimiters
+              :show-arrows="false"
+              cycle
               hide-delimiter-background
               show-arrows-on-hover
               height="auto"
@@ -37,7 +40,7 @@
                 <v-img
                   v-else
                   aspect-ratio="1"
-                  :src="`${$httpurl}${item}`"
+                  :src="`https://sunpercent.com${item}`"
                 >
                   <template v-slot:placeholder>
                     <v-row

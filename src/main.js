@@ -14,8 +14,7 @@ import VueSimpleAlert from "vue-simple-alert";
 Vue.use(VueSimpleAlert);
 
 
-
-
+Vue.prototype.$httpurl = "https://sunpercent.com";
 
 Vue.config.productionTip = false
 

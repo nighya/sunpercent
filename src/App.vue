@@ -53,7 +53,6 @@
           :key="item.title"
           @click="menuclick(item)"
         >
-          <span>{{ item.title }}</span>
           <v-icon>{{ item.icon }}</v-icon>
         </v-btn>
       </v-bottom-navigation>
@@ -66,8 +65,7 @@
 
         <v-app-bar-title class="title font-weight-black" v-if="drawer == false"
           ><router-link class="toolbar__title" to="/">
-            <v-img max-height="140" max-width="140" :src="logo_base"></v-img
-          ></router-link>
+            SunPercent</router-link>
         </v-app-bar-title>
 
         <v-spacer></v-spacer>
@@ -126,7 +124,7 @@
                     v-else
                     contain
                     :src="
-                      `${$httpurl}${$store.state.loginstore.userstate[0].profile_image}`
+                      `https://sunpercent.com${$store.state.loginstore.userstate[0].profile_image}`
                     "
                   />
                 </v-avatar>
@@ -148,7 +146,7 @@
                       v-else
                       contain
                       :src="
-                        `${$httpurl}${this.$store.state.loginstore.userstate[0].profile_image}`
+                        `https://sunpercent.com${this.$store.state.loginstore.userstate[0].profile_image}`
                       "
                     />
                   </v-avatar>

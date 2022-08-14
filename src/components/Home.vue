@@ -2,7 +2,11 @@
   <div>
     <div class="ma-5">
       <v-row class="ml-1" align="center" justify="start">
-      <h3>외모점수</h3><v-btn class="ml-4" color="primary" to="/content" small text><v-icon>mdi-plus</v-icon>더보기</v-btn></v-row>
+        <h3>외모점수</h3>
+        <v-btn class="ml-4" color="primary" to="/content" small text
+          ><v-icon>mdi-plus</v-icon>더보기</v-btn
+        ></v-row
+      >
       <v-sheet class="mt-5 mb-5 mx-auto" elevation="8" max-width="1000">
         <v-slide-group
           class="pa-4"
@@ -20,8 +24,8 @@
                 <v-row class="fill-height" align="center" justify="center">
                   <v-img
                     v-if="data.report_count > 2"
-                    min-height="155"
-                    min-width="155"
+                    min-height="135"
+                    min-width="135"
                     max-height="175"
                     max-width="175"
                     :src="black_image"
@@ -35,11 +39,11 @@
                   >
                   <v-img
                     v-else
-                    min-height="155"
-                    min-width="155"
+                    min-height="135"
+                    min-width="135"
                     max-height="175"
                     max-width="175"
-                    :src="`${$httpurl}${data.image_path}`"
+                    :src="`https://sunpercent.com${data.image_path}`"
                     aspect-ratio="1"
                     @click="ContentDetail(data)"
                   >
@@ -60,8 +64,12 @@
         ></v-slide-group>
       </v-sheet>
       <v-divider class="mt-10 mb-3 ml-2 mr-2"></v-divider>
-            <v-row class="ml-1 mt-4" align="center" justify="start">
-      <h3>사진골라줘</h3><v-btn color="primary" to="/content" small text><v-icon>mdi-plus</v-icon>더보기</v-btn></v-row>
+      <v-row class="ml-1 mt-4" align="center" justify="start">
+        <h3>사진골라줘</h3>
+        <v-btn color="primary" to="/Content_multi" small text
+          ><v-icon>mdi-plus</v-icon>더보기</v-btn
+        ></v-row
+      >
       <v-sheet class="mt-5 mb-5 mx-auto" elevation="8" max-width="1000">
         <v-slide-group
           class="pa-4"
@@ -92,8 +100,8 @@
                     class="grey--text align-center"
                     gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
                     aspect-ratio="1"
-                    min-height="155"
-                    min-width="155"
+                    min-height="135"
+                    min-width="135"
                     max-height="175"
                     max-width="175"
                     ><v-card-text class="font-weight-thin" align="center"
@@ -102,11 +110,11 @@
                   >
                   <v-img
                     v-else
-                    min-height="155"
-                    min-width="155"
+                    min-height="135"
+                    min-width="135"
                     max-height="175"
                     max-width="175"
-                    :src="`${$httpurl}/${item}`"
+                    :src="`https://sunpercent.com/${item}`"
                     aspect-ratio="1"
                     @click="ContentDetail_multi(data)"
                   >

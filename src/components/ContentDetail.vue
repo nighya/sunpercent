@@ -1,6 +1,6 @@
 <template>
   <div class="contentdetail pa-6 center">
-    {{pre_url_set}}
+    {{ pre_url_set }}
     <v-col cols="12">
       <v-row justify="center">
         <v-card width="100%" max-width="780px" class="justify-center">
@@ -19,7 +19,7 @@
           <v-img
             v-else
             :src="
-              `${$httpurl}${this.$store.state.imagestore.imagedetail[0].image_path}`
+              `https://sunpercent.com${this.$store.state.imagestore.imagedetail[0].image_path}`
             "
             class="white--text align-end mx-auto"
             gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
@@ -250,7 +250,7 @@
           max-width="100%"
           max-height="100%"
           :src="
-            `${$httpurl}${this.$store.state.imagestore.imagedetail[0].image_path}`
+            `https://sunpercent.com${this.$store.state.imagestore.imagedetail[0].image_path}`
           "
           ><v-col class="text-right"
             ><v-icon large right @click="showimage_dialog_close" dark
@@ -298,8 +298,7 @@
       </v-alert>
     </div>
     <v-divider class="mt-15 mb-10"></v-divider>
-    <div ><Content></Content></div>
-    
+    <div><Content></Content></div>
   </div>
 </template>
 <script>
@@ -309,7 +308,7 @@ import http from "../http/http";
 import black_image from "../assets/black.jpg";
 import ls from "localstorage-slim";
 ls.config.encrypt = true;
-import Content from './Content.vue'
+import Content from "./Content.vue";
 
 export default {
   components: {
@@ -432,7 +431,7 @@ export default {
     },
     newWindowImage() {
       window.open(
-        `${$httpurl}${this.$store.state.imagestore.imagedetail[0].image_path}`,
+        `https://sunpercent.com${this.$store.state.imagestore.imagedetail[0].image_path}`,
         "_blank"
       );
     },

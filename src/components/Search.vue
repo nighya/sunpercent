@@ -37,7 +37,7 @@
       >
         <template v-slot:[`item.image_path`]="{ item }">
           <img
-            :src="`${$httpurl}${item.image_path}`"
+            :src="`https://sunpercent.com${item.image_path}`"
             style="width: 80px; height: 80px"
             @click="ContentDetail(item)"
           />
@@ -62,7 +62,7 @@
             >
               <v-row class="fill-height" align="center" justify="center">
                 <img
-                  :src="`${$httpurl}${data}`"
+                  :src="`https://sunpercent.com${data}`"
                   style="width: 80px; height: 80px"
                   @click="ContentDetail_multi(item)"
                 />

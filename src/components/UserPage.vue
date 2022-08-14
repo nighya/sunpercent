@@ -1,7 +1,6 @@
 <template>
   <div>
     {{ pre_url_set }}
-    <h1 class=" pa-6">Userpage</h1>
     <div class=" pa-6" align="center">
       <v-avatar
         tile
@@ -18,7 +17,7 @@
         <v-img
           contain
           :src="
-            `${$httpurl}${this.$store.state.imagestore.userprofile[0].profile_image}`
+            `https://sunpercent.com${this.$store.state.imagestore.userprofile[0].profile_image}`
           "
         ></v-img>
       </v-avatar>
@@ -95,8 +94,8 @@
             >
             <v-img
               v-else
-              :src="`${$httpurl}${data.image_path}`"
-              :lazy-src="`${$httpurl}${data.image_path}`"
+              :src="`https://sunpercent.com${data.image_path}`"
+              :lazy-src="`https://sunpercent.com${data.image_path}`"
               aspect-ratio="1"
               class="grey lighten-2"
               @click="ContentDetail(data)"
@@ -157,7 +156,7 @@
                 <v-img
                   v-else
                   aspect-ratio="1"
-                  :src="`${$httpurl}${item}`"
+                  :src="`https://sunpercent.com${item}`"
                   @click="ContentDetail_multi(data)"
                 >
                   <template v-slot:placeholder>
