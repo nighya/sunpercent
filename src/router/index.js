@@ -209,8 +209,8 @@ export default new Router({
     },
     {
       path: "/userpage/:nickname/:user_uid",
-      name: "Userpage",
-      component: () => import("@/components/Userpage")
+      name: "UserPage",
+      component: () => import("@/components/UserPage")
     },
     {
       path: "/withdrawal",
