@@ -26,7 +26,7 @@
             >
             <v-img
               v-else
-              :src="`${$httpurl}${data.image_path}`"
+              :src="`https://sunpercent.com${data.image_path}`"
               class="grey--text align-end"
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
               aspect-ratio="1"

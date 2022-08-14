@@ -78,6 +78,9 @@ export default {
       const validate = this.$refs.form.validate();
       const user_login_ip = await axios.get({
         url: "http://121.159.147.72:8888/https://api.ipify.org",
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json",
         headers: {
           "X-Requested-With": "XMLHttpRequest"
         }
