@@ -75,16 +75,17 @@ export default {
     async login() {
       this.loading = true;
       const proxy_cors_url = "http://121.159.147.72:8888/";
-      const validate = this.$refs.form.validate();
-      const user_login_ip = await axios.get({
-        url: "http://121.159.147.72:8888/https://api.ipify.org",
-        type: "POST",
-        dataType: "json",
-        contentType: "application/json",
+      const axios_config = {
         headers: {
-          "X-Requested-With": "XMLHttpRequest"
+          // "X-Requested-With": "XMLHttpRequest",
+          'X-Requested-With': 'XMLHttpRequest'
         }
-      });
+      };
+      const validate = this.$refs.form.validate();
+      const user_login_ip = await axios.get(
+        "https://cors.sunpercent.com/https://api.ipify.org",
+        axios_config
+      );
       if (validate) {
         let userloginObj = {
           email: this.email,
