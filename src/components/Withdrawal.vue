@@ -32,6 +32,7 @@
           <v-text-field
             v-model="password"
             class="ml-2 mr-2"
+            type="password"
             label="비밀번호"
             placeholder="비밀번호를 입력해주세요."
           ></v-text-field></v-form

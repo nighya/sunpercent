@@ -74,7 +74,6 @@ export default {
   methods: {
     async login() {
       this.loading = true;
-      const proxy_cors_url = "http://121.159.147.72:8888/";
       const axios_config = {
         headers: {
           // "X-Requested-With": "XMLHttpRequest",
