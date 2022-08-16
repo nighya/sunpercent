@@ -1,6 +1,19 @@
 <template>
   <div>
     <div class="ma-5">
+      <v-parallax class="mb-8" dark :src="black_image">
+        <v-row align="center" justify="center">
+          <v-col class="text-center" cols="12">
+            <h1 class="text-h4 font-weight-thin mb-4">
+              SunPercent
+            </h1>
+            <h4 class="subheading">
+              <v-btn text to="/content">외모점수 바로가기</v-btn>
+              <v-btn text to="/content_multi">사진골라줘 바로가기</v-btn>
+            </h4>
+          </v-col>
+        </v-row>
+      </v-parallax>
       <v-row class="ml-1" align="center" justify="start">
         <h3>외모점수</h3>
         <v-btn class="ml-4" color="primary" to="/content" small text
