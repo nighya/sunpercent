@@ -125,7 +125,7 @@ export default {
         withCredentials: true
       });
       if (response.data.length == 0) {
-        router.push("/404");
+        router.push("/NotFound");
       } else {
         commit("SET_IMAGE_DETAIL", response.data);
       }
@@ -135,7 +135,7 @@ export default {
         withCredentials: true
       });
       if (response.data.length == 0) {
-        router.push("/404");
+        router.push("/NotFound");
       }
       let image_path_arr = response.data.map(item => {
         item.image_path = item.image_path.split(",");

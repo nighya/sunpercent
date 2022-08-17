@@ -229,10 +229,10 @@ export default new Router({
     },
     // {
     //   path: "*",
-    //   redirect: "/404"
+    //   redirect: "/NotFound"
     // },
     {
-      path: "/404",
+      path: "/NotFound",
       name: "NotFound",
       component: () => import("@/components/NotFound")
     }

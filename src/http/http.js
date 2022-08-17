@@ -13,7 +13,7 @@ instance.interceptors.response.use(
   },
   error => {
     if (401 === error.response.status) {
-      router.push("/404");
+      router.push("/NotFound");
       return Promise.resolve(error.response);
     } else {
       return Promise.reject(error);
