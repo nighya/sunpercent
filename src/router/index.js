@@ -184,8 +184,9 @@ export default new Router({
           store.state.loginstore.userstate[0].email === null ||
           store.state.loginstore.userstate[0].email === undefined
         ) {
-          alert("로그인이 필요 합니다.");
-          next({ path: "/login" });
+          if (confirm("로그인이 필요 합니다. 로그인 하시겠습니까?")) {
+            next({ path: "/login" });
+          }
         } else {
           next();
         }
@@ -200,8 +201,9 @@ export default new Router({
           store.state.loginstore.userstate[0].email === null ||
           store.state.loginstore.userstate[0].email === undefined
         ) {
-          alert("로그인이 필요 합니다.");
-          next({ path: "/login" });
+          if (confirm("로그인이 필요 합니다. 로그인 하시겠습니까?")) {
+            next({ path: "/login" });
+          }
         } else {
           next();
         }

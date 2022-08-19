@@ -490,10 +490,28 @@ export default {
       this.reportdialog_multi = false;
     },
     report_multi() {
-      this.reportdialog_multi = true;
+      if (
+        this.$store.state.loginstore.userstate[0].user_uid === null ||
+        this.$store.state.loginstore.userstate[0].user_uid === undefined
+      ) {
+        if (confirm("로그인이 필요한 서비스 입니다. 로그인 하시겠습니까")) {
+          this.$router.push("/login");
+        }
+      } else {
+        this.reportdialog_multi = true;
+      }
     },
     score_multi() {
-      this.scoredialog_multi = true;
+      if (
+        this.$store.state.loginstore.userstate[0].user_uid === null ||
+        this.$store.state.loginstore.userstate[0].user_uid === undefined
+      ) {
+        if (confirm("로그인이 필요한 서비스 입니다. 로그인 하시겠습니까")) {
+          this.$router.push("/login");
+        }
+      } else {
+        this.scoredialog_multi = true;
+      }
     },
     score_cancel_multi() {
       this.scoredialog_multi = false;

@@ -425,9 +425,18 @@ export default {
   },
   methods: {
     sendNote() {
-      this.$router.push(
-        `/note/${this.$store.state.imagestore.imagedetail[0].nickname}/${this.$store.state.imagestore.imagedetail[0].user_uid}`
-      );
+      if (
+        this.$store.state.loginstore.userstate[0].user_uid === null ||
+        this.$store.state.loginstore.userstate[0].user_uid === undefined
+      ) {
+        if (confirm("로그인이 필요한 서비스 입니다. 로그인 하시겠습니까")) {
+          this.$router.push("/login");
+        }
+      } else {
+        this.$router.push(
+          `/note/${this.$store.state.imagestore.imagedetail[0].nickname}/${this.$store.state.imagestore.imagedetail[0].user_uid}`
+        );
+      }
     },
     newWindowImage() {
       window.open(
@@ -436,10 +445,28 @@ export default {
       );
     },
     report() {
-      this.reportdialog = true;
+      if (
+        this.$store.state.loginstore.userstate[0].user_uid === null ||
+        this.$store.state.loginstore.userstate[0].user_uid === undefined
+      ) {
+        if (confirm("로그인이 필요한 서비스 입니다. 로그인 하시겠습니까")) {
+          this.$router.push("/login");
+        }
+      } else {
+        this.reportdialog = true;
+      }
     },
     score() {
-      this.scoredialog = true;
+      if (
+        this.$store.state.loginstore.userstate[0].user_uid === null ||
+        this.$store.state.loginstore.userstate[0].user_uid === undefined
+      ) {
+        if (confirm("로그인이 필요한 서비스 입니다. 로그인 하시겠습니까")) {
+          this.$router.push("/login");
+        }
+      } else {
+        this.scoredialog = true;
+      }
     },
     delete_dialog() {
       this.deletedialog = true;
