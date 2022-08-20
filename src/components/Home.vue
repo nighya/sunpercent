@@ -9,7 +9,7 @@
             </h1>
             <h4 class="subheading">
               <v-btn text to="/content">외모점수 바로가기</v-btn>
-              <v-btn text to="/content_multi">사진골라줘 바로가기</v-btn>
+              <v-btn text to="/content_multi">골라줘 바로가기</v-btn>
             </h4>
           </v-col>
         </v-row>
@@ -78,7 +78,7 @@
       </v-sheet>
       <v-divider class="mt-10 mb-3 ml-2 mr-2"></v-divider>
       <v-row class="ml-1 mt-4" align="center" justify="start">
-        <h3>사진골라줘</h3>
+        <h3>골라줘</h3>
         <v-btn color="primary" to="/Content_multi" small text
           ><v-icon>mdi-plus</v-icon>더보기</v-btn
         ></v-row

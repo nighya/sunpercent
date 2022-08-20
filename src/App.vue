@@ -215,7 +215,7 @@ export default {
     items: [
       { title: "Home", icon: "mdi-home-heart" },
       { title: "외모점수", icon: "mdi-format-list-checks" },
-      { title: "사진골라줘", icon: "mdi-format-list-text" },
+      { title: "골라줘", icon: "mdi-format-list-text" },
       { title: "내정보", icon: "mdi-card-account-details-outline" },
       { title: "쪽지함", icon: "mdi-email-outline" }
     ],
@@ -230,7 +230,7 @@ export default {
         title: "외모점수 사진올리기",
         icon: "mdi-image"
       },
-      { title: "사진골라줘 사진올리기", icon: "mdi-image-multiple" }
+      { title: "골라줘 사진올리기", icon: "mdi-image-multiple" }
     ],
     bottom_items: [
       { title: "새로고침", icon: "mdi-refresh" },
@@ -264,13 +264,13 @@ export default {
         case "외모점수 사진올리기":
           this.$router.push("/contentupload").catch(() => true);
           break;
-        case "사진골라줘 사진올리기":
+        case "골라줘 사진올리기":
           this.$router.push("/contentupload_multi").catch(() => true);
           break;
         case "외모점수":
           this.$router.push("/content").catch(() => true);
           break;
-        case "사진골라줘":
+        case "골라줘":
           this.$router.push("/Content_multi").catch(() => true);
           break;
         case "내정보":

@@ -114,7 +114,7 @@
       </div>
       <!--multi image-->
       <div class="mt-5">
-        <span class="ml-6">사진골라줘</span>
+        <span class="ml-6">골라줘</span>
         <v-row class="pa-6 mt-2">
           <span
             class="ml-3"

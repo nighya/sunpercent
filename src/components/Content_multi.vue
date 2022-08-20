@@ -2,7 +2,7 @@
   <div>
     <div class="mt-2 ml-3 mr-3">
       <v-btn to="/contentupload_multi">
-        사진골라줘 사진올리기
+        골라줘 사진올리기
       </v-btn>
     </div>
 
