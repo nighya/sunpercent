@@ -13,6 +13,15 @@ Vue.component('apexchart', VueApexCharts)
 import VueSimpleAlert from "vue-simple-alert";
 Vue.use(VueSimpleAlert);
 
+import ToggleButton from "vue-js-toggle-button";
+Vue.use(ToggleButton);
+// import io from "socket.io-client";
+import io from "socket.io-client";
+const socket = io("https://socket.sunpercent.com", {
+  withCredentials: true
+});
+
+Vue.prototype.$socket = socket;
 
 Vue.prototype.$httpurl = "https://sunpercent.com";
 

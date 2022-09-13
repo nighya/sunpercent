@@ -237,6 +237,16 @@ export default new Router({
       path: "/NotFound",
       name: "NotFound",
       component: () => import("@/components/NotFound")
+    },
+    {
+      path: "/Rooms_list",
+      name: "Rooms_list",
+      component: () => import("@/components/Rooms_list")
+    },
+    {
+      path: "/Rooms/:roomId/:room_name",
+      name: "Rooms",
+      component: () => import("@/components/Rooms")
     }
   ]
 });

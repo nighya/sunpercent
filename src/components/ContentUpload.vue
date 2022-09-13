@@ -1,9 +1,9 @@
 <template>
   <div class="pa-3">
     <div class="ml-1">
-      <v-list-item-title class="text-h5">외모점수 사진올리기</v-list-item-title>
+      <v-list-item-title class="text-h5">사진점수 사진올리기</v-list-item-title>
       <span style="color:gray"
-        >1.이미지크기는 5MB이하 이어야 하며 1장만 가능합니다.<br />2.외모점수는
+        >1.이미지크기는 5MB이하 이어야 하며 1장만 가능합니다.<br />2.사진점수는
         작성자만 볼 수 있습니다.<br />3.이미지 업로드시 2포인트 차감되며 각
         게시물당 점수주기나 사진고르기로 1포인트씩 얻을 수 있습니다.</span
       >

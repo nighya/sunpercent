@@ -8,14 +8,14 @@
               SunPercent
             </h1>
             <h4 class="subheading">
-              <v-btn text to="/content">외모점수 바로가기</v-btn>
+              <v-btn text to="/content">사진점수 바로가기</v-btn>
               <v-btn text to="/content_multi">골라줘 바로가기</v-btn>
             </h4>
           </v-col>
         </v-row>
       </v-parallax>
       <v-row class="ml-1" align="center" justify="start">
-        <h3>외모점수</h3>
+        <h3>사진점수</h3>
         <v-btn class="ml-4" color="primary" to="/content" small text
           ><v-icon>mdi-plus</v-icon>더보기</v-btn
         ></v-row

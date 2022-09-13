@@ -39,7 +39,7 @@
         </v-list>
       </v-navigation-drawer>
 
-      <v-bottom-navigation
+      <!-- <v-bottom-navigation
         class="d-flex d-sm-none"
         :value="bottom_nav_bar"
         color="primary"
@@ -55,7 +55,7 @@
         >
           <v-icon>{{ item.icon }}</v-icon>
         </v-btn>
-      </v-bottom-navigation>
+      </v-bottom-navigation> -->
 
       <v-app-bar app dark class="grey darken-4">
         <v-app-bar-nav-icon
@@ -64,8 +64,7 @@
         ></v-app-bar-nav-icon>
 
         <v-app-bar-title class="title font-weight-black" v-if="drawer == false"
-          ><router-link class="toolbar__title" to="/">
-            SunPercent</router-link>
+          ><router-link class="toolbar__title" to="/"> SunPercent</router-link>
         </v-app-bar-title>
 
         <v-spacer></v-spacer>
@@ -214,7 +213,8 @@ export default {
     drawer: false,
     items: [
       { title: "Home", icon: "mdi-home-heart" },
-      { title: "외모점수", icon: "mdi-format-list-checks" },
+      { title: "채팅", icon: "mdi-chat" },
+      { title: "사진점수", icon: "mdi-format-list-checks" },
       { title: "골라줘", icon: "mdi-format-list-text" },
       { title: "내정보", icon: "mdi-card-account-details-outline" },
       { title: "쪽지함", icon: "mdi-email-outline" }
@@ -227,7 +227,7 @@ export default {
     ],
     upload_items: [
       {
-        title: "외모점수 사진올리기",
+        title: "사진점수 사진올리기",
         icon: "mdi-image"
       },
       { title: "골라줘 사진올리기", icon: "mdi-image-multiple" }
@@ -235,7 +235,7 @@ export default {
     bottom_items: [
       { title: "새로고침", icon: "mdi-refresh" },
       { title: "Home", icon: "mdi-home-heart" },
-      { title: "외모점수", icon: "mdi-format-list-checks" },
+      { title: "사진점수", icon: "mdi-format-list-checks" },
       { title: "내정보", icon: "mdi-account" }
     ]
   }),
@@ -255,19 +255,22 @@ export default {
     },
     menuclick(menuclick) {
       switch (menuclick.title) {
+        case "채팅":
+          this.$router.push("/Rooms_list").catch(() => true);
+          break;
         case "새로고침":
           this.$router.go();
           break;
         case "Home":
           this.$router.push("/").catch(() => true);
           break;
-        case "외모점수 사진올리기":
+        case "사진점수 사진올리기":
           this.$router.push("/contentupload").catch(() => true);
           break;
         case "골라줘 사진올리기":
           this.$router.push("/contentupload_multi").catch(() => true);
           break;
-        case "외모점수":
+        case "사진점수":
           this.$router.push("/content").catch(() => true);
           break;
         case "골라줘":

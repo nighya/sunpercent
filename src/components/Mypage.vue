@@ -112,7 +112,7 @@
     <v-divider></v-divider>
     <!--image-->
     <div class="mt-5">
-      <span class="ml-6">외모점수</span>
+      <span class="ml-6">사진점수</span>
       <v-row class="pa-6 mt-2">
         <span
           class="ml-3"

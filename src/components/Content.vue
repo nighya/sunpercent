@@ -2,7 +2,7 @@
   <div>
     <div class="mt-2 ml-3">
       <v-btn to="/contentupload">
-        외모점수 사진올리기
+        사진점수 사진올리기
       </v-btn>
     </div>
     <v-container>
@@ -99,13 +99,15 @@ export default {
     },
     ContentDetail(data) {
       // ls.set("pre_target", JSON.stringify());
-      this.$router.push({
-        name: "ContentDetail",
-        params: {
-          content_uid: data.content_uid,
-          datas: data
-        }
-      }).catch(()=>{});
+      this.$router
+        .push({
+          name: "ContentDetail",
+          params: {
+            content_uid: data.content_uid,
+            datas: data
+          }
+        })
+        .catch(() => {});
     },
     dayjs_now(data) {
       const result = dayjs(data).fromNow();
