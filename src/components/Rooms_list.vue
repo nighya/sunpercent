@@ -55,17 +55,17 @@
     <v-divider class="mt-3 ml-3"></v-divider>
     <div class="mt-3 ml-3">
       <v-row>
-        <v-col v-for="data in rooms_list" :key="data.id_num">
-          <v-card height="100" max-width="500" @click="go_to_the_room(data)">
-            <div class="mt-1 mr-2 text-start">
-              {{ data.room_client_count ? data.room_client_count : 0 }}명
-            </div>
+        <v-col v-for="item in rooms_list" :key="item.id_num">
+          <v-card height="100" max-width="500" @click="go_to_the_room(item)">
+            <!-- <div class="mt-1 mr-2 text-start">
+              {{ item.room_client_count ? `${item.room_client_count}` : '0' }}명
+            </div> -->
             <v-card-title>
               <p
                 class="d-inline-block text-truncate text-h6 text--primary"
                 style="max-width: 500px;"
               >
-                {{ data.room_name }}
+                {{ item.room_name }}
               </p>
             </v-card-title>
           </v-card>
@@ -98,7 +98,8 @@ export default {
       rooms_list: null,
       server_client_count: 0,
       server_rooms_list: null,
-      server_rooms_list_total: null
+      server_rooms_list_total: null,
+      add_count_rooms_list: []
     };
   },
   mounted() {
@@ -118,53 +119,35 @@ export default {
     }, 5000);
 
     this.get_room_list;
+
     socket_client.on("room_list_total", (room_list_total, client_count) => {
       // console.log("test", client_count);
       this.server_client_count = parseInt(client_count / 2); //정수만 넣기
-      room_list_total.sort(this.compare_room_id);
-      this.server_rooms_list_total = room_list_total;
-      let add_count_rooms_list = [];
-      this.rooms_list.map(data_1 => {
-        this.server_rooms_list_total.map(data_2 => {
-          if (data_1.room_id == data_2.room_id) {
-            const obj = {
-              id_num: data_1.id_num,
-              room_id: data_1.room_id,
-              room_name: data_1.room_name,
-              room_client_count: data_2.room_client_count
-            };
-            add_count_rooms_list.push(obj);
-          }
-        });
-      });
-      this.rooms_list = add_count_rooms_list;
+      // room_list_total.sort(this.compare_room_id);
+      // this.server_rooms_list_total = room_list_total;
+      // // let add_count_rooms_list = [];
+      // this.rooms_list.map(data_1 => {
+      //   this.server_rooms_list_total.map(data_2 => {
+      //     if (data_1.room_id == data_2.room_id) {
+      //       const obj = {
+      //         id_num: data_1.id_num,
+      //         room_id: data_1.room_id,
+      //         room_name: data_1.room_name,
+      //         room_client_count: data_2.room_client_count
+      //       };
+      //       this.add_count_rooms_list.push(obj);
+      //     }
+      //   });
+      // });
+      // this.rooms_list = this.add_count_rooms_list;
       // console.log("server total", this.server_rooms_list_total);
       // console.log("this.rooms_list", this.rooms_list);
     });
 
     socket_client.on("room_list", room_list => {
       this.server_rooms_list = room_list;
-      this.delete_room;
-      //  console.log("server list", this.server_rooms_list);
-      // console.log("rooms list", this.rooms_list);
-      //새로고침 한번만
-      if (localStorage.getItem("reloaded")) {
-        // The page was just reloaded. Clear the value from local storage
-        // so that it will reload the next time this page is visited.
-        localStorage.removeItem("reloaded");
-      } else {
-        // Set a flag so that we know not to reload the page twice.
-        if (this.server_rooms_list.length !== this.rooms_list.length) {
-          localStorage.setItem("reloaded", "1");
-          location.reload();
-        }
-      }
-      // this.get_room_list;
+      // this.delete_room;
     });
-    // socket_client.on("create_room", room_Object => {
-    //   console.log("test create",room_Object)
-    //   this.rooms_list.push(room_Object)
-    //  })
   },
   computed: {
     async get_room_list() {
@@ -173,24 +156,25 @@ export default {
       });
       response.data.sort(this.compare_room_id);
       this.rooms_list = response.data;
-    },
-    async delete_room() {
-      var arr_list = [];
-      var empty_roomId_list = null;
-
-      this.rooms_list.map(data => {
-        arr_list.push(data.room_id);
-      });
-      empty_roomId_list = arr_list.filter(
-        f_data => !this.server_rooms_list.includes(f_data)
-      );
-      empty_roomId_list.map(data => {
-        const room_id = { room_id: data };
-        const response = http.post("/sun/delete_room", room_id, {
-          withCredentials: true
-        });
-      });
+      console.log(this.rooms_list);
     }
+    // async delete_room() {
+    //   var arr_list = [];
+    //   var empty_roomId_list = null;
+
+    //   this.rooms_list.map(data => {
+    //     arr_list.push(data.room_id);
+    //   });
+    //   empty_roomId_list = arr_list.filter(
+    //     f_data => !this.server_rooms_list.includes(f_data)
+    //   );
+    //   empty_roomId_list.map(data => {
+    //     const room_id = { room_id: data };
+    //     const response = http.post("/sun/delete_room", room_id, {
+    //       withCredentials: true
+    //     });
+    //   });
+    // }
   },
 
   methods: {

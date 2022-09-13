@@ -286,7 +286,7 @@
           @keydown.enter.prevent="send_message(send_messages)"
         >
         </v-textarea>
-        <span>
+        <span class="mb-3">
           <v-file-input
             id="v_file_input"
             hide-input
@@ -324,7 +324,7 @@ export default {
           this.remote_peerId_list == null ||
           this.remote_peerId_list == ""
         ) {
-          this.delete_room;
+          // this.delete_room;
         }
         next();
       } else {
@@ -719,12 +719,12 @@ export default {
     }
   },
   computed: {
-    async delete_room() {
-      const room_id = { room_id: this.$route.params.roomId };
-      const response = await http.post("/sun/delete_room", room_id, {
-        withCredentials: true
-      });
-    }
+    // async delete_room() {
+    //   const room_id = { room_id: this.$route.params.roomId };
+    //   const response = await http.post("/sun/delete_room", room_id, {
+    //     withCredentials: true
+    //   });
+    // }
   },
   mounted() {
     //새로고침 한번만
