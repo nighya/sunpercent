@@ -57,9 +57,9 @@
       <v-row>
         <v-col v-for="item in rooms_list" :key="item.id_num">
           <v-card height="100" max-width="500" @click="go_to_the_room(item)">
-            <!-- <div class="mt-1 mr-2 text-start">
-              {{ item.room_client_count ? `${item.room_client_count}` : '0' }}명
-            </div> -->
+            <div class="mt-1 mr-2 text-start">
+              {{ item.room_client_count ? item.room_client_count : 0 }}명
+            </div>
             <v-card-title>
               <p
                 class="d-inline-block text-truncate text-h6 text--primary"
@@ -99,7 +99,6 @@ export default {
       server_client_count: 0,
       server_rooms_list: null,
       server_rooms_list_total: null,
-      add_count_rooms_list: []
     };
   },
   mounted() {
@@ -123,23 +122,23 @@ export default {
     socket_client.on("room_list_total", (room_list_total, client_count) => {
       // console.log("test", client_count);
       this.server_client_count = parseInt(client_count / 2); //정수만 넣기
-      // room_list_total.sort(this.compare_room_id);
-      // this.server_rooms_list_total = room_list_total;
-      // // let add_count_rooms_list = [];
-      // this.rooms_list.map(data_1 => {
-      //   this.server_rooms_list_total.map(data_2 => {
-      //     if (data_1.room_id == data_2.room_id) {
-      //       const obj = {
-      //         id_num: data_1.id_num,
-      //         room_id: data_1.room_id,
-      //         room_name: data_1.room_name,
-      //         room_client_count: data_2.room_client_count
-      //       };
-      //       this.add_count_rooms_list.push(obj);
-      //     }
-      //   });
-      // });
-      // this.rooms_list = this.add_count_rooms_list;
+      room_list_total.sort(this.compare_room_id);
+      this.server_rooms_list_total = room_list_total;
+      let add_count_rooms_list = [];
+      this.rooms_list.map(data_1 => {
+        this.server_rooms_list_total.map(data_2 => {
+          if (data_1.room_id == data_2.room_id) {
+            const obj = {
+              id_num: data_1.id_num,
+              room_id: data_1.room_id,
+              room_name: data_1.room_name,
+              room_client_count: data_2.room_client_count
+            };
+            add_count_rooms_list.push(obj);
+          }
+        });
+      });
+      this.rooms_list = add_count_rooms_list;
       // console.log("server total", this.server_rooms_list_total);
       // console.log("this.rooms_list", this.rooms_list);
     });

@@ -781,6 +781,8 @@ export default {
     });
     //방에 있는 peerid 가져오기
     socket_client.on("member_peerid", member_peerid => {
+      // console.log("member_peerid 작동  : ", member_peerid);
+
       //닉네임 중복되는거 있으면 새로고침
       if (
         member_peerid.peerId !== this.my_peerId &&
