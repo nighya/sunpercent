@@ -65,38 +65,9 @@
       </v-btn> -->
       <!--dialog-->
       <v-dialog v-model="video_dialog" max-width="470" persistent>
-        <v-card height="375" align="center">
-          <!--video -->
-          <div id="p_video">
-            <div id="c_video_my">
-              <div id="c_video_my_video">
-                <video width="80" ref="my_ref"></video>
-              </div>
-              <!-- <div id="c_video_my_nickname">
-                <h6>{{ my_nickname }}</h6>
-              </div> -->
-            </div>
-
-            <div
-              id="c_video_remote"
-              v-for="data in remote_srcObject"
-              :key="data.id"
-            >
-              <div id="c_video_remote_video">
-                <video
-                  controls
-                  width="300"
-                  ref="remote_ref"
-                  :srcObject.prop="data.obj_remote_srcObject"
-                  autoplay="autoplay"
-                ></video>
-              </div>
-              <!-- <div id="c_video_remote_nickname">
-                <h5>{{ data.obj_remote_nickname }}</h5>
-              </div> -->
-            </div>
-          </div>
+        <v-card height="600" align="center">
           <div
+            class="mt-5"
             align="center"
             justify="center"
             v-for="(data, index) in remote_peerId_list"
@@ -124,6 +95,36 @@
             <v-btn icon class="mt-5" @click="one_to_one_stop_stream(data)"
               ><v-icon x-large>mdi-phone-remove</v-icon></v-btn
             >
+          </div>
+          <!--video -->
+          <div class="mt-5" id="p_video">
+            <div id="c_video_my">
+              <div id="c_video_my_video">
+                <video width="80" ref="my_ref"></video>
+              </div>
+              <!-- <div id="c_video_my_nickname">
+                <h6>{{ my_nickname }}</h6>
+              </div> -->
+            </div>
+
+            <div
+              id="c_video_remote"
+              v-for="data in remote_srcObject"
+              :key="data.id"
+            >
+              <div id="c_video_remote_video">
+                <video
+                  controls
+                  width="300"
+                  ref="remote_ref"
+                  :srcObject.prop="data.obj_remote_srcObject"
+                  autoplay="autoplay"
+                ></video>
+              </div>
+              <!-- <div id="c_video_remote_nickname">
+                <h5>{{ data.obj_remote_nickname }}</h5>
+              </div> -->
+            </div>
           </div>
         </v-card>
       </v-dialog>
