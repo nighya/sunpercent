@@ -150,7 +150,7 @@ export default {
         commit("SET_PROFILE_IMAGE", response.data);
       } catch (err) {
         alert(
-          "프로필 사진 수정이 실패하였습니다. 올바른 이미지를 선택하여 다시 시도해 주세요."
+          "프로필 사진 수정이 실패하였습니다. 올바른 이미지를 선택하시거나 다시 로그인하여 시도해 주세요."
         );
       }
     },
