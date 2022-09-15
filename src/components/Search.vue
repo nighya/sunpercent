@@ -206,7 +206,8 @@ export default {
     },
     delete_search_result() {
       ls.set("search_data", JSON.stringify([]));
-      (this.search_keyword = null), (this.content_data = []);
+      ls.set("search_data_multi", JSON.stringify([]));
+      (this.search_keyword = null), (this.content_data = []),(this.content_multi_data = []);
     },
 
     ContentDetail(data) {
