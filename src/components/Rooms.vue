@@ -90,9 +90,9 @@
               v-if="call_answer_button == true"
               class="mt-5"
               @click="get_call_answer(call_answer)"
-              ><v-icon color="blue" x-large>mdi-phone-forward</v-icon></v-btn
+              ><v-icon color="green" x-large>mdi-phone-forward</v-icon></v-btn
             >
-            <v-btn icon class="mt-5" @click="one_to_one_stop_stream(data)"
+            <v-btn icon color="red" class="mt-5" @click="one_to_one_stop_stream(data)"
               ><v-icon x-large>mdi-phone-remove</v-icon></v-btn
             >
           </div>
