@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="ma-5">
-      <v-parallax class="mb-8" dark :src="black_image">
+      <v-parallax class="mb-8" dark :src="black_image" height="230">
         <v-row align="center" justify="center">
           <v-col class="text-center" cols="12">
             <h1 class="text-h4 font-weight-thin mb-4">
@@ -16,7 +16,7 @@
       </v-parallax>
       <v-row class="ml-1" align="center" justify="start">
         <h3>사진점수</h3>
-        <v-btn class="ml-4" color="primary" to="/content" small text
+        <v-btn color="primary" to="/content" small text
           ><v-icon>mdi-plus</v-icon>더보기</v-btn
         ></v-row
       >
@@ -79,7 +79,7 @@
       <v-divider class="mt-10 mb-3 ml-2 mr-2"></v-divider>
       <v-row class="ml-1 mt-4" align="center" justify="start">
         <h3>골라줘</h3>
-        <v-btn color="primary" to="/Content_multi" small text
+        <v-btn class="ml-4" color="primary" to="/Content_multi" small text
           ><v-icon>mdi-plus</v-icon>더보기</v-btn
         ></v-row
       >

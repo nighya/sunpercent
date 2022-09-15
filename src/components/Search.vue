@@ -28,7 +28,7 @@
     >
     <!--데이터 테이블1-->
     <div>
-      <h3 class="ml-5 mr-5 mt-5">외모사진</h3>
+      <h3 class="ml-5 mr-5 mt-5">사진점수</h3>
       <v-data-table
         :headers="headers"
         :items="content_data"

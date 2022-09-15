@@ -159,7 +159,7 @@
       <v-dialog v-model="scoredialog" width="400" persistent>
         <v-card class="elevation-16 mx-auto " width="400">
           <v-card-title class="text-h5">
-            이 사진의 외모는 몇점 입니까?
+            이 사진의 점수는 몇점 입니까?
           </v-card-title>
           <v-card-text>
             해당 게시물 점수는 게시물 작성자에게만 표시 됩니다.<br />(7점 만점)
